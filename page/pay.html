@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.zhifu {
+				width: 100vw;
+				height: 12vw;
+				background: #FFFFFF;
+				padding: 0 5vw;
+			}
+			.zhifu span {
+				display: block;
+				width: 45vw;
+				height: 12vw;
+				line-height: 12vw;
+				font-size: 4vw;
+				float: left;
+			}
+			.zhifu span:last-child {
+				text-align: right;
+			}
+			
+			.way {
+				width: 100vw;
+				overflow: hidden;	
+			}
+			.way span {
+				display: block;
+				width: 100vw;
+				height: 10vw;
+				border-bottom: 1px solid #e5e5e5;
+				line-height: 10vw;
+				padding: 0 5vw;
+				color: #828282;
+			}
+			.way .ways {
+				width: 100vw;
+				padding: 3vw 5vw;
+				background: #fff;
+				
+			}
+			.way .ways li {
+				width: 90vw;
+				height: 10vw;
+				line-height: 10vw;
+				font-size: 4vw;
+				text-indent: 3vw;
+				background: url(../image/39_1.png) no-repeat center right;
+				background-size: 5vw 5vw;
+			}
+			.way .ways li img {
+				width: 6vw;
+				height: 6vw;
+				margin-top: 2vw;
+				float: left;
+			}
+			.way .ways li.click {
+				background: url(../image/39.png) no-repeat center right;
+				background-size: 5vw 5vw;
+			}
+			.btn {
+				width: 90vw;
+				height: 12vw;
+				margin: 5vw auto;
+				line-height: 12vw;
+				background: #034895;
+				color: #FFFFFF;
+				font-size: 4.5vw;
+				text-align: center;
+				border-radius: 5px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">支付</h1>
+		</header>
+		<div class="mui-content">
+			<div class="zhifu">
+				<span>兑换点数：50点</span>
+				<span>支付金额：50元</span>
+			</div>
+			<div class="way">
+				<span>选择支付方式</span>
+				<ul class="ways">
+					<li class="zhi click"><img src="../image/96.png" alt="" />支付宝支付</li>
+					<li class="wei"><img src="../image/97.png" alt="" />微信支付</li>
+				</ul>
+			</div>
+			<div class="btn">去支付</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var jifen_count = request('count');
+				$('.zhifu span:first-child').html('兑换点数：'+jifen_count+'点');
+				$('.zhifu span:last-child').html('支付金额：'+jifen_count+'元');
+				var payid = "alipay";
+				$(".zhi").click(function(){
+					payid = "alipay";
+					$(".zhi").addClass("click");
+					$(".wei").removeClass("click");
+				})
+				$(".wei").click(function(){
+					payid = "wxpay";
+					$(".zhi").removeClass("click");
+					$(".wei").addClass("click");
+				})
+				$(".btn").click(function(){
+					
+				})
+			})
+		</script>
+	</body>
+</html>

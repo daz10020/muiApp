@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/bankcommon.css" rel="stylesheet" />
+		<style type="text/css">
+			.downArrow {
+				position: absolute;
+				width: 4vw;
+				height: 2vw;
+				background: url(../image/90.png) no-repeat center center;
+				background-size: 3vw 1.5vw;
+				right: 5vw;
+				top: 5vw;
+			}
+			
+			.item {
+				width: 90vw;
+				height: 12vw;
+				border-radius: 5px;
+				background: #fff;
+				overflow: hidden;
+				position: relative;
+				margin: 0 auto;
+				margin-bottom: 4vw;
+			}
+			
+			.item .select0 {
+				width: 90vw;
+				height: 8vw;
+				margin: 2vw 0;
+				padding: 0 5vw;
+				border: none;
+				font-size: 4vw;
+			}
+			/*.item .select0 option {
+				width: 90vw;
+				height: 12vw;
+				margin: 0 auto;
+				font-size: 3.5vw;
+				line-height: 12vw;
+				border: none !important;
+			}*/
+			.item input {
+				width: 90vw;
+				height: 8vw;
+				margin: 2vw 0;
+				padding: 0 5vw;
+				border: none;
+				font-size: 4vw;
+			}
+			.mui-content>span {
+				display: block;
+				width: 100vw;
+				height: 4vw;
+				/*padding: 0 5vw;*/
+				margin-bottom: 4vw;
+				background: url(../image/70.png) no-repeat left center;
+				background-size: 5vw 4vw;
+				line-height: 4vw;
+				text-indent: 7vw;
+				font-size: 12px;
+			}
+			
+			span>span {
+				font-size: 12px;
+				color: #faad13;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content ">
+			<div class="mui-row"></div>
+			<div class="mui-row theme-bank-margt10" style="margin-top: 10px;margin-right: 10px;">
+				<span onclick="goset()" class="mui-icon mui-icon mui-icon-gear mui-pull-right" style="font-size: 32px; color: #034895;"></span>
+			</div>
+			<div class="mui-row theme-bank-margt10" style="margin-top: 20px;">
+				<p style="text-align: center;">
+					<img src="../image/1024_1024.png" style="width: 120px; height: 120px;" />
+				</p>
+				<p style="text-align: center;">
+					<img src="../image/91.png" style="width: 150px; height: 20px;" />
+				</p>
+			</div>
+			<div id="" style="height: 5vw;width: 100vw;"></div>
+			<div class="item">
+				<select class="mui-btn mui-btn-block select0">
+					<option value="0">手机号码</option>
+					<option value="1">涂层卡号</option>
+				</select>
+				<div class="downArrow"></div>
+			</div>
+			<div class="item">
+				<input type="text" name="pas" id="pas" placeholder="请输入电话号码/涂层卡号" />
+			</div>
+			<div class="item">
+				<input type="text" name="pasa" id="pasa" placeholder="请输入充值积分" />
+			</div>
+			<div class="btn" onclick="comfdata()">充值</div>
+			
+		</div>
+		<div id="popsucc" class="mui-popover" style="height: 200px; width: 300px; padding: 20px 20px;position: absolute;top: calc((100vh - 200px) / 2); left: calc((100vw - 300px) / 2); text-align: center;">
+			<img src="../image/36.png" style="width: 40%;" />
+			<p style="text-align: center; padding-top:15px;font-size: 20px;">充值成功</p>
+		</div>
+
+		<div id="popfail" class="mui-popover" style="height: 200px; width: 300px; padding: 20px 20px;position: absolute;top: calc((100vh - 200px) / 2); left: calc((100vw - 300px) / 2); text-align: center;">
+			<img src="../image/37.png" style="width: 40%;" />
+			<p style="text-align: center; padding-top:15px;font-size: 20px;">充值失败</p>
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+
+			function comfdata() {
+				mui.confirm("手机号码:123123123 \n 充值积分: 500", "信息确认", null, function(r) {
+					if(r.index == 1) {
+						mui('#popsucc').popover('toggle');
+					} else {
+						mui('#popfail').popover('toggle');
+					}
+				});
+			}
+
+			function goset() {
+				mui.openWindow({
+					url: "settings.html",
+					id: "mainpage"
+				});
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,364 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<link rel="stylesheet" type="text/css" href="../css/passwordkeyboard.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/ladingPasswordConfirm.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.tip {
+				width: 100vw;
+				height: 8vw;
+				color: #fff;
+				line-height: 8vw;
+				padding: 0 5vw;
+				background: #909ffa;
+			}
+			
+			#prog {
+				width: 100vw;
+				background: #fff;
+				overflow: hidden;
+			}
+			
+			.progs {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 14vw;
+				overflow: hidden;
+				border-bottom: 1px solid #e6e6e6;
+			}
+			
+			.pname {
+				width: 55vw;
+				height: 14vw;
+				line-height: 14vw;
+				float: left;
+				font-size: 4vw;
+			}
+			
+			.pcost {
+				width: 35vw;
+				height: 14vw;
+				line-height: 14vw;
+				float: left;
+				text-align: right;
+				font-size: 4vw;
+			}
+			
+			#num {
+				width: 100vw;
+				height: 14vw;
+				line-height: 14vw;
+				overflow: hidden;
+			}
+			
+			#num>span {
+				display: block;
+				float: right;
+				height: 14vw;
+				line-height: 14vw;
+			}
+			
+			.num-box {
+				float: right;
+				width: 21vw;
+				margin-right: 4vw;
+				height: 14vw;
+				overflow: hidden;
+			}
+			
+			.num-box>div {
+				float: left;
+				width: 7vw;
+				height: 7vw;
+				line-height: 7vw;
+				margin-top: 3.5vw;
+				text-align: center;
+			}
+			
+			.num-box .up,
+			.num-box .down {
+				border: 1px solid #cfcfcf;
+				width: calc(7vw - 2px);
+				height: calc(7vw - 2px);
+				line-height: calc(7vw - 2px);
+				font-size: 5vw;
+			}
+			
+			#all,
+			#sale {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 6vw;
+				line-height: 6vw;
+				text-align: right;
+			}
+			
+			#sale {
+				margin-top: 2vw;
+			}
+			
+			#prog_card {
+				width: 90vw;
+				margin: 0 auto;
+			}
+			
+			.card {
+				width: 90vw;
+				background: #fff;
+				position: relative;
+			}
+			
+			.card .cname {
+				width: 100%;
+				height: 9vw;
+				padding: 2vw 5vw 0;
+				line-height: 7vw;
+			}
+			
+			.card .cde {
+				width: 100%;
+				height: 7vw;
+				padding: 0 5vw;
+				line-height: 7vw;
+				color: #b3b3b3;
+			}
+			
+			.card .cpoint {
+				position: absolute;
+				width: 30vw;
+				height: 10vw;
+				text-align: right;
+				line-height: 10vw;
+				top: 7vw;
+				right: 3vw;
+			}
+			
+			.card .cpoint span {
+				color: #034895;
+				font-size: 6vw;
+			}
+			
+			.ctip {
+				width: 100%;
+				padding: 0 5vw;
+				height: 7vw;
+				line-height: 6vw;
+				color: #fb9191;
+			}
+			
+			#pay {
+				width: 100vw;
+				position: relative;
+				overflow: hidden;
+				background: #fff;
+			}
+			
+			#pay span {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 10vw;
+				display: block;
+				line-height: 10vw;
+				color: #8c8c8c;
+				background: #EFEFF4;
+				border-bottom: 1px solid #ddd;
+			}
+			
+			#pay .jifen {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 14vw;
+				line-height: 12vw;
+				background: url(../image/60.png) no-repeat 5vw center;
+				background-size: 6vw 6vw;
+				text-indent: 9vw;
+				border-bottom: 2vw solid #EFEFF4;
+			}
+			
+			#pay .btn {
+				width: 5vw;
+				height: 5vw;
+				background: url(../image/39.png) no-repeat center center;
+				background-size: 100% 100%;
+				position: absolute;
+				top: 13.5vw;
+				right: 5vw;
+			}
+			
+			#pay .state {
+				background: #EFEFF4;
+				width: 100vw;
+			}
+			
+			.state .statement {
+				width: 100vw;
+				padding: 0 5vw;
+				background: url(../image/31.png) no-repeat 5vw center;
+				background-size: 4vw 4vw;
+				height: 7vw;
+				line-height: 7vw;
+				color: #b3b3b3;
+				text-indent: 6vw;
+			}
+			
+			.mui-bar-tab>span {
+				display: block;
+				width: 90vw;
+				height: 40px;
+				margin: 5px auto;
+				color: #fff;
+				background: #034895;
+				text-align: center;
+				line-height: 40px;
+				font-size: 16px;
+				border-radius: 5px;
+			}
+			#password {
+				width: calc(84vw + 7px);
+				margin: 0 auto;
+				margin-top: 2vw;
+				height: calc(14vw + 2px);
+			}
+			.pass {
+				font-size: 35px;
+				text-align: center;
+				width: 14vw !important;
+				height: 14vw !important;
+				line-height: 13vw !important;
+				float: left;
+				margin: 0 !important;
+				border-radius: 0 !important;
+				border-right: none !important;
+				padding: 0 !important;
+			}
+			.pass:last-child {
+				border-right: 1px solid rgba(0, 0, 0, .2) !important;
+			}
+			#forget {
+				width: 100vw;
+				height: 6vw;
+				display: block;
+				padding: 0 5vw;
+				text-align: right;
+				line-height: 6vw;
+				color: #666666;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">支付服务券</h1>
+		</header>
+		<div class="mui-content">
+			<div class="tip">优惠：买10张 享9折优惠</div>
+			<div id="prog">
+				<div class="progs">
+					<div class="pname">塑料件专业清洁与上光</div>
+					<div class="pcost">消费：20积分</div>
+				</div>
+				<div id="num">
+					<div class="num-box">
+						<div class="down">-</div>
+						<div class="num">10</div>
+						<div class="up">+</div>
+					</div>
+					<span>数量：</span>
+				</div>
+			</div>
+			<div id="sale">买<span>10</span>张享9折优惠</div>
+			<div id="all"><span>10</span>张服务券,共消费 <span>200</span> 积分</div>
+			<div id="pay">
+				<span>支付方式</span>
+				<div class="jifen">积分支付</div>
+				<div class="btn"></div>
+				<div class="state">
+					<div class="statement">未消费,随便退</div>
+				</div>
+			</div>
+		</div>
+		<div class="model" style="display: none;">
+			<div class=" step step1" style="display: none;">
+				<div class="title">确认支付</div>
+				<div class="cha"></div>
+				<div class="nei">
+					<div class="lin"><span class="span1">支付方式</span><span class="span2">积分支付</span></div>
+					<div class="lin"><span class="span1">订单消费</span><span class="span2">20积分</span></div>
+				</div>
+				<div class="need">
+					<span>需支付</span>
+					<div class="much">
+						<span>20</span> 积分
+					</div>
+				</div>
+				<div id="confire" class="blue">确认支付</div>
+			</div>
+			<div class="step step2" style="display: none;">
+				<div class="title">输入密码</div>
+				<div class="cha0"></div>
+				<form id="password" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass pass_right" type="password" maxlength="1" value="" disabled="disabled">
+				</form>
+				<span id="forget">忘记密码</span>
+				<div id="keyboardDIV">
+					<div id="key">
+						<!--<ul id="keyboard" style="font-size:20px;margin:2px -2px 1px 2px">
+							<li class="symbol"><span class="off">1</span></li>
+							<li class="symbol"><span class="off">2</span></li>
+							<li class="symbol btn_number_"><span class="off">3</span></li>
+							<li class="tab"><span class="off">4</span></li>
+							<li class="symbol"><span class="off">5</span></li>
+							<li class="symbol btn_number_"><span class="off">6</span></li>
+							<li class="tab"><span class="off">7</span></li>
+							<li class="symbol"><span class="off">8</span></li>
+							<li class="symbol btn_number_"><span class="off">9</span></li>
+							<li class="cancle btn_number_">取消</li>
+							<li class="symbol"><span class="off">0</span></li>
+							<li class="delete lastitem">删除</li>
+						</ul>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+			<span>确认支付 20积分</span>
+		</nav>
+		<script type="text/javascript">
+			$('nav.mui-bar-tab').click(function(){
+				$('.model').css('display','block');
+				$('.model .step1').css('display','block');
+				$('.cha').click(function(){
+					$('.model').css('display','none');
+					$('.model .step1').css('display','none');
+				})
+			});
+			$('.blue').click(function(){
+				$('.model .step1').css('display','none');
+				$('.model .step2').css('display','block');
+				$('.cha0').click(function(){
+					$('.model').css('display','block');
+					$('.model .step2').css('display','none');
+					$('.model .step1').css('display','block');
+					
+				})
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/bankcommon.css" rel="stylesheet" />
+		<style type="text/css">
+			.item {
+				width: 90vw;
+				height: 12vw;
+				border-radius: 5px;
+				background: #fff;
+				overflow: hidden;
+				position: relative;
+				margin:0 auto ;
+				margin-bottom: 4vw;
+				
+			}
+			
+			.item input {
+				width: 90vw;
+				height: 8vw;
+				margin: 2vw 0;
+				padding: 0 13vw;
+				border: none;
+				font-size: 4.5vw;
+			}
+			
+			.item input:first-child {
+				background: url(../image/4.png) no-repeat 4vw center;
+				background-size: 6.5vw 6.5vw;
+			}
+			
+			.item input:last-child {
+				background: url(../image/7.png) no-repeat 4vw center;
+				background-size: 6.5vw 6.5vw;
+			}
+			
+			.open {
+				width: 12vw;
+				height: 12vw;
+				background: url(../image/5.png) no-repeat center center;
+				background-size: 6vw 3vw;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			
+			.btn {
+				width: 90vw;
+				height: 12vw;
+				margin: 0 auto;
+				line-height: 12vw;
+				background: #034895;
+				color: #FFFFFF;
+				font-size: 4.5vw;
+				text-align: center;
+				border-radius: 5px;
+			}
+			.else {
+				width: 90vw;
+				height: 12vw;
+				overflow: hidden;
+				position: relative;
+				margin-top: 3vw;
+			}
+			.else span {
+				font-size: 4vw;
+				padding-left: 4vw;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="display: none;"></a>
+			<h1 class="mui-title" style="left: 19px;">登录</h1>
+		</header>
+		<div class="mui-content ">
+			<div class="mui-content">
+			<div id="" style="height: 4vw;width: 100vw;"></div>
+			<div class="item">
+				<input type="number" name="tel" id="tel" class="tel"  placeholder="请输入手机号码" onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" />
+			</div>
+			<div class="item">
+				<input type="password" name="yzm" id="yzm"  placeholder="请输入密码" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\u4e00-\u9fa5]/g,''))" onkeyup="this.value=this.value.replace(/[\u4e00-\u9fa5]/g,'')" />
+				<div class="open"></div>
+			</div>
+			<div class="btn" id="loginbtn" onclick="cmtdata()">登录</div>
+			<div class="else" onclick="openW('validphone.html')">
+				<span>忘记密码</span>
+			</div>
+			
+		</div>
+		</div>
+		
+		
+		
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			
+			function cmtdata() {
+				openW('mainpage.html');
+				var un = document.getElementById("username").value;
+				var pw = document.getElementById("passw").value;
+				if(un == "") {
+					mui.alert("用户名不能为空");
+					return;
+				}
+				if(pw == "") {
+					mui.alert("密码不能为空");
+					return;
+				}
+				mui.openWindow({
+				    url: "mainpage.html",
+				    id: "mainpage"
+				});
+				mui.ajax("", {
+					data:{
+						username: un,
+						password: pw
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					headers:{'Content-Type':'application/json'},	              
+					success:function(data){
+						mui.openWindow({
+						    url: "../mainpage.html",
+						    id: "mainpage"
+						});
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

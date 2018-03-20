@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.line {
+				width: 100vw;
+				height: 11vw;
+				line-height: 11vw;
+				overflow: hidden;
+				padding: 0 5vw;
+				color: #666;
+				background: url(../image/66.png) no-repeat 5vw center;
+				background-size: 5vw 4vw;
+				text-indent: 7vw;
+			}
+			
+			.line>img {
+				width: 2vw;
+				height: 3vw;
+				margin-top: 4vw;
+				margin-left: 2vw;
+			}
+			
+			.conta {
+				padding-top: 3vw;
+				border-bottom: 1px solid #ddd;
+				border-top: 1px solid #ddd;
+			}
+			
+			.itemer {
+				width: 92vw;
+				margin: 0 auto;
+				background: url(../image/75.png) no-repeat center center;
+				background-size: 92vw 28vw;
+				overflow: hidden;
+				margin-bottom: 3vw;
+				height: 28vw;
+			}
+			
+			.oitem {
+				width: 100%;
+				padding: 0 5vw;
+				height: 9vw;
+				line-height: 12vw;
+				float: left;
+			}
+			
+			.oname {
+				width: 70vw;
+				height: 8vw;
+				float: left;
+				padding: 0 5vw;
+				color: #666;
+				font-size: 4vw;
+			}
+			
+			.point {
+				width: 22vw;
+				height: 8vw;
+				float: left;
+				padding-right: 5vw;
+				text-align: right;
+			}
+			
+			.stats0 span {
+				color: #F0AD4E;
+				font-size: 6vw;
+			}
+			
+			.stats1 span {
+				color: #b2b2b2;
+				font-size: 6vw;
+			}
+			
+			.point.stats1 {
+				color: #b2b2b2;
+			}
+			
+			.itemer .btn {
+				width: 92vw;
+				height: 8vw;
+				float: left;
+				overflow: hidden;
+				padding: 0 5vw;
+			}
+			
+			.itemer .btn .stats {
+				float: left;
+				color: #666666;
+				height: 8vw;
+				line-height: 8vw;
+			}
+			
+			#all {
+				text-align: right;
+				background: none;
+			}
+			
+			#msg {
+				width: 100vw;
+				overflow: hidden;
+			}
+			
+			#msg>span {
+				width: 100vw;
+				display: block;
+				height: 10vw;
+				line-height: 10vw;
+				padding: 0 5vw;
+				color: #666;
+				font-size: 4vw;
+			}
+			
+			#msg .leve {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 8vw;
+				line-height: 8vw;
+			}
+			
+			.msg {
+				padding: 2vw 0;
+				background: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="backToHomeIndex()"></a>
+			<h1 class="mui-title">订单详情</h1>
+		</header>
+		<div class="mui-content">
+			<!--<div id="status" class="line">
+				洗车店铺
+				<img src="../image/30.png" />
+			</div>-->
+			<div class="conta">
+				<div class="itemer">
+					<div class="oitem">服务项目</div>
+					<div class="oname">洗车擦车啦啦啦</div>
+					<div class="point stats1"><span>20</span> 积分</div>
+					<div class="btn">
+						<div class="stats">未使用</div>
+					</div>
+				</div>
+				<!--<div class="itemer">
+					<div class="oitem">服务项目</div>
+					<div class="oname">洗车擦车啦啦啦</div>
+					<div class="point stats1"><span>20</span> 积分</div>
+					<div class="btn">
+						<div class="stats">已使用</div>
+					</div>
+				</div>-->
+			</div>
+			<div id="all" class="line">
+				<span>2</span>个服务，共消费 <span>40</span> 积分
+			</div>
+			<div id="msg">
+				<span>订单信息</span>
+				<div class="msg">
+					<div class="leve">
+						订单编号：<span>2364646454</span>
+					</div>
+					<div class="leve">
+						下单时间：<span>2007-8-25 15:09</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			
+			mui.init();
+	
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+			
+			function plusReady() {
+				// 返回按钮事件
+				plus.key.addEventListener("backbutton",function () {
+					backToHomeIndex();
+				},false);
+			}
+			
+			function backToHomeIndex() {
+				var wvs = plus.webview.all();　　 //所有窗口对象 
+				var launch = plus.webview.getLaunchWebview();　　 //首页窗口对象 
+				var self = plus.webview.currentWebview();　　 //当前窗口对象 
+				for(var i = 0, len = wvs.length; i < len; i++) {　　　 // 首页以及当前窗口对象，不关闭； 
+					if(wvs[i].id === launch.id || wvs[i].id === self.id || wvs[i].id === localStorage.homeWebId) {　　　　　　　　 //选定某一页不关wvs[i].id === localStorage.homeWebId 
+						continue;
+					} else {
+						wvs[i].close('none');　　 //关闭中间的窗口对象，为防止闪屏，不使用动画效果； 
+					}
+				}　　 // 此时，窗口对象只剩下首页以及当前窗口，直接关闭当前窗口即可； 
+				self.close('slide-out-right');
+				reternBack()
+			}
+			function reternBack() {
+				var parentWin = plus.webview.getWebviewById(plus.runtime.appid);
+				parentWin.evalJS("getuserinfo()");
+				mui.back();
+			}
+			var data = JSON.parse(localStorage.getItem('order_arr'));
+			
+			$('.oname').html(data.name);
+			$('.point span').html(data.points);
+			$('#all span:first-child').html(data.quantity);
+			$('#all span:last-child').html(data.total);
+			$('.msg .leve:first-child span').html(data.order_num_alias);
+			$('.msg .leve:last-child span').html(data.time);
+			//	localStorage.removeItem('order_arr');
+		</script>
+	</body>
+
+</html>

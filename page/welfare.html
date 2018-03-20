@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+
+		<style type="text/css">
+			.mui-bar-nav {
+				top: 0;
+				-webkit-box-shadow: 0 1px 6px #ccc !important;
+				box-shadow: 0 1px 6px #ccc !important;
+			}
+			
+			.mui-content {
+				background: #fff;
+				min-height: 100vh !important;
+			}
+			
+			.cart {
+				text-decoration: none;
+				display: block;
+				position: relative;
+				width: 100vw;
+				margin-bottom: 2vw;
+				/*height: 30vw;*/
+			}
+			
+			.picture {
+				width: 100vw;
+				padding: 0 2vw;
+				height: 34vw;
+			}
+			
+			.picture img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.shuoming {
+				width: 55vw;
+				height: 8vw;
+				padding: 0 3vw;
+				margin: 0 2vw 0;
+				line-height: 8vw;
+				border-radius: 5px;
+				border-bottom: 1px solid #F0F0F0;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis
+			}
+			
+			.shuoming span {
+				font-size: 3vw;
+			}
+			
+			.time {
+				position: absolute;
+				bottom: 0;
+				right: 5vw;
+				height: 8vw;
+				line-height: 8vw;
+				color: #B6B6B6;
+				font-size: 3vw;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">车主福利</h1>
+		</header>
+		<div class="mui-content">
+			<div style="width: 100%;height: 3vw;"></div>
+			<!--<a class="cart" href="javascript:;">
+				<div class="picture">
+					<img src="../image/34.png" />
+				</div>
+				<div class="shuoming">
+					[<span>全国</span>]<span>驾照全球通驾照全球通驾照全球通驾照全球通驾照全球通驾照全球通</span>
+				</div>
+				<div class="time">活动截止：2017-12-31</div>
+			</a>
+			<a class="cart" href="javascript:;">
+				<div class="picture">
+					<img src="../image/34.png" />
+				</div>
+				<div class="shuoming">
+					[<span>全国</span>]<span>驾照全球通</span>
+				</div>
+				<div class="time">活动截止：2017-12-31</div>
+			</a>
+			<a class="cart" href="javascript:;">
+				<div class="picture">
+					<img src="../image/34.png" />
+				</div>
+				<div class="shuoming">
+					[<span>全国</span>]<span>驾照全球通</span>
+				</div>
+				<div class="time">活动截止：2017-12-31</div>
+			</a>-->
+		</div>
+	</body>
+
+</html>
+
+<script type="text/javascript">
+	$.ajax({
+		type: "get",
+		url: myUrl + "index/activity",
+		async: true,
+		success: function(msg) {
+			console.log(msg);
+			if(msg.status) {
+				var str = '';
+				$.each(msg.list, function(i, n) {
+					str += '<a class="cart" href="'+n.url+'">';
+					str += '<div class="picture"><img src="'+imgUrl+n.pic+'" /></div>';
+					str += '<div class="shuoming">';
+					str += '[<span>'+n.area+'</span>]<span>'+n.name+'</span>';
+					str += '</div>';
+					str += '<div class="time">活动截止：'+n.time+'</div>';
+					str += '</a>';
+				});
+				$('.mui-content').append(str);
+			} else {
+				mui.toast(msg.info);
+			}
+		}
+	});
+</script>

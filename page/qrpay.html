@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<style type="text/css">
+			.point {
+				width: 44px;
+				height: 44px;
+				background: url(../image/95.png) no-repeat center center;
+				background-size: 18px 18px;
+				margin-right: -5px !important;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #034895;">
+		<header class="mui-bar mui-bar-nav" style="background-color: #034895; box-shadow: none;">
+			<a class="mui-action-back mui-icon mui-pull-left"><img src="../image/3.png" style="max-height: 25px;" /></a>
+			<h1 class="mui-title" style="color: white;font-size: 18px;">向商家付钱</h1>
+			<button class="mui-btn  mui-pull-right mui-btn-link point" onclick="openW('user_info.html')"></button>
+		</header>
+		<div class="mui-content mui-content-padded" style="background-color: #034895; height: calc(100vh - 24px); position: relative;">
+			<!--<div class="mui-row">
+				<a class="mui-btn mui-pull-right tio" style="display: none;" onclick="openW('user_info.html')">使用说明</a>
+			</div>-->
+			<div class="mui-row mui-content-padded">
+				<p style="text-align: center; color: white; font-size: 18px; margin-top: 5vh;">请您将支付码出示给商家</p>
+			</div>
+			<div class="mui-row" style="position: relative;">
+				<div class="mui-col-sm-1 mui-col-xs-1"></div>
+				<div class="mui-col-sm-10 mui-col-xs-10">
+					<div style="height: 800px;max-height: 55vh; background-color: white; border-radius: 5px;">
+						<div class="mui-row">
+							<p id="coee" style="text-align: center;font-size: 22px; line-height: 2.5; color: black;"></p>
+						</div>
+						<div class="mui-row">
+							<div class="mui-col-sm-2 mui-col-xs-2"></div>
+							<div class="mui-col-sm-8 mui-col-xs-8 erwei">
+								<!--<img src="../image/1.png" style="width: 100%;" />-->
+							</div>
+							<div class="mui-col-sm-2 mui-col-xs-2"></div>
+						</div>
+						<div style="position: absolute; bottom: 0; width: 100%; background-color: #f5f5f5; border-top: 1px solid #d1d1d1; padding: 15px;border-radius: 0 0 5px 5px;">
+							<p style="text-align: center;font-size: 12px; line-height: 1.5; color: black; margin-bottom: 0;">支付方式：服务券支付</p>
+						</div>
+					</div>
+					<div class="mui-col-sm-1 mui-col-xs-1"></div>
+				</div>
+			</div>
+			<div class="mui-row" style="height: 100px; max-height: 10vh;width: 100%; position: absolute;bottom: 0;">
+				<p id="times" style="text-align: center; color: white; font-size: 18px; line-height: 3.5;"></p>
+			</div>
+		</div>
+		<div class="model" style="display: none;">
+			<div class="outside">
+				<div class="confires">提示：服务券不足，请购买！</div>
+				<div class="btns">
+					<div class="confi" style="margin-left: 22.5vw;" onclick="openW('sort.html')">确定</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery.qrcode.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/qrcode.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			showCodeAndErwei();
+			var timer = setInterval(showCodeAndErwei, 121000);
+			var click_Status = 0;
+			$('.more').click(function() {
+				if(click_Status == 0) {
+					$('.tio').css('display', 'block');
+					click_Status = 1;
+				} else {
+					$('.tio').css('display', 'none');
+					click_Status = 0;
+				}
+			});
+
+			function showCodeAndErwei() {
+				$('#times').html('');
+				$.ajax({
+					type: "get",
+					url: myUrl + "weather/erweima",
+					async: true,
+					data: {
+						uid: localStorage.getItem("xnuid")
+					},
+					success: function(msg) {
+						console.log(msg);
+						if(msg.status) {
+							$('.erwei').qrcode({
+								width: $('.erwei').width(), //宽度 
+								height: $('.erwei').width(), //高度 
+								text: msg.das.str
+							});
+							$('#coee').html(msg.das.str);
+							var time = 120;
+							var tinsd = setInterval(function() {
+								time--;
+								if(time >= 60 && time < 70) {
+									var steor = time - 60;
+									$('#times').html('1分0' + steor + '秒后自动刷新');
+								} else if(time >= 70) {
+									var steor = time - 60;
+									$('#times').html('1分' + steor + '秒后自动刷新');
+								} else if(time > 0 && time <= 60) {
+									$('#times').html(time + '秒后自动刷新');
+								} else if(time <= 0) {
+									clearInterval(tinsd);
+									$('#times').html('刷新中...');
+									$('.erwei').empty();
+									$('#coee').html('');
+								}
+							}, 1000)
+
+						}
+					}
+				});
+
+			}
+			if(localStorage.getItem("xncard") == 0) {
+				$('.model').css('display', 'block');
+			}
+		</script>
+	</body>
+
+</html>

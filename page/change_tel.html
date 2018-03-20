@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-content {
+				padding: 0 5vw;
+				overflow: hidden;
+			}
+			
+			.item {
+				width: 90vw;
+				height: 12vw;
+				border-radius: 5px;
+				background: #fff;
+				overflow: hidden;
+				position: relative;
+				margin-bottom: 4vw;
+			}
+			
+			.item input {
+				width: 90vw;
+				height: 8vw;
+				margin: 2vw 0;
+				padding: 0 13vw;
+				border: none;
+				font-size: 4vw;
+			}
+			
+			.item1 input {
+				background: url(../image/7.png) no-repeat 4vw center;
+				background-size: 6.5vw 6.5vw;
+			}
+			.item2 input {
+				background: url(../image/8.png) no-repeat 4vw center;
+				background-size: 7vw 5.5vw;
+			}
+			
+			.btn {
+				width: 90vw;
+				height: 12vw;
+				margin: 0 auto;
+				line-height: 12vw;
+				background: #034895;
+				color: #FFFFFF;
+				font-size: 4.5vw;
+				text-align: center;
+				border-radius: 5px;
+			}
+			.send {
+				width: 30vw;
+				height: 12vw;
+				color: #FFFFff;
+				background: #034895;
+				line-height: 12vw;
+				text-align: center;
+				border-radius: 5px;
+				position: absolute;
+				top: 0;
+				right: 0;
+				/*font-size: 3vw;*/
+			}
+			.else {
+				width: 90vw;
+				height: 12vw;
+				overflow: hidden;
+				position: relative;
+				margin-top: 3vw;
+			}
+			
+			.else span:first-child {
+				float: left;
+			}
+			
+			.else span:last-child {
+				float: right;
+			}
+			
+			.other {
+				width: 100vw;
+				padding: 5vw;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				overflow: hidden;
+			}
+			
+			.other .or {
+				width: 90vw;
+				height: calc(10vw + 1px);
+				overflow: hidden;
+			}
+			
+			.other .or .lines {
+				width: 40vw;
+				height: 5vw;
+				float: left;
+				border-bottom: 1px solid #d9d9d9;
+			}
+			
+			.other .or .te {
+				width: 10vw;
+				height: 10vw;
+				line-height: 10vw;
+				text-align: center;
+				float: left;
+				color: #b3b3b3;
+				font-size: 4.5vw;
+			}
+			
+			.other_login {
+				width: 60vw;
+				height: 16vw;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			
+			.other_login>div {
+				width: 30vw;
+				height: 16vw;
+				float: left;
+			}
+			
+			.other_login .qq {
+				background: url(../image/1.png) no-repeat center center;
+				background-size: 13vw 13vw;
+			}
+			
+			.other_login .wei {
+				background: url(../image/2.png) no-repeat center center;
+				background-size: 13vw 13vw;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">修改手机号</h1>
+		</header>
+		<div class="mui-content">
+			<div id="" style="height: 5vw;width: 100vw;"></div>
+			<div class="item item1">
+				<input type="text" name="tel" id="tel" placeholder="请输入手机号码"/>
+			</div>
+			<div class="item item2">
+				<input type="text" name="yzm" id="yzm" placeholder="请输入验证码"/>
+				<div class="send">获取验证码</div>
+			</div>
+			<div class="btn">完成</div>
+		</div>
+		<script type="text/javascript">
+			var clicker = 1;
+		$('.send').click(function(){
+			$.ajax({
+				type:"get",
+				url:myUrl +"login/phone",
+				async:true,
+				data: {
+					telephone:$('#tel').val()
+				},
+				success:function(msg) {
+					console.log(msg);
+					if(msg.status) {
+						timer();
+					} else {
+						mui.toast('该手机号码已注册!')
+					}
+				}
+			});
+			
+		})
+		$('.btn').click(function(){
+			$.ajax({
+				type:"post",
+				url:myUrl +"login/editphone",
+				async:true,
+				data: {
+					telephone:$('#tel').val(),
+					oldtelephone:localStorage.getItem('xntelephone'),
+					code:$('#yzm').val(),
+				},
+				success: function(msg){
+					console.log(msg);
+				}
+			});
+		})
+		function timer(){
+			var tel = $('#tel').val();
+			if(tel == '' || !(/^1[34578]\d{9}$/.test(tel))) {
+				alert('请输入正确的手机号!');
+				clicker = 1;
+				return false;
+			} else {
+				if(clicker) {
+					$.ajax({
+						type: "post",
+						url:myUrl + "login/sms",
+						async: true,
+						data: {
+							mobile: tel
+						},
+						success: function(msg) {
+							console.log(msg);
+						},
+						error:function(e) {
+							console.log("agadsga",e);
+						}
+					});
+					var time = 60;
+					var timer = setInterval(function() {
+						time--;
+						if(time < 1) {
+							clearInterval(timer);
+							$(".send").html('获取验证码');
+							$(".send").css('background','#034895');
+							clicker = 1;
+							
+							return;
+						}
+						$(".send").html(time + '\'\'后重新获取');
+						$(".send").css('background','#DCDCDC');
+						clicker = 0;
+
+					}, 1000);
+				}
+
+			}
+		}
+		</script>
+	</body>
+
+</html>

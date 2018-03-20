@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-content {
+				width: 100vw;
+				min-height: 100vh;
+				background: #fff;
+			}
+			
+			#banne {
+				width: 100vw;
+				height: 70vw;
+				background: url(../image/87.png) no-repeat center center;
+				background-size: 100% 100%;
+			}
+			
+			#banne img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.con {
+				width: 100vw;
+				height: 22vw;
+				padding: 3vw 5vw;
+				overflow: hidden;
+				border-bottom: 2vw solid #efeff4;
+			}
+			
+			#service_name {
+				width: 60vw;
+				overflow: hidden;
+				float: left;
+				height: 7vw;
+				line-height: 7vw;
+				font-size: 4vw;
+			}
+			
+			#price {
+				width: 30vw;
+				height: 7vw;
+				line-height: 8vw;
+				float: left;
+				font-size: 3vw;
+				color: #B6B6B6;
+				text-align: right;
+				font-size: 4vw;
+			}
+			
+			#price span {
+				font-size: 4.5vw;
+			}
+			
+			#sale {
+				width: 90vw;
+				height: 7vw;
+				line-height: 8vw;
+				float: left;
+				font-size: 4.5vw;
+			}
+			
+			#sale span {
+				font-size: 6vw;
+				color: #e8a400;
+			}
+			
+			#state {
+				width: 100vw;
+				overflow: hidden;
+				padding: 0 5vw calc(50px + 4vw);
+			}
+			
+			#state>span {
+				display: block;
+				width: 100%;
+				height: 12vw;
+				line-height: 12vw;
+				color: #666;
+				font-size: 4vw;
+			}
+			
+			.othera {
+				width: 100%;
+				padding: 2vw 0;
+				overflow: hidden;
+				background: #f5f5f5;
+			}
+			
+			.othera .tioo {
+				border-bottom: 5px solid #f5f5f5;
+				;
+			}
+			
+			.othera .tioo>span {
+				width: 100%;
+				display: block;
+				height: 8vw;
+				padding: 0 3vw;
+				line-height: 6vw;
+				font-size: 4vw;
+				background: #f5f5f5;
+				border-bottom: 1px solid #e5e5e5;
+			}
+			
+			.othera .tioo>p {
+				width: 100%;
+				display: block;
+				min-height: 8vw;
+				padding: 0 3vw;
+				line-height: 9vw;
+				background: #f5f5f5;
+				margin: 0;
+				/*margin-bottom: 5px;*/
+				/*font-size: 3vw;*/
+			}
+			
+			.mui-bar-tab {
+				text-align: center;
+				line-height: 50px;
+				font-size: 4vw;
+				color: #034895;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow:none">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">服务详情</h1>
+		</header>
+		<div class="mui-content">
+			<div class="swiper-container" id="banne">
+				<div class="swiper-wrapper">
+					<!--<div class="swiper-slide"><img src="../image/123456.jpg" /></div>-->
+					<!--<div class="swiper-slide"><img src="../image/123456.jpg" /></div>-->
+				</div>
+			</div>
+			<div class="con">
+				<div id="service_name"></div>
+				<div id="price">市场价 ￥<span>0</span></div>
+				<div id="sale">价格&nbsp;<span>0</span>&nbsp;积分</div>
+			</div>
+			<div id="state">
+				<span>说明</span>
+				<div class="othera">
+					<div class="tioo">
+						<span>用途</span>
+						<p class="summary"></p>
+					</div>
+					<div class="tioo">
+						<span>使用</span>
+						<p class="description"></p>
+					</div>
+				</div>
+			</div>
+			<nav class="mui-bar mui-bar-tab" id="buyticket">购买服务券</nav>
+		</div>
+
+		<script type="text/javascript">
+			$.ajax({
+				type: "post",
+				url: myUrl + "index/quaninfo",
+				async: true,
+				data: {
+					goods_id: request("gid")
+				},
+				success: function(msg) {
+					console.log(msg);
+					if(msg.status) {
+						var data = msg.list;
+						if(data.imag) {
+							var str = '';
+							$.each(data.imag, function(i, e) {
+								str += '<div class="swiper-slide"><img src="' + imgUrl + e.image + '"/></div>'
+							});
+							$('#banne .swiper-wrapper').append(str);
+							var swiper = new Swiper('#banne ', {
+								paginationClickable: true,
+								loop: true,
+								spaceBetween: 30,
+								autoplay: 2000
+							});
+						}
+						$('#service_name').html(data.name);
+						$('#price span').html(data.mprice);
+						$('#sale span').html(data.price);
+						$('.summary').html(data.summary);
+						$('.description').html(data.description);
+
+						$("#buyticket").click(function() {
+							if(localStorage.getItem('xnuid')) {
+								openW("service.html?name=" + data.name + "&price=" + data.price + "&goodid=" + request("gid") + "");
+							} else {
+								mui.toast('您还未登录!')
+								openW('login.html');
+							}
+
+						})
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

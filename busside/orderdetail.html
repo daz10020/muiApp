@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-content {
+				padding: 0 5vw;
+				overflow: hidden;
+			}
+			
+			.item {
+				width: 90vw;
+				height: 12vw;
+				border-radius: 5px;
+				background: #fff;
+				overflow: hidden;
+				position: relative;
+				margin-bottom: 4vw;
+			}
+			
+			.item input {
+				width: 90vw;
+				height: 8vw;
+				margin: 2vw 0;
+				padding: 0 5vw;
+				border: none;
+			}
+			
+			.open {
+				width: 12vw;
+				height: 12vw;
+				line-height: 12vw;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			
+			.btn {
+				width: 90vw;
+				height: 12vw;
+				margin: 0 auto;
+				line-height: 12vw;
+				background: #034895;
+				color: #FFFFFF;
+				font-size: 4.5vw;
+				text-align: center;
+				border-radius: 5px;
+			}
+			
+			.else {
+				width: 90vw;
+				height: 12vw;
+				overflow: hidden;
+				position: relative;
+				margin-top: 3vw;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">验证服务券</h1>
+		</header>
+		<style>
+			.ticketview {
+				background: #fff;
+				border: 1px solid #ccc;
+				overflow: hidden;
+			}
+			
+			.ticketview input {
+				width: calc(100% - 70px);
+				float: left;
+				height: 20px;
+				margin-bottom: 0px;
+				border: none;
+				border-right: 1px solid #ccc;
+				margin-top: 10px;
+			}
+			
+			.ticketview a {
+				width: 50px;
+				display: block;
+				float: right;
+				height: 40px;
+				line-height: 40px;
+			}
+		</style>
+		<div class="mui-content" style="padding-left: 0px;padding-right: 0px;">
+			<div style="padding:10px;background: #F2F2F2;width:100%;border-bottom: 2px solid #ccc;">
+				<div class="ticketview">
+					<input type="text" id="textNum" placeholder="请输入服务券码" />
+					<a class="validbtn">验证</a>
+				</div>
+			</div>
+		</div>
+		<div class="model" style="display: none;">
+			<div class="outside">
+				<div class="gai">服务券信息</div>
+				<div class="reason">
+					<div class="shoujihao serNum">服务券码：32500000</div>
+					<div class="jifen serName">服务项目：普通洗车</div>
+					<div class="jifen much">积分数值：50积分</div>
+					<div class="jifen date">购买时间：2017-8-25 15:09</div>
+				</div>
+				<div class="gai">用户信息</div>
+				<div class="reason">
+					<div class="shoujihao userer">用户名：打算</div>
+					<div class="jifen teler" style="margin-bottom: 10px;">联系电话：13312312312</div>
+				</div>
+				<div class="btns" style="border-top: 1px solid #eee;">
+					<div class="dels">取消</div>
+					<div class="confi" onclick="confi();">确定</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var sdr = [];
+			var order_id = '';
+			var uider = '';
+			var Sid = '';
+			$('.validbtn').click(function() {
+				if($('#textNum').val()) {
+					$.ajax({
+						type: "post",
+						url: myUrl + "index/testquan",
+						async: true,
+						data: {
+							order_num: $('#textNum').val()
+						},
+						success: function(msg) {
+							if(msg.status) {
+								var datas = msg.list;
+								$('.serNum').html('服务券码：' + datas.order_num_alias);
+								$('.serName').html('服务项目：' + datas.name);
+								$('.much').html('积分数值：' + datas.pay_points + '积分');
+								$('.date').html('购买时间：' + datas.time);
+								$('.userer').html('用户名：' + datas.username);
+								$('.teler').html('联系电话：' + datas.telephone);
+								$('.model').css('display', 'block');
+								sdr.push(datas.order_id);
+								uider = datas.uid;
+							}else {
+								mui.toast(msg.info);
+							}
+						}
+					});
+
+				} else {
+					mui.toast('请输入服务券码！')
+				}
+
+			});
+			$('.dels').click(function() {
+				$('.model').css('display', 'none');
+			})
+
+			function confi() {
+				console.log(sdr);
+				$.ajax({
+					type: "post",
+					url: myUrl + "index/usequan",
+					async: true,
+					data: {
+						uid: uider,
+						order_id: JSON.stringify(sdr),
+						id:localStorage.getItem('xnbusinessuid'),
+					},
+					success: function(msg) {
+						if(msg.status) {
+							openW('validsericeticket.html?return=home&orderid='+msg.orderid);
+						} else {
+							mui.toast(msg.info);
+						}
+
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/dropload.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/dropload.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-content {
+				min-height: 100vh;
+				background: #FFFFFF;
+				overflow: hidden;
+			}
+			.headers {
+				overflow: hidden;
+			}
+			#title {
+				padding: 5vw;
+				font-size: 5vw;
+				display: block;
+				width: 100vw;
+				font-weight: bold;
+			}
+			
+			.formal {
+				width: 10vw;
+				float: left;
+				height: 5vw;
+				margin: 0 3vw;
+				border: 1px solid #5792d0;
+				border-radius: 3px;
+				color: #5792d0;
+				text-align: center;
+				line-height: 5vw;
+			}
+			
+			.time {
+				font-size: 3vw;
+				color: #666666;
+				float: left;
+			}
+			#text {
+				padding: 5vw;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">焦点详情</h1>
+		</header>
+		<div class="mui-content">
+			<div class="headers">
+				<!--<div style="height: 3vw;width: 100vw;"></div>-->
+				<span id="title"></span>
+				<div class="formal"></div>
+				<div class="time"></div>
+			</div>
+			<div id="text">
+
+			</div>
+		</div>
+		<script type="text/javascript">
+			$.ajax({
+				type: "get",
+				url: myUrl + "focus/info",
+				async: true,
+				data: {
+					id: request('newsId')
+				},
+				success: function(msg) {
+					if(msg.status) {
+						var data = msg.list;
+						$('#title').html(data.name);
+						$('.formal').html(data.biaoqian);
+						$('.time').html(data.create_time);
+						$('#text').html(data.des)
+					}
+
+					console.log(msg);
+				}
+			});
+		</script>
+	</body>

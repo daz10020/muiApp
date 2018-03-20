@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+
+		<style type="text/css">
+			.mui-bar-nav {
+				top: 0;
+				-webkit-box-shadow: 0 1px 6px #ccc !important;
+				box-shadow: 0 1px 6px #ccc !important;
+			}
+			
+			.mui-content {
+				background: #fff;
+				min-height: 100vh !important;
+			}
+			
+			.card {
+				text-decoration: none;
+				display: block;
+				position: relative;
+				width: 92vw;
+				overflow: hidden;
+				margin: 0 auto;
+				margin-bottom: 2vw;
+				height: 27vw;
+			}
+			
+			.card1 {
+				background: url(../image/34.png) no-repeat center center;
+				background-size: 100% 100%;
+			}
+			
+			.card2 {
+				background: url(../image/33.png) no-repeat center center;
+				background-size: 100% 100%;
+			}
+			
+			.card3 {
+				background: url(../image/32.png) no-repeat center center;
+				background-size: 100% 100%;
+			}
+			
+			.card4 {
+				background: url(../image/31.png) no-repeat center center;
+				background-size: 100% 100%;
+			}
+			
+			.cname {
+				width: 76vw;
+				height: 15vw;
+				color: #FFFFFF;
+				font-size: 4vw;
+				padding-left: 5vw;
+				float: left;
+				line-height: 15vw;
+			}
+			
+			.out {
+				width: 16vw;
+				height: 15vw;
+				float: left;
+				text-align: right;
+				padding-right: 5vw;
+				line-height: 10vw;
+				font-size: 3vw;
+				color: #fff;
+			}
+			
+			.time {
+				width: 70vw;
+				height: 12vw;
+				float: left;
+				padding-left: 5vw;
+				color: #fff;
+				line-height: 9vw;
+			}
+			
+			.sale {
+				width: 22vw;
+				height: 12vw;
+				float: left;
+				text-align: right;
+				padding-right: 7vw;
+				color: #fff;
+			}
+			
+			.sale span {
+				font-size: 6vw;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">卡包</h1>
+		</header>
+		<div class="mui-content">
+			<div style="width: 100%;height: 4vw;"></div>
+			
+		</div>
+	</body>
+
+</html>
+
+<script type="text/javascript">
+	$.ajax({
+		type: "post",
+		url: myUrl + "index/cardbag",
+		async: true,
+		data: {
+			uid: localStorage.getItem('xnuid')
+		},
+		success: function(msg) {
+			if(msg.status) {
+				console.log(msg);
+				$.each(msg.list, function(i ,n) {
+					var str = "";
+					str += '<div class="card card'+n.color+'">'
+					str += '<div class="cname">'+n.name+'</div>'
+					if(n.status == 1) {
+						str += '<div class="out"></div>'
+					}else if(n.status == 2) {
+						str += '<div class="out">已过期</div>'
+					}
+					str += '<div class="time">'+n.start_time+'-'+n.end_time+'</div>'
+					str += '<div class="sale"><span>'+n.discount+'</span>折卡</div>'
+					str += '</div>'
+					$('.mui-content').append(str);
+				});
+			} else {
+				mui.toast(msg.info);
+			}
+		}
+	});
+</script>

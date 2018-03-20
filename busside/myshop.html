@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/bankcommon.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的门店</h1>
+		</header>
+		<style>
+			.rowlist {
+				width: 100%;
+				background: #fff;
+				border-bottom: 1px solid #ccc;
+			}
+			
+			.rowlist .row {
+				overflow: hidden;
+				height: 50px;
+				line-height: 50px;
+				padding: 0 10px;
+				margin-bottom: 0px;
+			}
+			
+			.rowlist span {
+				float: left;
+			}
+			
+			.typestateuser {
+				color: #2AC845;
+				margin-right: 10px;
+			}
+			
+			.shoppic {
+				width: 70px;
+				height: 70px;
+				display: block;
+				float: right;
+				margin-top: 10px;
+				margin-right: 10px;
+			}
+			
+			.fl {
+				float: left;
+			}
+		</style>
+		<div class="mui-content">
+			<div style="padding-bottom: 70px;">
+				<div class="rowlist" style="margin-bottom: 20px;">
+					<p class="row" style="height: 90px;line-height: 90px;">
+						<span>门店照片</span>
+						<img src="../image/87.png" class="shoppic shoppic1" />
+					</p>
+				</div>
+				<div class="rowlist">
+					<p class="row">
+						<span>门店名称</span>
+						<span style="float: right;" class="men1"></span>
+					</p>
+				</div>
+				<div class="rowlist">
+					<p class="row">
+						<span>联系人</span>
+						<span style="float: right;" class="men2"></span>
+					</p>
+				</div>
+				<div class="rowlist">
+					<p class="row">
+						<span>联系人电话</span>
+						<span style="float: right;" class="men3"></span>
+					</p>
+				</div>
+				<div class="rowlist" style="margin-bottom: 20px;">
+					<p class="row">
+						<span>门店地址</span>
+						<span style="float: right;" class="men4"></span>
+					</p>
+				</div>
+				<div class="cont men5" style="margin-bottom: 20px;">
+					<div class="rowlist">
+						<p class="row">
+							<span>服务项目</span>
+							<span style="float: right;"></span>
+						</p>
+					</div>
+					<!--<div class="rowlist">
+						<p class="row">
+							<span>项目名称</span>
+							<span style="float: right;">20积分</span>
+						</p>
+					</div>-->
+				</div>
+				<div class="rowlist" style="margin-bottom: 20px;">
+					<p class="row men6" style="height: 90px;line-height: 90px;">
+						<!--<img src="../image/87.png" class="shoppic fl" />
+						<img src="../image/87.png" class="shoppic fl" />
+						<img src="../image/87.png" class="shoppic fl" />
+						<img src="../image/87.png" class="shoppic fl" />-->
+					</p>
+				</div>
+				<div class="rowlist" style="margin-bottom: 20px; background-image: url(../image/30.png); background-repeat: no-repeat; background-position: 95% center; background-size: 14px;">
+					<p class="row" onclick="openW('all_evaluate.html')">
+						<span>门店评价</span>
+						<span style="float: right;margin-right: 40px;"><span class="men7">0</span>个评价</span>
+					</p>
+				</div>
+				<div class="rowlist">
+					<p class="row">
+						<span>门店介绍</span>
+						<div style="margin:10px;background:#f2f2f2;padding: 10px;min-height: 100px;" class="men8"></div>
+					</p>
+				</div>
+			</div>
+			<style>
+				.bottombtn {
+					position: fixed;
+					bottom: 0px;
+					left: 0px;
+					height: 50px;
+					line-height: 50px;
+					box-shadow: 0px 0px 10px #ccc;
+					width: 100%;
+					text-align: center;
+					background: #fff;
+				}
+			</style>
+			<div class="bottombtn">
+				<a></a>
+			</div>
+		</div>
+		<script src="../js/jquery-1.10.1.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			$.ajax({
+				type: "post",
+				url: myUrl + "brand/bussideinfo",
+				async: true,
+				data: {
+					brand_id: localStorage.getItem("xnbusinessbrand_id")
+				},
+				success: function(msg) {
+					console.log(msg);
+					if(msg.status) {
+						var das = msg.brandlist[0];
+						$('.shoppic1').attr('src', imgUrl + das.brand_image);
+						$('.men1').html(das.brand_name);
+						$('.men2').html(das.contacts);
+						$('.men3').html(das.tel);
+						$('.men4').html(das.address);
+						var str1 = "";
+						var str2 = "";
+						$.each(das.brandcategory, function(i, n) {
+							str1 += '<div class="rowlist"><p class="row" >';
+							str1 += '<span>' + n.name + '</span>';
+							str1 += '<span style="float: right;">' + n.jifen + '积分</span>';
+							str1 += '</p></div>';
+						});
+						$('.men5').append(str1);
+						$.each(das.brand_photo, function(i, n) {
+							str2 += '<img src="' + imgUrl + n.src + '" class="shoppic fl" />';
+						});
+						$('.men6').append(str2);
+						$('.men7').html(das.commentnum);
+						$('.men8').html(das.des);
+						if(das.switchh == '营业中') {
+							$('.bottombtn a').html('关店');
+							$('.bottombtn').attr('data-open', '2');
+						} else if(das.switchh == '歇业') {
+							$('.bottombtn a').html('开店');
+							$('.bottombtn').attr('data-open', '1');
+						}
+						$('.bottombtn').click(function() {
+							var statsiss = $(this).attr('data-open');
+							$.ajax({
+								type: "get",
+								url: myUrl + "brand/openend",
+								async: true,
+								data: {
+									status: statsiss,
+									brand_id: 7
+								},
+								success: function(msg) {
+									console.log(msg);
+									if(msg.status) {
+										if(statsiss == 1) {
+											$('.bottombtn a').html('关店');
+											$('.bottombtn').attr('data-open', '2');
+										} else if(statsiss == 2) {
+											$('.bottombtn a').html('开店');
+											$('.bottombtn').attr('data-open', '1');
+										}
+									}
+								}
+							});
+						})
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>

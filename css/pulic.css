@@ -1,0 +1,41 @@
+* {
+	padding: 0px;
+	margin: 0px;
+	font-size: 3.5vw;
+	list-style: none;
+	font-family: "微软雅黑",'宋体';
+	max-width: 640px;
+}
+
+body {
+	padding: 0px;
+	max-width: 640px;
+	margin: 0 auto;
+	color: #464646;
+	
+}
+/* 设置滚动条的样式 */
+
+::-webkit-scrollbar {
+	width: 0;
+}
+
+input {
+	outline: none;
+	/*border: 1px solid #ccc;*/
+	border: none;
+	display: block;
+}
+
+button {
+	border: none;
+	background: none;
+}
+
+li {
+	list-style: none;
+}
+.navright{
+	text-align: right !important;
+	right: 10px !important;
+}

@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-content {
+				overflow: hidden;
+				min-height: 100vh;
+				width: 100vw;
+				background: #fff;
+			}
+			.head {
+				background: url(../image/44.png) no-repeat center center;
+				width: 100vw;
+				height: 50vw;
+				padding: 5vw;
+				overflow: hidden;
+				background-size: 100% 100%;
+			}
+			
+			#name {
+				height: 5vw;
+				line-height: 5vw;
+				display: block;
+				float: left;
+				font-size: 4.5vw;
+				color: #fff;
+			}
+			
+			#level {
+				width: 25vw;
+				height: 5vw;
+				text-align: center;
+				padding-left: 5vw;
+				float: left;
+				margin-left: 3vw;
+				color: #fff;
+				line-height: 5vw;
+				font-size: 3vw;
+			}
+			
+			.level1 {
+				background: url(../image/94.png) no-repeat center center;
+				background-size: 100% 100%;
+			}
+			
+			.level2 {
+				background: url(../image/93.png) no-repeat center center;
+				background-size: 100% 100%;
+			}
+			
+			.level3 {
+				background: url(../image/92.png) no-repeat center center;
+				background-size: 100% 100%;
+			}
+			.line-level {
+				width: 90vw;
+				height: 10vw;
+				line-height: 10vw;
+				float: left;
+				color: #fff;
+			}
+			#lev_pic {
+				width: 80vw;
+				margin: 0 auto;
+				/*overflow:hidden;*/
+				position: relative;
+			}
+			.leveltext span {
+				display: block;
+				width: calc(80vw / 3);
+				text-align: center;
+				color: #fff;
+				font-size: 3vw;
+				float: left;
+				margin-top: 8vw;
+			}
+			
+			.leveltext span:first-child{
+				text-align: left;
+			}
+			.leveltext span:nth-child{
+				
+			}
+			.leveltext  span:last-child{
+				text-align: right;
+			}
+		
+			.lev_line {
+				width: 29vw;
+				border-bottom: 1px solid #fff;
+				margin-top: 7.5vw;
+				float: left;
+			}
+			.nomal {
+				width: 5vw;
+				height: 5vw;
+				background: url(../image/51.png) no-repeat center center;
+				background-size: contain;
+				margin-top: 5vw;
+				float: left;
+				margin-left: 4vw;
+			}
+			.gold {
+				width: 5vw;
+				height: 5vw;
+				background: url(../image/57.png) no-repeat center center;
+				background-size: contain;
+				margin-top: 5vw;
+				float: left;
+			}
+			.platinum {
+				width: 5vw;
+				height: 5vw;
+				background: url(../image/58.png) no-repeat center center;
+				background-size: contain;
+				margin-top: 5vw;
+				float: left;
+			}
+			.fat {
+				font-size: 4vw;
+				font-weight: bold;
+				height: 10vw;
+				line-height: 11vw;
+			}
+			.cut {
+				width: 100vw;
+				overflow: hidden;
+				padding: 0 5vw;
+				height: 36vw;
+				margin-top: -3vw;
+				border-bottom: 1vw solid #eee;
+			}
+			.cuts {
+				height: 8vw;
+				width: 100%;
+				line-height: 8vw;
+				overflow: hidden;
+			}
+			.cuts>span {
+				float: right;
+			}
+			.lev-rule {
+				width: 100vw;
+				overflow: hidden;
+				padding: 0 5vw;
+			}
+			.lev-rule>span{
+				font-size: 3vw;
+				display: block;
+				margin-top: -1.5vw;
+			}
+			.block {
+				width: 100%;
+				overflow: hidden;
+				height: 15vw;
+				margin: 3vw auto;
+			}
+			.block img {
+				width: 15vw;
+				height: 15vw;
+				float: left;
+				margin-right: 5vw;
+			}
+			.block .bline {
+				width: 70vw;
+				height: 15vw;
+				float: left;
+			}
+			.block .bline .lineer {
+				width: 100%;
+				height: 6vw;
+			}
+			.block .bline>span {
+				display: block;
+				height: 8vw;
+				font-size: 3vw;
+				line-height: 8vw;
+				margin-top: 1vw;
+				
+			}
+			
+			.levelicon{overflow: hidden;width: 100%;position: relative;}
+			.leveltext{width: 80vw;overflow: hidden;margin: 0 auto;}
+			.icon-1,.icon-2,.icon-3{width: 16vw;height: 16vw;overflow: hidden;position: relative;float: left;position: absolute;}
+			.headicon{width: 15vw;height: 15vw;border-radius: 15vw;}
+			.littleicon{width: 5vw;height: 5vw;position: absolute;bottom: 1vw;right: 1vw;}
+			.icon-1{left: 0vw;}
+			.icon-2{left: 33vw;}
+			.icon-3{left: 66vw;}
+			.lineer1 {
+				background: url(../image/47.png) no-repeat left bottom;
+				background-size: 100% 1.5vw;
+			}
+			.lineer2 {
+				background: url(../image/46.png) no-repeat left bottom;
+				background-size: 80% 1.5vw;
+			}
+			.lineer3 {
+				background: url(../image/45.png) no-repeat left bottom;
+				background-size: 60% 1.5vw;
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">会员规则</h1>
+		</header>
+		<div class="mui-content">
+			<div class="head">
+				<span id="name">Hi,lv_v</span>
+				<span id="level" class="level1">普通会员</span>
+				<div class="line-level">距下一等级还差 <span>300</span> 积分(1积分=1元)</div>
+				<div id="lev_pic">
+					<div class="levelicon">
+						<div class="nomal"></div>
+						<div class="lev_line"></div>
+						<div class="gold"></div>
+						<div class="lev_line"></div>
+						<div class="platinum"></div>
+					</div>
+					<div style="position: absolute;top: 15vw;">
+						<div class="icon-1">
+							<img src="" class="headicon"  />
+							<img src="../image/51.png" class="littleicon"  />
+						</div>
+						<div class="icon-2">
+							<img src="" class="headicon"  />
+							<img src="../image/57.png" class="littleicon"  />
+						</div>
+						<div class="icon-3">
+							<img src="" class="headicon"  />
+							<img src="../image/58.png" class="littleicon"  />
+						</div>
+					</div>
+				</div>
+				<div class="leveltext">
+					<span>普通会员</span>
+					<span>黄金会员</span>
+					<span>白金会员</span>
+				</div>
+			</div>
+			<div class="cut">
+				<div class="fat">会员优惠</div>
+				<div class="cuts">
+					普通会员<span>会员价</span>
+				</div>
+				<div class="cuts">
+					黄金会员<span>9折</span>
+				</div>
+				<div class="cuts">
+					白金会员<span>8.5折</span>
+				</div>
+			</div>
+			<div class="lev-rule">
+				<div class="fat">等级规则</div>
+				<span class="tips">(积分数量以过去最大值为准)</span>
+				<div class="block">
+					<img src="../image/48.png"/>
+					<div class="bline">
+						<div class="lineer lineer1"></div>
+						<span>白金会员 积分5000以上</span>
+					</div>
+				</div>
+				<div class="block">
+					<img src="../image/49.png"/>
+					<div class="bline">
+						<div class="lineer lineer2"></div>
+						<span>黄金会员 积分3000-4999</span>
+					</div>
+				</div>
+				<div class="block">
+					<img src="../image/50.png"/>
+					<div class="bline">
+						<div class="lineer lineer3"></div>
+						<span>普通会员 积分0-2999</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var username = localStorage.xnusername;
+				var vipname = localStorage.xnlevel;
+				var vipponits = localStorage.xntotalbonus;					           		
+				var userpic = localStorage.xnuserpic;
+				$(".headicon").attr("src",imgUrl + userpic);
+				$("#level").text(vipname);
+				if(localStorage.xnlevel == "普通会员") {
+					$("#level").addClass('level1');
+				}
+				if(localStorage.xnlevel == "黄金会员") {
+					$("#level").addClass('level2');
+				}
+				if(localStorage.xnlevel == "白金会员") {
+					$("#level").addClass('level3');
+				}
+				$("#name").text("Hi，"+username);
+				if(vipname == "普通会员"){
+					$(".icon-1").show();
+					$(".icon-2").hide();
+					$(".icon-3").hide();
+					$(".gold").css("background-image","url(../image/52.png)");
+					$(".platinum").css("background-image","url(../image/53.png)");
+					$(".level").css("background-image","url(../image/92.png)");
+					
+				}
+				if(vipname == "黄金会员"){
+					$(".icon-1").hide();
+					$(".icon-2").show();
+					$(".icon-3").hide();
+					$(".platinum").css("background-image","url(../image/53.png)");
+					$(".level").css("background-image","url(../image/93.png)");
+				}
+				if(vipname == "白金会员"){
+					$(".icon-1").hide();
+					$(".icon-2").hide();
+					$(".icon-3").show();
+					$(".level").css("background-image","url(../image/94.png)");
+				}
+				$(".line-level span").text(localStorage.xncash_points);
+				
+			})
+		</script>
+	</body>
+
+</html>

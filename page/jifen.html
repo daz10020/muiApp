@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-btn.mui-btn-link {
+				border: none;
+				color: #464646;
+			}
+			
+			.mui-btn.mui-btn-link:active {
+				color: #464646;
+			}
+			
+			.jifen {
+				width: 100vw;
+				height: 37vw;
+				background: #fff;
+			}
+			
+			.jifen span {
+				display: block;
+				width: 100vw;
+				height: 8vw;
+				color: #828282;
+				padding: 2vw 5vw 0;
+				line-height: 8vw;
+			}
+			
+			.jifen .count {
+				width: 100vw;
+				height: 29vw;
+				line-height: 29vw;
+				text-align: center;
+				font-size: 8vw;
+			}
+			
+			.chongzhi {
+				width: 100vw;
+				overflow: hidden;
+			}
+			
+			.chongzhi span {
+				display: block;
+				width: 100vw;
+				height: 10vw;
+				color: #828282;
+				padding: 0vw 5vw;
+				line-height: 10vw;
+			}
+			
+			.chongzhi .num {
+				width: 100vw;
+				padding: 1vw 2vw 4vw 6vw;
+				background: #fff;
+				overflow: hidden;
+			}
+			
+			.chongzhi .num li {
+				width: calc(28vw - 2px);
+				height: calc(11vw - 2vw);
+				line-height: calc(11vw - 2vw);
+				text-align: center;
+				float: left;
+				margin-right: 3vw;
+				margin-top: 3vw;
+				border: 1px solid #d1d1d1;
+			}
+			
+			.chongzhi .num li.click {
+				border: 1px solid #034895;
+				color: #034895;
+			}
+			
+			.tip {
+				height: 14vw;
+				width: 100vw;
+				line-height: 14vw;
+				padding: 0 5vw;
+			}
+			
+			.btn {
+				width: 90vw;
+				height: 12vw;
+				margin: 0 auto;
+				line-height: 12vw;
+				background: #034895;
+				color: #FFFFFF;
+				font-size: 4.5vw;
+				text-align: center;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">余额充值</h1>
+			<button class="mui-btn  mui-pull-right mui-btn-link" onclick="openW('mingxi.html')">明细</button>
+			<button class="mui-btn  mui-pull-right mui-btn-link" onclick="openW('send.html')">赠送</button>
+		</header>
+		<div class="mui-content">
+			<div class="jifen">
+				<span>账户积分</span>
+				<div class="count">0</div>
+			</div>
+			<div class="chongzhi">
+				<span>充值积分</span>
+				<ul class="num">
+					<li data-num="50" class="click">50积分</li>
+					<li data-num="80">80积分</li>
+					<li data-num="100">100积分</li>
+					<li data-num="200">200积分</li>
+					<li data-num="300">300积分</li>
+					<li data-num="500">500积分</li>
+					<li data-num="800">800积分</li>
+					<li data-num="1000">1000积分</li>
+					<li data-num="2000">2000积分</li>
+				</ul>
+				<div class="tip">
+					兑换积分 1元=1积分
+				</div>
+				<div class="btn">充值</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			
+			$(document).ready(function() {
+				$(".num li").click(function() {
+					$(".num li").removeClass("click");
+					$(this).addClass("click");
+					console.log($(this).attr("data-num"));
+				});
+				$('.btn').click(function() {
+					openW('pay.html?count=' + $('.click').attr('data-num'));
+				})
+				$(".count").text(localStorage.xnpoints);
+			})
+		</script>
+	</body>
+
+</html>

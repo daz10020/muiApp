@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-bar-nav.mui-bar .mui-icon {
+				font-size: 40px;
+				padding-left: 1px;
+				padding-top: 1px;
+				color: #034895;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav ">
+			<a class="mui-icon mui-icon-closeempty mui-pull-left retu"></a>
+			<h1 class="mui-title">订单详情</h1>
+		</header>
+		<style>
+			.rowview {
+				padding: 10px;
+				margin: 10px;
+				background: #fff;
+				border-radius: 5px;
+				box-shadow: 0px 5px 5px #ccc;
+				margin-bottom: 20px;
+			}
+			
+			.rtitle {
+				font-size: 20px;
+			}
+			
+			.rcontent {
+				font-size: 16px;
+			}
+			
+			.rcontent span {
+				font-size: 24px;
+				float: right;
+				margin-right: 20px;
+			}
+		</style>
+		<div class="mui-content">
+			<div style="padding-bottom: 10px;border-bottom: 1px solid #ccc;" class="iemd">
+				<!--<div class="rowview">
+					<p class="rtitle">服务项目</p>
+					<p class="rcontent">普通洗车<span>20积分</span></p>
+				</div>
+				<div class="rowview">
+					<p class="rtitle">服务项目</p>
+					<p class="rcontent">普通洗车<span>20积分</span></p>
+				</div>-->
+			</div>
+			<style>
+				.servicep {
+					text-align: right;
+					font-size: 18px;
+					margin-top: 15px;
+					margin-right: 10px;
+				}
+				
+				.infop {
+					text-align: left;
+					font-size: 18px;
+					margin-top: 15px;
+					margin-left: 10px;
+				}
+				
+				.info {
+					background: #fff;
+					padding: 10px;
+				}
+				
+				.info p:last-child {
+					margin-bottom: 0px;
+				}
+			</style>
+			<p class="servicep"></p>
+			<p class="infop">用户信息</p>
+			<div class="infobox">
+				<div class="info">
+					<p class="uver1">用户名：</p>
+					<p class="uver2">联系电话：</p>
+				</div>
+			</div>
+			<p class="infop">订单信息</p>
+			<div class="infobox">
+				<div class="info">
+					<p class="uver3">订单编号：</p>
+					<p class="uver4">下单时间：</p>
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var rtn = request('return');
+			$.ajax({
+				type:"post",
+				url:myUrl + "index/orderinfo",
+				async:true,
+				data: {
+					order_num:request('orderid')
+				},
+				success: function(msg) {
+					console.log(msg);
+					if(msg.status) {
+						var allCoun = 0;
+						$.each(msg.list, function(i ,n) {
+							var str = "";
+							str += '<div class="rowview">';
+							str += '<p class="rtitle">服务项目</p>';
+							str += '<p class="rcontent">'+n.name+'<span>'+n.pay_points+'积分</span></p>';
+							str += '</div>';
+							$('.iemd').append(str);
+							allCoun += parseInt(n.pay_points);
+						});
+						$('.servicep').html(msg.list.length+'个服务，共消费'+allCoun + '积分');
+						$('.uver1').html('用户名：' + msg.lis.username);
+						$('.uver2').html('联系电话：' + msg.lis.telephone);
+						$('.uver3').html('订单编号：' + msg.lis.order_num);
+						$('.uver4').html('下单时间：' + msg.lis.date_modified);
+					}
+				}
+			});
+			$('.retu').click(function() {
+				openW('consumptionrecords.html?clicker='+ rtn);
+			})
+		</script>
+	</body>
+
+</html>

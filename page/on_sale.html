@@ -1,0 +1,351 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<link rel="stylesheet" type="text/css" href="../css/dropload.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/dropload.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-content {
+				overflow: hidden;
+				background: #ffffff;
+				min-height: 100vh;
+			}
+			
+			.mui-btn.mui-btn-link {
+				border: none;
+				color: #464646;
+			}
+			
+			.mui-btn.mui-btn-link:active {
+				color: #464646;
+			}
+			
+			.tio {
+				position: fixed;
+				top: 35px;
+				right: 1vw;
+				z-index: 101;
+				padding: 2vw 4vw;
+				-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .25);
+				box-shadow: 0 0 8px rgba(0, 0, 0, .15);
+				background: #fff;
+			}
+			
+			#ma {
+				width: 100vw;
+				height: 17vw;
+				background: #F5F5F5;
+				border-bottom: 1px solid #F5F5F5;
+			}
+			
+			#ma .ma {
+				width: calc(92vw - 4px) !important;
+				height: calc(12vw - 4px);
+				/*border: 2px solid #e2e2e2;*/
+				-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .15);
+				box-shadow: 0 0 8px rgba(0, 0, 0, .15);
+				border-radius: 2px;
+				background: #ffffff;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			
+			#cost {
+				width: calc(80% - 1px);
+				height: 6vw;
+				font-size: 3.5vw;
+				margin: calc(3vw - 2px) 0 0;
+				float: left;
+				border: none;
+				padding: 0;
+				border-right: 1px solid #e2e2e2;
+				;
+				padding-left: 4vw;
+			}
+			
+			.Btn {
+				width: 20%;
+				height: 6vw;
+				float: left;
+				margin: calc(3vw - 2px) 0 0;
+				line-height: 6vw;
+				text-align: center;
+			}
+			
+			#mingxi {
+				overflow: hidden;
+				width: 100vw;
+			}
+			
+			#mingxi .shead {
+				display: block;
+				width: 100vw;
+				height: 10vw;
+				line-height: 10vw;
+				padding-left: 5vw;
+				border-bottom: 1px solid #E2E2E2;
+			}
+			
+			#mingxi .mingxi {
+				overflow: hidden;
+				width: 100vw;
+				padding: 3vw 5vw;
+				border-bottom: 1px solid #E2E2E2;
+			}
+			
+			.mingxi .mname {
+				width: 65vw;
+				height: 5vw;
+				line-height: 5vw;
+				float: left;
+				font-size: 4vw;
+			}
+			
+			.mingxi .mtime {
+				width: 25vw;
+				height: 5vw;
+				line-height: 5vw;
+				color: #929292;
+				/*font-size: 3vw;*/
+				float: left;
+				text-align: right;
+			}
+			
+			.mingxi .mmuch {
+				width: 90vw;
+				height: 5vw;
+				margin-top: 1vw;
+				line-height: 5vw;
+				float: left;
+			}
+			
+			.res1,
+			.res2 {
+				height: 60vw;
+			}
+			
+			.res1 img,
+			.res2 img {
+				width: 25vw;
+				height: 25vw;
+				margin: 10vw 25vw 5vw;
+			}
+			
+			.rest1,
+			.rest2 {
+				width: 75vw;
+				height: 10vw;
+				line-height: 10vw;
+				font-size: 4vw;
+				text-align: center;
+			}
+			
+			.point {
+				width: 5vw;
+				height: 44px;
+				background: url(../image/0010.png) no-repeat center center;
+				background-size: 5px 22px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">优惠/兑换</h1>
+			<button class="mui-btn  mui-pull-right mui-btn-link point"></button>
+		</header>
+		<div class="mui-content">
+			<div class="tio" style="display: none;">清空兑换明细</div>
+			<div id="ma">
+				<div style="width: 100vw;height: 3vw;"> </div>
+				<div class="ma">
+					<input type="text" name="cost" id="cost" placeholder="请输入兑换码" />
+					<div class="Btn">兑换</div>
+				</div>
+			</div>
+			<div id="mingxi">
+				<span class="shead">兑换明细</span>
+				<div class="outsiders">
+					<div class="container">
+						<!--<div class="mingxi">
+						<div class="mname">兑换</div>
+						<div class="mtime">2017-8-25</div>
+						<div class="mmuch">+200积分</div>
+					</div>
+					<div class="mingxi">
+						<div class="mname">兑换</div>
+						<div class="mtime">2017-8-25</div>
+						<div class="mmuch">+200积分</div>
+					</div>
+					<div class="mingxi">
+						<div class="mname">兑换</div>
+						<div class="mtime">2017-8-25</div>
+						<div class="mmuch">+200积分</div>
+					</div>
+					<div class="mingxi">
+						<div class="mname">兑换</div>
+						<div class="mtime">2017-8-25</div>
+						<div class="mmuch">+200积分</div>
+					</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="model" style="display: none;">
+			<div class="outside res1" style="display: none;">
+				<img src="../image/36.png" />
+				<div class="rest1"></div>
+			</div>
+			<div class="outside res2" style="display: none;">
+				<img src="../image/37.png" />
+				<div class="rest2"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var click_Status = 0;
+			$('.mui-btn').click(function() {
+				if(click_Status == 0) {
+					$('.tio').css('display', 'block');
+					click_Status = 1;
+				} else {
+					$('.tio').css('display', 'none');
+					click_Status = 0;
+				}
+			});
+			$('.tio').click(function() {
+				$.ajax({
+					type: "post",
+					url: myUrl + "index/clearpoints",
+					async: true,
+					data: {
+						uid: localStorage.xnuid
+					},
+					success: function(msg) {
+						console.log(msg);
+						if(msg.status) {
+							mui.toast(msg.info);
+							location.reload();
+						} else {
+							mui.toast(msg.info);
+							$('#cost').val('');
+						}
+					}
+				});
+			})
+			// 页数
+			var page = 0;
+			// dropload
+			$('.outsiders').dropload({
+				scrollArea: window,
+				// 1 . 下拉刷新 回调函数
+				loadUpFn: function(me) {
+					console.log("刷新");
+					page = 1;
+					$(".container").empty();
+					loaddata(me);
+					me.resetload();
+
+				},
+				// 2 . 上拉加载更多 回调函数
+				loadDownFn: function(me) {
+					page++;
+					loaddata(me);
+				}
+			});
+
+			function loaddata(me) {
+				// 拼接HTML
+				$.ajax({
+					type: 'post',
+					url: myUrl + "index/points",
+					data: {
+						uid: localStorage.xnuid,
+						page: page
+					},
+					dataType: 'json',
+					success: function(msg) {
+						console.log(msg);
+						if(msg.status == 1) {
+							var arrLen = msg.list.length;
+							if(arrLen > 0) {
+								$.each(msg.list, function(index, el) {
+									var str = '';
+									str += '<div class="mingxi">';
+									str += '<div class="mname">兑换</div>';
+									str += '<div class="mtime">' + el.creat_time + '</div>';
+									str += '<div class="mmuch">+' + el.points + '积分</div>';
+									str += '</div>';
+									$('.container').append(str);
+
+								})
+								me.unlock();
+								me.noData(false);
+								me.resetload();
+								if(msg.total_page == page) {
+									me.lock();
+									me.noData();
+									me.resetload();
+								}
+							}
+
+						} else {
+							//							mui.toast(msg.info);
+							me.lock();
+							me.noData();
+							me.resetload();
+						}
+					},
+					error: function(xhr, type) {
+						alert('Ajax error!');
+						//						me.resetload();
+					}
+				});
+			}
+			$('.Btn').click(function() {
+				var pass = $('#cost').val();
+				if(pass) {
+					$.ajax({
+						type: "post",
+						url: myUrl + "index/cardmoney",
+						async: true,
+						data: {
+							uid: localStorage.xnuid,
+							password: pass
+						},
+						success: function(msg) {
+							console.log(msg);
+							if(msg.status) {
+								$('.model').css('display', 'block');
+								$('.rest1').html(msg.info);
+								$('.res1').css('display', 'block');
+								setTimeout(function() {
+									$('.model').css('display', 'none');
+									$('.res1').css('display', 'none');
+								}, 1500)
+							} else {
+								$('.model').css('display', 'block');
+								$('.rest2').html(msg.info);
+								$('.res2').css('display', 'block');
+								setTimeout(function() {
+									$('.model').css('display', 'none');
+									$('.res2').css('display', 'none');
+								}, 1500)
+							}
+						}
+					});
+				} else {
+					mui.toast('请输入兑换码！');
+				}
+			})
+		</script>
+	</body>

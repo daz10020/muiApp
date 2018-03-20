@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="css/alert.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script src="js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.pullToRefresh.js"></script>
+		<script src="js/mui.pullToRefresh.material.js"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mhy-user.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/zyf-user.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zpGcnepYgbD4e2Qs57uSn22welOjgkCo"></script>
+		<style>
+			.mui-row h5 {
+				color: black;
+			}
+			
+			.barlist {
+				border-bottom: 1px solid #eeeeee;
+				line-height: 2.5;
+			}
+			
+			.mui-table-view .active {
+				color: blue;
+				background-color: white;
+			}
+			
+			.mui-pull-bottom-wrapper {
+				text-align: center;
+			}
+			
+			.mui-pull-bottom-tips {
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<!--主页-->
+
+			<div id="tabbar" class="mui-control-content mui-active" style="height: calc(100vh - 50px);">
+
+				<div class="mui-scroll-wrapper" id="maincontent">
+					<div class="mui-scroll">
+						<!--<header class="mui-bar mui-bar-nav"></header>-->
+						<!--主页banner-->
+						<div id="banner">
+							<div class="item" onclick="openW('page/sort.html')">
+								<div class="backg backg1"></div>
+								<span>洗车</span>
+							</div>
+							<div class="item" onclick="jumpLogin('page/qrpay.html')">
+								<div class="backg backg2"></div>
+								<span>支付</span>
+							</div>
+							<div class="item" onclick="jumpLogin('page/jifen.html')">
+								<div class="backg backg3"></div>
+								<span>金额</span>
+							</div>
+							<div class="item" onclick="jumpLogin('page/card.html')">
+								<div class="backg backg4"></div>
+								<span>卡包</span>
+							</div>
+						</div>
+						<!--天气栏-->
+						<div id="wether">
+							<div class="dingwei" id="dwBtn" onclick="openW('page/cityList.html')">定位中</div>
+							<i>|</i>
+							<div id="weatherDetail">
+								获取中
+							</div>
+							<div class="tips" id="washcar">获取中</div>
+						</div>
+						<!--小banner-->
+						<ul id="bbtn">
+							<li class="li1" onclick="openW('page/nearBy.html')">服务门店</li>
+							<li class="li2" onclick="appointment()">电话预约</li>
+							<li class="li3" onclick="jumpLogin('page/on_sale.html')">积分兑换</li>
+							<li class="li4" onclick="openW('page/welfare.html')">车主福利</li>
+							<li class="li5" onclick="rescue()">车辆救援</li>
+						</ul>
+						<!--小诺焦点-->
+						<div id="jiaodian" onclick="openW('page/focous.html')">
+							<div class="backer"></div>
+							<div class="scoll swiper-container">
+								<div class="swiper-wrapper" id="xiaonuoFocus">
+									<!--<div class="swiper-slide">
+								<div class="scoll-item">
+									<div class="formal">常识</div>
+									<div class="last">平安财富宝送平安 驾照全国通</div>
+								</div>
+								<div class="scoll-item" style="margin-top:0;">
+									<div class="formal">常识</div>
+									<div class="last">平安财富宝送平安 驾照全国通</div>
+								</div>
+									</div>
+									<div class="swiper-slide">
+
+										<div class="scoll-item">
+											<div class="formal">常识</div>
+											<div class="last">平安财富宝送平安 驾照全国通</div>
+										</div>
+										<div class="scoll-item" style="margin-top:0;">
+											<div class="formal">常识</div>
+											<div class="last">平安财富宝送平安 驾照全国通</div>
+										</div>
+									</div>
+									<div class="swiper-slide">
+										<div class="scoll-item">
+											<div class="formal">常识</div>
+											<div class="last">平安财富宝送平安 驾照全国通</div>
+										</div>
+										<div class="scoll-item" style="margin-top:0;">
+											<div class="formal">常识</div>
+											<div class="last">平安财富宝送平安 驾照全国通</div>
+										</div>
+									</div>
+								</div>
+						</div>
+							<div class="swiper-slide">
+								<div class="scoll-item">
+									<div class="formal">常识</div>
+									<div class="last">平安财富宝送平安 驾照全国通</div>
+								</div>
+								<div class="scoll-item" style="margin-top:0;">
+									<div class="formal">常识</div>
+									<div class="last">平安财富宝送平安 驾照全国通</div>
+								</div>
+							</div>-->
+								</div>
+							</div>
+						</div>
+						<div style="width:100%;height:4vw;border-top:1px solid #e7e7e7;background:#f5f5f5"></div>
+						<!--轮播-->
+						<div class="swiper-container" id="lunbo">
+							<div class="swiper-wrapper">
+								<!--<div class="swiper-slide"><img src="image/123456.jpg" /></div>
+								<div class="swiper-slide"><img src="image/123456.jpg" /></div>
+								<div class="swiper-slide"><img src="image/123456.jpg" /></div>
+								<div class="swiper-slide"><img src="image/123456.jpg" /></div>-->
+							</div>
+						</div>
+						<!--生活助手-->
+						<div id="live">
+							<div class="backer"></div>
+							<div class="tiper" id="unlog">
+								<!--<span>登陆获取生活助手信息</span>-->
+								<span style="display: none;">距离上次洗车已经过去&nbsp;<span id="lifepass">0</span>&nbsp;天了</span>
+								<span style="display: none;">你还有&nbsp;<span id="lifeleft">0</span>&nbsp;张优惠券待使用</span>
+								<div class="no">您还未登录</div>
+							</div>
+							<!--<div class="tiper" id="loggedlife" style="display: block;">
+								<span>距离上次洗车已经过去&nbsp;<span id="lifepass">0</span>&nbsp;天了</span>
+								<span>你还有&nbsp;<span id="lifeleft">0</span>&nbsp;张优惠券待使用</span>
+								<div class="no" style="display: none;">您还未登录</div>
+							</div>-->
+						</div>
+						<!--门店-->
+						<div id="doors">
+							<div class="span">门店列表</div>
+							<div id="bannerarea">
+								<ul id="li">
+									<li id="bar0" onclick="bindevents(0)">全城</li>
+									<li id="bar1" onclick="bindevents(1)">全部分类</li>
+									<li id="bar2" onclick="bindevents(2)">距离最近</li>
+								</ul>
+							</div>
+
+							<div class="door_container" id="brandlists">
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!--签到页-->
+			<div id="tabbar-with-chat" class="mui-control-content">
+			</div>
+			<!--我的页-->
+			<div id="tabbar-with-map" class="mui-control-content" style="z-index: 20;">
+				<div class="mine">
+					<div style="height: 15vw;width: 100vw;"></div>
+					<div id="head" onclick="showvalidopen('page/userinfo.html')"><img src="image/54.png" /></div>
+					<div id="username">请登录</div>
+					<div id="level"></div>
+					<div class="linee">
+						<div class="le-line"></div>
+					</div>
+					<div id="diste" class="diste" onclick="openW('page/rule.html')"></div>
+				</div>
+				<div id="ji-quan">
+					<div class="jiquans" onclick="jumpLogin('page/jifen.html')">
+						<div class="jifen">积分</div>
+						<span><span id="points">0</span>分</span>
+					</div>
+					<div class="jiquans" onclick="jumpLogin('page/service_card.html')">
+						<div class="quan">小诺券</div>
+						<span><span id="ticketnum">0</span>张</span>
+					</div>
+				</div>
+				<div id="order-msg">
+					<div class="line line1" onclick="jumpLogin('page/qichebaoxianjisuan.html')">保险计算器</div>
+					<div class="line line2" onclick="kefu()">小诺客服 </div>
+					<div class="line line3" onclick="jumpLogin('page/set.html')">设置 </div>
+				</div>
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#tabbar">
+				<span class="mui-icon first"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" href="javascript:void(0);">
+				<span class="mui-icon second"></span>
+				<span class="mui-tab-label">签到</span>
+			</a>
+			<a class="mui-tab-item" href="#tabbar-with-map">
+				<span class="mui-icon third"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div onclick="signedpop()" style="position: fixed;bottom: 0; width: calc(100vw/3); height: 50px;z-index: 999;margin-left: calc(50vw - 100vw/6);">
+		</div>
+		<div id="popsign" class="mui-popover" style="height: 410px; width: 300px;position: absolute;top: calc((100vh - 410px) / 2); left: calc((100vw - 300px) / 2); text-align: center;">
+			<div class="mui-row" style="background-color: #ed492d; border-radius:7px 5px 0 0;padding-bottom: 20px;">
+				<div class="mui-row" style="margin-top: 10px;">
+					<div class="mui-col-sm-1 mui-col-xs-1"></div>
+					<div class="mui-col-sm-3 mui-col-xs-3">
+						<h5 class="mui-pull-right" style="color: white;">========</h5>
+					</div>
+					<div class="mui-col-sm-4 mui-col-xs-4">
+						<h4 style="color: white;font-weight: normal;">签到成功</h4>
+					</div>
+					<div class="mui-col-sm-3 mui-col-xs-3">
+						<h5 class="mui-pull-left" style="color: white;">========</h5>
+					</div>
+					<div class="mui-col-sm-1 mui-col-xs-1"></div>
+				</div>
+				<div class="mui-row" style="margin-top: 5px;">
+					<img src="image/76.png" style="width: 60%;" />
+				</div>
+			</div>
+			<div class="mui-row" style="padding: 10px;">
+				<div class="mui-row">
+					<div class="mui-col-sm-4 mui-col-xs-4">
+						<img src="image/79.png" id="sign1" style="width: 60%;" />
+						<h5>第1天</h5>
+					</div>
+					<div class="mui-col-sm-4 mui-col-xs-4">
+						<img src="image/80.png" id="sign2" style="width: 60%;" />
+						<h5>第2天</h5>
+					</div>
+					<div class="mui-col-sm-4 mui-col-xs-4">
+						<img src="image/80.png" id="sign3" style="width: 60%;" />
+						<h5>第3天</h5>
+					</div>
+				</div>
+				<div class="mui-row" style="margin-top: 5px;">
+					<div class="mui-col-sm-4 mui-col-xs-4">
+						<img src="image/80.png" id="sign4" style="width: 60%;" />
+						<h5>第4天</h5>
+					</div>
+					<div class="mui-col-sm-4 mui-col-xs-4">
+						<img src="image/80.png" id="sign5" style="width: 60%;" />
+						<h5>第5天</h5>
+					</div>
+					<div class="mui-col-sm-4 mui-col-xs-4">
+						<img src="image/80.png" id="sign6" style="width: 60%;" />
+						<h5>第6天</h5>
+					</div>
+				</div>
+			</div>
+			<div class="mui-row">
+				<h5>已连续签到<label style="color: red;" id="signnum">1</label>天，连续签到6天可获得10积分</h5>
+			</div>
+		</div>
+
+		<div id="popdist" class="mui-popover" style="height: 180px; width: 97vw; text-align: center;">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view" id="distlist">
+						<li class="mui-table-view-cell active">全城</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="popcat" class="mui-popover" style="height: 180px; width: 97vw; text-align: center;">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper" style="width: 35%; margin: 0;">
+				<div class="mui-scroll">
+					<ul class="mui-table-view" id="catelist1">
+						<li class="mui-table-view-cell active">全部分类</li>
+					</ul>
+				</div>
+			</div>
+			<div class="mui-scroll-wrapper" style="width: 65%; left: 35%; margin: 0;background-color: white;">
+				<div class="mui-scroll">
+					<ul class="mui-table-view" id="catelist2" style="background-color: white;">
+						<li class="mui-table-view-cell">全部</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+		<div id="popleave" class="mui-popover" style="height: 150px; width: 97vw; text-align: center;">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view" id="sortlist">
+						<li class="mui-table-view-cell active" data-sort="1">距离最近</li>
+						<li class="mui-table-view-cell" data-sort="2">销量最多</li>
+						<li class="mui-table-view-cell" data-sort="3">平分最高</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		getuidlogin();
+		$.ajax({
+			type: "get",
+			url: myUrl + "index/slide",
+			async: true,
+			success: function(msg) {
+				console.log(msg);
+				if(msg.status) {
+					var strer = '';
+					$.each(msg.slidelist, function(i, n) {
+						strer += '<div class="swiper-slide"><img src="' + imgUrl + n.thumb + '" onclick="openW(\'' + n.url + '\')"/></div>';
+					});
+					$('#lunbo .swiper-wrapper').append(strer);
+					var swiper = new Swiper('#lunbo ', {
+						paginationClickable: true,
+						loop: true,
+						spaceBetween: 30,
+						autoplay: 2000
+					});
+				} else {
+
+				}
+			}
+		});
+		//		var u = navigator.userAgent;
+		//		if(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) { //安卓手机
+		//			$("#ifr").attr("src", "http://i.tianqi.com/index.php?c=code&id=11&icon=1&site=12");
+		//			$("#ifr").addClass("ifrandroid");
+		//		} else if(u.indexOf('iPhone') > -1) { //苹果手机
+		//			$("#ifr").attr("src", "http://i.tianqi.com/index.php?c=code&id=11&icon=1&site=7");
+		//			$("#ifr").addClass("ifrios");
+		//		} else if(u.indexOf('Windows Phone') > -1) { //winphone手机
+		//
+		//		}
+
+		function appointment() {
+			var str = '';
+			str += '<div class="model_ind">';
+			str += '<div class="outside">';
+			str += '<div class="gai">联系电话</div>';
+			str += '<div class="tel"><a href="tel:0412-12231231">0412-12231231</a></div>';
+			str += '</div></div>';
+			$('body').append(str);
+			$('.model_ind').click(function() {
+				$(this).css('display', 'none');
+			})
+		}
+
+		function rescue() {
+			var str = '';
+			str += '<div class="model_ind">';
+			str += '<div class="outside">';
+			str += '<div class="gai">联系电话</div>';
+			str += '<div class="tel"><a href="tel:0412-12231231">0412-12231231</a></div>';
+			str += '</div></div>';
+			$('body').append(str);
+			$('.model_ind').click(function() {
+				$(this).css('display', 'none');
+			})
+		}
+
+		function kefu() {
+			var str = '';
+			str += '<div class="model_ind">';
+			str += '<div class="outside">';
+			str += '<div class="gai">联系电话</div>';
+			str += '<div class="tel"><a href="tel:0412-12231231">0412-12231231</a></div>';
+			str += '</div></div>';
+			$('body').append(str);
+			$('.model_ind').click(function() {
+				$(this).css('display', 'none');
+			})
+		}
+
+		var geolocation = new BMap.Geolocation();
+		var mygeo = new BMap.Geocoder();
+		geolocation.getCurrentPosition(function(r) {
+			if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+				console.log(r);
+				$(".dingwei").text(r.address.city);
+				//				mygeo.getLocation(r.point, function(rs) {
+				//
+				//				});
+				pcname = r.address.province + r.address.city;
+				privname = r.address.province;
+				cityName = r.address.city;
+				longitude = r.longitude;
+				latitude = r.latitude;
+				localStorage.longitude = longitude;
+				localStorage.latitude = latitude;
+				getdistfromPC();
+				getmerchantcatelist();
+				getstorelist();
+				thirdBar();
+				var citysname = cityName.replace("市", "");
+				$.ajax({
+					type: "GET",
+					url: myUrl + "weather/weather",
+					data: {
+						city: citysname
+					},
+					timeout: 10000,
+					dataType: "json",
+					success: function(json) {
+						if(json.status == 1) {
+							$("#weatherDetail").text(json.list.weather);
+							$("#washcar").text(json.list.washcar);
+						}
+					},
+					error: function(msg) {
+						console.log("错误", "连接服务器异常");
+					}
+				});
+			} else {
+				//				alert('failed'+this.getStatus());
+			}
+		}, {
+			enableHighAccuracy: true
+		});
+
+		function getWeatherrefresh(result) {
+			$(".dingwei").text(result);
+			var cityName = result;
+			if(cityName.indexOf("县") > 0 && cityName.length == 2) {
+				cityName = cityName;
+			} else {
+				cityName = cityName.replace("县", "");
+			}
+			if(cityName.indexOf("市") > 0 && cityName.length == 2) {
+				cityName = cityName;
+			} else {
+				cityName = cityName.replace("市", "");
+			}
+			if(cityName.indexOf("自治区") > 0) {
+				cityName = cityName.replace("自治区", "");
+			}
+			cityName = cityName.replace("自治区", "");
+			if(cityName.indexOf("省") > 0) {
+				cityName = cityName.replace("省", "");
+			}
+			if(cityName.indexOf("市") > 0) {
+				cityName = cityName.replace("市", "");
+			}
+			$.ajax({
+				type: "GET",
+				url: myUrl + "weather/weather",
+				data: {
+					city: cityName
+				},
+				//				timeout: 10000,
+				dataType: "json",
+				success: function(json) {
+					console.log(json);
+					if(json.status == 1) {
+						$("#weatherDetail").text(json.list.weather);
+						$("#washcar").text(json.list.washcar);
+					}
+				},
+				error: function(msg) {
+					console.log("错误", "连接服务器异常");
+				}
+			});
+		}
+
+		function shuaxin(obj) {
+			$("#dwBtn").text(obj);
+			getWeatherrefresh(obj, "reselect");
+		}
+
+		function getuidlogin() {
+			if(localStorage.xnuid) {
+				if(localStorage.xncategory == 1) {
+					$("#head img").attr("src", localStorage.xnuserpic);
+				} else {
+					$("#head img").attr("src", imgUrl + localStorage.xnuserpic);
+				}
+				$(".linee").show();
+				$(".diste").show();
+				if(localStorage.xnlevel == "普通会员") {
+					$("#level").addClass('level1');
+				}
+				if(localStorage.xnlevel == "黄金会员") {
+					$("#level").addClass('level2');
+				}
+				if(localStorage.xnlevel == "白金会员") {
+					$("#level").addClass('level3');
+				}
+				$("#diste").text("距下一等级还差" + localStorage.xncash_points + "积分");
+				$("#ticketnum").text(localStorage.xncard);
+				$("#points").text(localStorage.xnpoints);
+				$("#username").text(localStorage.xnusername);
+				getindexlifeinfo();
+				$('#unlog>span').css('display', 'block');
+				$('.no').css('display', 'none');
+			} else {
+				$("#head img").attr("src", "image/54.png");
+				$("#username").text("请登录");
+				$(".linee").hide();
+				$(".diste").hide();
+				$("#ticketnum").text(0);
+				$("#points").text(0);
+				$('#unlog>span').css('display', 'none');
+				$('.no').css('display', 'block');
+				$('.no').click(function() {
+					openW('page/login.html');
+				})
+			}
+		}
+
+		var ftop;
+		mui.ready(function() {
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: false
+			});
+			ftop = $("#doors").offset().top;
+			$("#maincontent").scroll(function(e) {
+				if(($("#doors").offset().top + 35) < 0) {
+					$("#li").css({
+						position: 'fixed',
+						top: 0
+					});
+					$("#brandlists").css('margin-top','14vw');
+					$("body").append($("#li"));
+				} else {
+					$("#li").css({
+						position: 'relative',
+						top: 0
+					});
+					$("#brandlists").css('margin-top','0');
+					$("#bannerarea").append($("#li"));
+				}
+			});
+			mui("#doors").pullToRefresh({
+				up: {
+					callback: function() {
+						var self = this;
+						getstorelist(self);
+					}
+				}
+			});
+			
+
+		});
+
+		function gobranddetail(obj) {
+			localStorage.findexbid = $(obj).data("sid");
+			mui.openWindow({
+				url: "page/storedetail.html",
+				id: "storedetail"
+			});
+		}
+
+		function bindevents(i) {
+			$(window).scrollTop($('#li').offset().top - 35);
+			mui("#maincontent").scroll().scrollTo(0, 0 - (ftop + 35), 100);
+			setTimeout(function() {
+				switch(i) {
+					case 0:
+						mui('#popdist').popover('toggle', document.getElementById("bar0"));
+						break;
+					case 1:
+						mui('#popcat').popover('toggle', document.getElementById("bar1"));
+						break;
+					case 2:
+						mui('#popleave').popover('toggle', document.getElementById("bar2"));
+						break;
+				}
+			}, 150);
+
+		}
+
+		//小诺焦点
+		$.ajax({
+			type: "get",
+			url: myUrl + "focus/index",
+			async: true,
+			success: function(msg) {
+				if(msg.status) {
+					console.log(msg);
+					var leng = msg.list.length;
+					var datas = msg.list;
+					var lengeg = Math.ceil(msg.list.length / 2);
+					console.log(lengeg);
+					for(var i = 0; i < lengeg; i++) {
+						var str = '';
+						str += '<div class="swiper-slide">';
+						str += '	<div class="scoll-item">';
+						str += '		<div class="formal">' + datas[2 * i].biaoqian + '</div>';
+						str += '		<div class="last">' + datas[2 * i].name + '</div>';
+						str += '	</div>';
+						if(leng - 2 * i == 1) {} else {
+							str += '<div class="scoll-item" style="margin-top:0;">';
+							str += '	<div class="formal">' + datas[2 * i + 1].biaoqian + '</div>';
+							str += '	<div class="last">' + datas[2 * i + 1].name + '</div>';
+							str += '</div>';
+						}
+						str += '</div>';
+						$('#xiaonuoFocus').append(str);
+					}
+					var swiper = new Swiper('.scoll ', {
+						pagination: '.swiper-pagination',
+						paginationClickable: true,
+						loop: true,
+						spaceBetween: 30,
+						autoplay: 1500,
+						direction: 'vertical'
+					});
+				} else {
+
+				}
+			}
+		});
+		//点击时间 如果未登录 跳登录页
+		function jumpLogin(i) {
+			if(localStorage.xnuid) {
+				openW(i);
+			} else {
+				openW('page/login.html');
+			}
+		}
+	</script>
+
+</html>

@@ -1,0 +1,520 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			#photo {
+				width: 100vw;
+				height: 22vw;
+				background: #ffffff;
+				margin-bottom: 3vw;
+				overflow: hidden;
+			}
+			
+			#photo .text {
+				width: 50vw;
+				padding: 5vw;
+				height: 12vw;
+				line-height: 12vw;
+				font-size: 4vw;
+				float: left;
+			}
+			
+			#photo .photo {
+				width: 22vw;
+				height: 22vw;
+				padding: 5vw;
+				float: right;
+				overflow: hidden;
+			}
+			
+			#photo .photo img {
+				width: 100%;
+				height: 100%;
+				border-radius: 100%;
+			}
+			
+			#other {
+				overflow: hidden;
+				margin-bottom: 3vw;
+			}
+			
+			#le {
+				width: 23vw;
+				margin-left: 38vw;
+			}
+			
+			.le1 {
+				background: url(../image/51.png) no-repeat center left;
+				background-size: 5vw 5vw;
+			}
+			
+			.line {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 13vw;
+				border-bottom: 1px solid #E5E5E5;
+				overflow: hidden;
+				background: #FFFFFF;
+			}
+			
+			.line .left {
+				display: block;
+				float: left;
+				width: 20vw;
+				height: 13vw;
+				line-height: 13vw;
+				font-size: 4vw;
+				color: #3F3F3F;
+			}
+			
+			.arrow {
+				width: 5vw;
+				height: 13vw;
+				float: right;
+				background: url(../image/30.png) center center no-repeat;
+				background-size: 2vw 4.5vw;
+			}
+			
+			.inline {
+				width: 61vw;
+				height: 13vw;
+				line-height: 13vw;
+				float: left;
+				font-size: 4vw;
+				color: #3F3F3F;
+				overflow: hidden;
+				text-align: right;
+				margin-right: 4vw;
+			}
+			
+			#pass-exit {
+				background: #ffffff;
+				width: 100vw;
+				height: calc(100vh - 82vw - 44px - 45px);
+			}
+			
+			.btn {
+				width: 90vw;
+				height: 13vw;
+				margin: 3vw 5vw;
+				line-height: 13vw;
+				border: 1px solid #E5E5E5;
+				text-align: center;
+				font-size: 4vw;
+				color: #fff;
+				margin: 0 auto;
+				background: #ec482c;
+				border-radius: 1.5vw;
+			}
+			
+			#pass {
+				width: 61vw;
+				height: 13vw;
+				line-height: 13vw;
+				float: left;
+				font-size: 4vw;
+				color: #3F3F3F;
+				overflow: hidden;
+				text-align: right;
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人中心</h1>
+		</header>
+		<div class="mui-content">
+			<div id="photo">
+				<div class="text">头像</div>
+				<div class="photo">
+					<img src="../image/54.png" id="headImage" />
+				</div>
+
+			</div>
+			<div id="other">
+				<div class="line" onclick="changeName()">
+					<span class="left">登录名</span>
+					<div id="nickname" class="inline"></div>
+					<div class="arrow"></div>
+				</div>
+				<div class="line">
+					<span class="left">绑定手机</span>
+					<div id="tel" class="inline"></div>
+					<div class="arrow"></div>
+				</div>
+				<div class="line" onclick="openW('rule.html')">
+					<span class="left" >会员等级</span>
+					<div id="le" class="inline le1"></div>
+					<div class="arrow"></div>
+				</div>
+				<div class="line" onclick="login('qq')">
+					<span class="left">绑定qq</span>
+					<div id="qq" class="inline"></div>
+					<div class="arrow"></div>
+				</div>
+				<div class="line" onclick="login('weixin')">
+					<span class="left">绑定微信</span>
+					<div id="weixin" class="inline"></div>
+					<div class="arrow"></div>
+				</div>
+			</div>
+			<div id="pass-exit">
+				<div class="line" onclick="openW('againPwd.html')">
+					<span class="left">密码设置</span>
+					<input id="pass" type="text" disabled="disabled" value="******" />
+					<div class="arrow"></div>
+				</div>
+				<div style="height: 3vw;width: 100%;"></div>
+			</div>
+		</div>
+		<div class="model" style="display: none;">
+			<div class="outside">
+				<div class="confires">修改用户名</div>
+				<input type="text" name="" id="changeUserName" class="inputs" />
+				<div class="btns">
+					<div class="dels">取消</div>
+					<div class="confi">确定</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function changeName() {
+				$('.model').css('display', 'block');
+
+				$('.confi').click(function() {
+//					$.ajax({
+//						type:"get",
+//						url:"",
+//						async:true
+//					});
+					$('.model').css('display', 'none');
+				});
+				$('.dels').click(function() {
+					$('.model').css('display', 'none');
+				})
+			}
+		</script>
+		<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#">拍照</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#">从相册选择</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#picture"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var auths = {};
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+
+			getuserinfo();
+
+			//logoutAll();
+			function plusReady() {
+				// 获取登录认证通道
+				plus.oauth.getServices(function(services) {
+					var content = document.getElementById('dcontent');
+					for(var i in services) {
+						var service = services[i];
+						console.log(service.id + ": " + service.authResult + ", " + service.userInfo);
+						auths[service.id] = service;
+					}
+				}, function(e) {
+					//					outLine("获取登录认证失败：" + e.message);
+				});
+				document.getElementById('headImage').addEventListener('tap', function() {
+					if(mui.os.plus) {
+						var a = [{
+							title: "拍照"
+						}, {
+							title: "从手机相册选择"
+						}];
+						plus.nativeUI.actionSheet({
+							title: "修改用户头像",
+							cancel: "取消",
+							buttons: a
+						}, function(b) {
+							/*actionSheet 按钮点击事件*/
+							switch(b.index) {
+								case 0:
+									break;
+								case 1:
+									getImage();
+									/*拍照*/
+									break;
+								case 2:
+									galleryImg();
+									/*打开相册*/
+									break;
+								default:
+									break;
+							}
+						})
+					}
+				}, false);
+			}
+
+			// 登录认证
+			function login(id) {
+
+				//注销登陆
+				logoutAll();
+
+				console.log("----- 登录认证 -----");
+				var auth = auths[id];
+				if(auth) {
+					var w = null;
+					if(plus.os.name == "Android") {
+						w = plus.nativeUI.showWaiting();
+					}
+					document.addEventListener("pause", function() {
+						setTimeout(function() {
+							w && w.close();
+							w = null;
+						}, 2000);
+					}, false);
+					auth.login(function() {
+						w && w.close();
+						w = null;
+						console.log("登录认证成功：");
+						//						console.log(JSON.stringify(auth.authResult));
+						userinfo(auth, id);
+					}, function(e) {
+						w && w.close();
+						w = null;
+						console.log("登录认证失败：");
+						console.log("[" + e.code + "]：" + e.message);
+						plus.nativeUI.alert("详情错误信息请参考授权登录(OAuth)规范文档：http://www.html5plus.org/#specification#/specification/OAuth.html", null, "登录失败[" + e.code + "]：" + e.message);
+					});
+				} else {
+					console.log("无效的登录认证通道！");
+					plus.nativeUI.alert("无效的登录认证通道！", null, "登录");
+				}
+			}
+
+			// 获取用户信息
+			function userinfo(a, loginType) {
+				console.log("----- 获取用户信息 -----");
+				a.getUserInfo(function() {
+					console.log("获取用户信息成功：");
+					console.log(JSON.stringify(a.userInfo));
+					var nickname = a.userInfo.nickname || a.userInfo.name || a.userInfo.miliaoNick;
+					//					plus.nativeUI.alert("欢迎“" + nickname + "”登录！");
+
+					var openid = "";
+					if(loginType == "weixin") {
+						openid = a.userInfo.openid;
+					}
+					if(loginType == "qq") {
+						openid = a.authResult.openid;
+					}
+					$.ajax({
+						type: "POST",
+						url: "http://192.168.51.114:80/api/login/bind",
+						data: {
+							bindtype: loginType,
+							openid: openid,
+							uid: localStorage.xnuid
+						},
+						timeout: 10000,
+						dataType: "json",
+						success: function(json) {
+							alert(loginType);
+							if(json.status == 1) {
+								mui.toast("绑定成功");
+								if(loginType == "weixin") {
+									$("#weixin").text("已绑定");
+								} else if(loginType == "qq") {
+									$("#qq").text("已绑定");
+								}
+							} else if(json.status == 0) {
+								mui.toast("登录失败");
+							} else if(json.status == 2) {
+								if(loginType == "weixin") {
+									mui.toast("该账号已绑定微信");
+								} else if(loginType == "qq") {
+									mui.toast("该账号已绑定QQ");
+								}
+							} else if(json.status == 3) {
+								if(loginType == "weixin") {
+									mui.toast("该微信已绑定其他账号");
+								} else if(loginType == "qq") {
+									mui.toast("该QQ已绑定其他账号");
+								}
+							}
+						},
+						error: function(msg) {
+							console.log("错误", "连接服务器异常");
+						}
+					});
+				}, function(e) {
+					console.log("获取用户信息失败：");
+					console.log("[" + e.code + "]：" + e.message);
+					plus.nativeUI.alert("获取用户信息失败！", null, "登录");
+				});
+			}
+
+			// 注销登录
+			function logoutAll() {
+				console.log("----- 注销登录认证 -----");
+				for(var i in auths) {
+					logout(auths[i]);
+				}
+			}
+
+			function logout(auth) {
+				auth.logout(function() {
+					console.log("注销\"" + auth.description + "\"成功");
+				}, function(e) {
+					console.log("注销\"" + auth.description + "\"失败：" + e.message);
+				});
+			}
+
+			//拍照 
+			function getImage() {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+						$("#headImage").attr("src", s);
+						uploadHead(s);
+						/*上传图片*/
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("error" + s);
+				}, {
+					filename: "_doc/head.png"
+				} );
+			}
+
+			//本地相册选择 
+			function galleryImg() {
+				plus.gallery.pick(function(a) {
+					plus.io.resolveLocalFileSystemURL(a, function(entry) {
+						plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+							root.getFile("head.png", {}, function(file) {
+								//文件已存在 
+								file.remove(function() {
+									console.log("file remove success");
+									entry.copyTo(root, 'head.png', function(e) {
+										var e = e.fullPath + "?version=" + new Date().getTime();
+										$("#headImage").attr("src", e);
+										uploadHead(e);
+										/*上传图片*/
+										//变更大图预览的src 
+										//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现 
+									}, function(e) {
+										console.log('copy image fail:' + e.message);
+									});
+								}, function() {
+									console.log("delete image fail:" + e.message);
+								});
+							}, function() {
+								//文件不存在 
+								entry.copyTo(root, 'head.png', function(e) {
+									var path = e.fullPath + "?version=" + new Date().getTime();
+									$("#headImage").attr("src", path);
+									uploadHead(path);
+									/*上传图片*/
+								}, function(e) {
+									console.log('copy image fail:' + e.message);
+								});
+							});
+						}, function(e) {
+							console.log("get _www folder fail");
+						});
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(a) {}, {
+					filter: "image"
+				});
+			}
+
+			//上传头像图片 
+			function uploadHead(imgPath) {
+				console.log("imgPath = " + imgPath);
+				var image = new Image();
+				image.src = imgPath;
+				var imgData = '';
+				image.onload = function() {
+					imgData = getBase64Image(image);
+					up(imgData);
+				};
+
+			}
+
+			function up(imgData) {
+				$.ajax({
+					type: "post",
+					url: myUrl + "login/portrait",
+					async: true,
+					data: {
+						uid: 2,
+						photo: imgData,
+					},
+					// timeout: 10000,
+					success: function(msg) {
+						mui.toast('上传成功！');
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						mui.toast('网络异常，请稍后再试！');
+					}
+				});
+			}
+			//将图片压缩转成base64 
+			function getBase64Image(img) {
+				var canvas = document.createElement("canvas");
+				var width = img.width;
+				var height = img.height;
+				// calculate the width and height, constraining the proportions 
+				if(width > height) {
+					if(width > 100) {
+						height = Math.round(height *= 100 / width);
+						width = 100;
+					}
+				} else {
+					if(height > 100) {
+						width = Math.round(width *= 100 / height);
+						height = 100;
+					}
+				}
+				canvas.width = width;
+				/*设置新的图片的宽度*/
+				canvas.height = height;
+				/*设置新的图片的长度*/
+				var ctx = canvas.getContext("2d");
+				ctx.drawImage(img, 0, 0, width, height);
+				/*绘图*/
+				var dataURL = canvas.toDataURL("image/png", 0.8);
+				return dataURL;
+			}
+		</script>
+	</body>

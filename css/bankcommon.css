@@ -1,0 +1,124 @@
+
+.mui-input-row .label-img {
+	height: 50%;
+	width: 50%;
+	max-height: 20px;
+	max-width: 20px;
+	position: absolute;
+	margin-top: 2vh;
+	margin-left: 3vw;
+}
+
+.mui-input-row .label-input {
+	height: 50px;
+	text-indent: 25px;
+	border: none;
+}
+
+.mui-input-row span {
+	line-height: 1.5;
+}
+
+/*全宽按钮*/
+.mui-btn-fullw {
+	width: 100%;
+}
+
+/*自定义按钮--*/
+.mui-btn-theme-primary {
+	height: 50px;
+	color: #fff;
+	border: 1px solid #034895;
+	background-color: #034895
+}
+.mui-btn-theme-primary.mui-active:enabled,
+.mui-btn-theme-primary:enabled:active {
+	color: #fff;
+	border: 1px solid #2952a4;
+	background-color: #2952a4
+}
+.mui-btn-theme-outlined.mui-btn-primary {
+	color: #2952a4
+}
+.mui-btn-theme-outlined.mui-btn-theme-primary:enabled:active {
+	color: #fff
+}
+.mui-btn-theme-primary:enabled:active .mui-badge-inverted {
+	color: #fff
+}
+
+/*orange样式*/
+.mui-btn-theme-orange {
+	height: 50px;
+	color: #fff;
+	border: 1px solid #034895;
+	background-color: #034895
+}
+.mui-btn-theme-orange.mui-active:enabled,
+.mui-btn-theme-orange:enabled:active {
+	color: #fff;
+	border: 1px solid #ffb937;
+	background-color: #ffb937
+}
+.mui-btn-theme-outlined.mui-btn-orange {
+	color: #ffb937
+}
+.mui-btn-theme-outlined.mui-btn-theme-orange:enabled:active {
+	color: #fff
+}
+.mui-btn-theme-orange:enabled:active .mui-badge-inverted {
+	color: #fff
+}
+
+/*orangered样式*/
+.mui-btn-theme-orared {
+	height: 50px;
+	color: #fff;
+	border: 1px solid #ed492d;
+	background-color: #ed492d
+}
+.mui-btn-theme-orared.mui-active:enabled,
+.mui-btn-theme-orared:enabled:active {
+	color: #fff;
+	border: 1px solid #ed6750;
+	background-color: #ed6750
+}
+.mui-btn-theme-outlined.mui-btn-orared {
+	color: #ed6750
+}
+.mui-btn-theme-outlined.mui-btn-theme-orared:enabled:active {
+	color: #fff
+}
+.mui-btn-theme-orared:enabled:active .mui-badge-inverted {
+	color: #fff
+}
+
+/*自定义按钮------------end*/
+
+.theme-bank-margt5 {
+	margin-top: 5px;
+}
+
+.theme-bank-margt10 {
+	margin-top: 10px;
+}
+
+.theme-bank-margt30 {
+	margin-top: 12px;
+}
+
+.theme-bank-margr5 {
+	margin-right: 5px;
+}
+
+.theme-row-paded {
+	padding: 15px 10px;
+}
+
+.theme-inputrow-paded {
+	padding: 7px 10px;
+}
+
+.theme-bg-white {
+	background-color: #FFFFFF;
+}

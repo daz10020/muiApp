@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			#other {
+				overflow: hidden;
+				margin-bottom: 3vw;
+			}
+			
+			.line {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 13vw;
+				border-bottom: 1px solid #E5E5E5;
+				overflow: hidden;
+				background: #FFFFFF;
+			}
+			
+			.line .left {
+				display: block;
+				float: left;
+				width: 25vw;
+				height: 13vw;
+				line-height: 13vw;
+				font-size: 4vw;
+				color: #3F3F3F;
+			}
+			
+			.arrow {
+				width: 5vw;
+				height: 13vw;
+				float: right;
+				background: url(../image/30.png) center center no-repeat;
+				background-size: 2vw 4.5vw;
+			}
+			
+			.inline {
+				width: 56vw;
+				height: 13vw;
+				line-height: 13vw;
+				float: left;
+				font-size: 4vw;
+				color: #3F3F3F;
+				overflow: hidden;
+				text-align: right;
+				margin-right: 4vw;
+			}
+			
+			.btn {
+				width: 90vw;
+				height: 13vw;
+				margin: 3vw 5vw;
+				line-height: 13vw;
+				border: 1px solid #E5E5E5;
+				text-align: center;
+				font-size: 4vw;
+				color: #fff;
+				margin: 0 auto;
+				background: #ec482c;
+				border-radius: 1.5vw;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置</h1>
+		</header>
+		<div class="mui-content">
+			<div id="other">
+				<div class="line" onclick="openW('about_us.html')">
+					<span class="left">关于我们</span>
+					<!--<div id="qq" class="inline">已绑定</div>-->
+					<div class="arrow"></div>
+				</div>
+				<div class="line" onclick="mui.toast('已是最新版本！')">
+					<span class="left">检查更新</span>
+					<!--<div id="weixin" class="inline">未绑定</div>-->
+					<div class="arrow"></div>
+				</div>
+			</div>
+			<div class="btn">退出登录</div>
+		</div>
+		<div class="model" style="display: none;">
+			<div class="outside">
+				<div class="confires">确定 退出登录？</div>
+				<div class="btns">
+					<div class="dels">取消</div>
+					<div class="confi">确定</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$('.btn').click(function() {
+				$('.model').css('display', 'block')
+			})
+			$('.confi').click(function() {
+				loginout();
+			});
+			$('.dels').click(function() {
+				$('.model').css('display', 'none');
+			})
+
+			function loginout() {
+				localStorage.removeItem('xnuid');
+				localStorage.removeItem('xnusername');
+				localStorage.removeItem('xnuserpic');
+				localStorage.removeItem('xntotalbonus');
+				localStorage.removeItem('xntelephone');
+				localStorage.removeItem('xncard');
+				localStorage.removeItem('xnlevel');
+				localStorage.removeItem('xncategory');
+				localStorage.removeItem('xncash_points');
+				localStorage.removeItem('xnpoints');
+				if (plus) {
+					var parentWin = plus.webview.getWebviewById(plus.runtime.appid);
+					parentWin.evalJS("getuidlogin()");
+				}
+   				mui.back();
+			}
+		</script>
+	</body>
+
+</html>

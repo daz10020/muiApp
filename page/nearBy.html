@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+
+		<style type="text/css">
+			.mui-bar-nav {
+				top: 0;
+				-webkit-box-shadow: 0 1px 6px #ccc !important;
+				box-shadow: 0 1px 6px #ccc !important;
+			}
+			
+			.fullpanel {
+				min-height: calc(100vh - 44px) !important;
+			}
+			
+			.mui-btn.mui-btn-link:active {
+				color: #464646;
+			}
+			
+			.mui-btn.mui-btn-link {
+				border: none;
+				color: #464646;
+			}
+			
+			.mui-btn.mui-btn-link:active {
+				color: #464646;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">附近门店</h1>
+			<button id="switchbtn" class="mui-btn  mui-pull-right mui-btn-link" onclick="switchlist()">列表</button>
+		</header>
+		<div class="mui-content">
+			<div id="map" class="fullpanel"></div>
+			<div id="storelist" class="fullpanel" style="background-color: white;display: none;">
+				<div class="door_container">
+					<!--<div class="items" onclick="openW('storedetail.html')">
+						<div class="img"><img src="../image/110.jpg" /></div>
+						<div class="details">
+							<div class="name">汽车美容装饰</div>
+							<div class="wash jingxi"></div>
+							<div class="count">4分</div>
+							<div class="status">营业中</div>
+							<div class="now">最近50单</div>
+							<div class="addr">鞍山市铁西区兴盛路168号</div>
+							<div class="distance">1025km</div>
+						</div>
+					</div>
+					<div class="items">
+						<div class="img"><img src="../image/110.jpg" /></div>
+						<div class="details">
+							<div class="name">汽车美容装饰</div>
+							<div class="wash jingxi"></div>
+							<div class="count">4分</div>
+							<div class="status">营业中</div>
+							<div class="now">最近50单</div>
+							<div class="addr">鞍山市铁西区兴盛路168号</div>
+							<div class="distance">1025km</div>
+						</div>
+					</div>
+					<div class="items">
+						<div class="img"><img src="../image/110.jpg" /></div>
+						<div class="details">
+							<div class="name">汽车美容装饰</div>
+							<div class="wash jingxi"></div>
+							<div class="count">4分</div>
+							<div class="status">营业中</div>
+							<div class="now">最近50单</div>
+							<div class="addr">鞍山市铁西区兴盛路168号</div>
+							<div class="distance">1025km</div>
+						</div>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zpGcnepYgbD4e2Qs57uSn22welOjgkCo"></script>
+<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	function switchlist() {
+		if(!$("#map").is(":hidden")) {
+			$("#switchbtn").text("地图");
+			$("#map").hide(300);
+			$("#storelist").show(300);
+		} else {
+			$("#switchbtn").text("列表");
+			$("#map").show(300);
+			$("#storelist").hide(300);
+		}
+	}
+
+	var centerp;
+	var map = new BMap.Map("map"); // 创建Map实例
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r) {
+		if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+			centerp = [r.point.lng, r.point.lat];
+			var point = new BMap.Point(r.point.lng, r.point.lat); // 创建点坐标
+			var marker = new BMap.Marker(new BMap.Point(r.point.lng, r.point.lat));
+			map.centerAndZoom(point, 19);
+			map.addOverlay(marker);
+			map.enableScrollWheelZoom(); //启用滚轮放大缩小
+//			console.log('您的位置：' + r.point.lng + ',' + r.point.lat);
+			$.ajax({
+				type: "post",
+				url: myUrl + "brand/indexnopage",
+				data: {
+					longitude: localStorage.longitude,
+					latitude: localStorage.latitude,
+					cityinfo: localStorage.pcdname
+	//				lat: centerp[1],
+	//				lng: centerp[0]
+				},
+				timeout: 10000,
+				dataType: "json",
+				success: function(data) {
+					console.log(data);
+					if(data.status == 1) {
+						$("#storelist .door_container").empty();
+						for(var i = 0; i < data.brandlist.length; i++) {
+							var point = new BMap.Point(data.brandlist[i].longitude, data.brandlist[i].latitude);
+							addMarker(point, data.brandlist[i].brand_name, data.brandlist[i].brand_id);
+							addstorelist(data.brandlist[i]);
+						}
+					}
+				},
+				error: function(msg) {
+					console.log("错误", "连接服务器异常");
+				}
+			});
+		} else {
+			//				alert('failed'+this.getStatus());
+		}
+	}, {
+		enableHighAccuracy: true
+	});
+
+	map.addEventListener("tilesloaded", function() {
+		
+	});
+
+	function addMarker(point, ptitle, pid) {
+		var marker = new BMap.Marker(point, {
+			title: ptitle
+		});
+		marker.sid = pid;
+		marker.addEventListener("click", function(e) {
+			var p = e.target;
+			console.log("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat + "    idsss=" + p.sid);
+			//			localStorage.fromnearbypid = p.pid;
+			localStorage.findexbid = p.sid;
+			mui.openWindow({
+				url: "storedetail.html",
+				id: "storedetail",
+				styles: {
+					popGesture: "none"
+				},
+				show: {
+					autoShow: true, //页面loaded事件发生后自动显示，默认为true  
+					aniShow: "slide-in-right", //页面显示动画，默认为”“；  
+					duration: 200 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；  
+				},
+				waiting: {
+					autoShow: false
+				}
+			});
+		});
+		map.addOverlay(marker);
+	}
+
+	function addstorelist(data) {
+		var range = "";
+		switch(data.star) {
+			case 0:
+				range = "28_5.png";
+				break;
+			case 1:
+				range = "28_4.png";
+				break;
+			case 2:
+				range = "28_3.png";
+				break;
+			case 3:
+				range = "28_2.png";
+				break;
+			case 4:
+				range = "28_1.png";
+				break;
+			case 5:
+				range = "28.png";
+				break;
+		}
+		var str = '<div class="items" onclick="openwithid(\'storedetail.html\', \'' + data.brand_id + '\')">' +
+			'<div class="img"><img src="' + imgUrl + data.brand_image + '" /></div>' +
+			'<div class="details">' +
+			'<div class="name">' + data.brand_name + '</div>' +
+			'<div class="wash "></div>' +
+			'<div class="count" style="background:none">' +
+			'<img src="../image/' + range + '" class="mui-pull-left" style="width: 100%; max-width: 100px; margin-top: 1px;">' + data.star + '分</div>' +
+			'<div class="status">' + data.switchh + '</div>' +
+			'<div class="now">最近' + data.sale + '单</div>' +
+			'<div class="addr">' + data.address + '</div>' +
+			'<div class="distance">' + data.formatted + 'km</div>' +
+			'</div>' +
+			'</div>';
+
+		$("#storelist .door_container").append(str);
+		if(data.type == "精洗") {
+			$('.wash').addClass('jingxi');
+		}else {
+			$('.wash').addClass('puxi');
+		}
+	}
+	
+	function openwithid(url, id) {
+		localStorage.findexbid = id;
+		mui.openWindow({
+			id: "storedetail",
+			url: url,
+			styles: {
+				popGesture: "none"
+			},
+			show: {
+		        autoShow: true, //页面loaded事件发生后自动显示，默认为true  
+		        aniShow: "slide-in-right", //页面显示动画，默认为”“；  
+		        duration: 200 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；  
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
+	}
+</script>

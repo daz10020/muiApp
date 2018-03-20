@@ -1,0 +1,440 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link href="../css/pullrefresh.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/dropload.css" />
+	</head>
+
+	<body>
+		<style>
+			.mui-content {
+				width: 100vw;
+				background: none;
+				/*height: 100vh;*/
+			}
+			
+			#ban {
+				width: 100vw;
+				height: 10vw;
+				position: fixed;
+				top: 44px;
+				border-bottom: 1px solid #e5e5e5;
+				background: #f5f5f5;
+			}
+			
+			#ban li {
+				width: calc(100vw/3);
+				float: left;
+				height: 6vw;
+				margin: 2vw 0;
+				border-right: 1px solid #e5e5e5;
+			}
+			
+			#ban li.click div {
+				border-bottom: 2px solid #034895;
+			}
+			
+			#ban li:last-child {
+				border-right: none;
+			}
+			/*#ban li:first-child div {
+				width: 9vw;
+			}*/
+			
+			#ban li div {
+				width: 20vw;
+				height: 8vw;
+				text-align: center;
+				margin: 0 auto;
+				border-bottom: none;
+			}
+			
+			#list {
+				width: 100vw;
+				overflow: auto;
+				margin-top: 55px;
+			}
+			
+			.itemer {
+				width: 100vw;
+				margin: 0 auto;
+				background: #fff;
+				overflow: hidden;
+				/*margin-bottom: 2vw;*/
+				/*height: 28vw;*/
+			}
+			
+			.onum {
+				width: 70vw;
+				;
+				padding: 0 5vw;
+				height: 9vw;
+				line-height: 12vw;
+				color: #b2b2b2;
+				float: left;
+			}
+			
+			.oname {
+				width: 70vw;
+				height: 10vw;
+				float: left;
+				line-height: 8vw;
+				padding: 0 5vw;
+			}
+			
+			.point {
+				width: 30vw;
+				height: 9vw;
+				float: left;
+				line-height: 12vw;
+				padding-right: 5vw;
+				text-align: right;
+				color: #b2b2b2;
+			}
+			
+			.point0 {
+				width: 30vw;
+				height: 10vw;
+				float: left;
+				line-height: 8vw;
+				padding-right: 5vw;
+				text-align: right;
+			}
+			
+			.point.stats1 {
+				color: #b2b2b2;
+			}
+			
+			.btn {
+				width: 100vw;
+				height: 11vw;
+				float: left;
+				background: #f5f5f5;
+				overflow: hidden;
+				padding: 0 5vw;
+			}
+			
+			.btn .stats {
+				float: left;
+				color: #666666;
+				height: 11vw;
+				line-height: 11vw;
+			}
+			
+			.btn .quxiao {
+				float: right;
+				display: block;
+				width: 18vw;
+				height: calc(8vw - 2px);
+				line-height: calc(8vw - 2px);
+				border: 1px solid #c7c7c7;
+				border-radius: 5px;
+				margin-top: 1.5vw;
+				margin-left: 4vw;
+				text-align: center;
+				color: #717171;
+			}
+			
+			.btn .see {
+				float: right;
+				display: block;
+				height: 11vw;
+				width: 18vw;
+				line-height: 11vw;
+				text-align: center;
+				height: calc(8vw - 2px);
+				line-height: calc(8vw - 2px);
+				border: 1px solid #ffa500;
+				border-radius: 5px;
+				margin-top: 1.5vw;
+				color: #ffa500;
+			}
+		</style>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left retu"></a>
+			<h1 class="mui-title">消费记录</h1>
+			<a href="#popscreen" class="mui-pull-right" style="line-height: 42px; font-size: 16px; color: #000000;">筛选</a>
+		</header>
+		<div class="mui-content">
+			<ul id="ban">
+				<li data-click="0" class="click">
+					<div>全部</div>
+				</li>
+				<li data-click="1">
+					<div>已使用</div>
+				</li>
+				<li data-click="2">
+					<div>已取消</div>
+				</li>
+			</ul>
+			<div id="list">
+				<div id="Item" class="Item">
+					<!--<div class="itemer">
+						<div style="overflow:hidden;">
+							<div class="onum">el.order_num_alias </div>
+							<div class="point">已使用</div>
+							<div class="oname">el.name </div>
+							<div class="point0"><span style="color:' + colorstr + '">20</span> 积分</div>
+						</div>
+						<div class="btn">
+							<span class="quxiao">取消</span>
+							<span class="see">查看评价</span>
+						</div>
+					</div>
+					<div class="itemer">
+						<div style="overflow:hidden;">
+							<div class="onum">el.order_num_alias </div>
+							<div class="point">已使用</div>
+							<div class="oname">el.name </div>
+							<div class="point0"><span style="color:' + colorstr + '">20</span> 积分</div>
+						</div>
+						<div class="btn">
+							<span class="quxiao">取消</span>
+							<span class="see">查看评价</span>
+						</div>
+					</div>-->
+				</div>
+			</div>
+		</div>
+		<div id="popscreen" class="mui-popover" style="height: 200px; width: 97vw; padding: 20px 20px; text-align: center;">
+			<input type="date" value="yyyy-mm-dd" />
+		</div>
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/dropload.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init({
+				swipeBack: false
+			});
+			var rtn = request('clicker');
+			$('.retu').click(function() {
+				//				if(rtn == 'home') {
+				openW('bussidehome.html');
+				//				} else {
+				//					openW('consumptionrecords.html');
+				//				}
+			})
+			var state = "";
+			var refreshobj = "";
+			var page = 0;
+			if(state == "") {
+				state = "0";
+			}
+			$('#list').dropload({
+				scrollArea: window,
+				// 1 . 下拉刷新 回调函数
+				loadUpFn: function(me) {
+					console.log("刷新");
+					$(".Item").empty();
+					page = 0;
+					all(me, state);
+					me.resetload();
+					refreshobj = me;
+				},
+				// 2 . 上拉加载更多 回调函数
+				loadDownFn: function(me) {
+					all(me, state);
+					refreshobj = me;
+				}
+			});
+
+			$('#ban li').click(function() {
+				var Items = $(this).attr('data-click');
+				$('#ban li').removeClass('click');
+				$(this).addClass('click');
+				if(Items == 0) {
+					$("#Item").empty();
+					state = 0;
+					page = 0;
+					all(refreshobj, state);
+				}
+				if(Items == 1) {
+					$("#Item").empty();
+					state = 2;
+					page = 0;
+					all(refreshobj, state);
+				}
+				if(Items == 2) {
+					$("#Item").empty();
+					state = 1;
+					page = 0;
+					all(refreshobj, state);
+				}
+
+			})
+			//全部订单
+			function all(refreshobj, state) {
+				page++;
+				// 页数
+				$.ajax({
+					type: "post",
+					url: myUrl + "seller/orderinfo",
+					async: true,
+					data: {
+						//						brand_id: localStorage.xnbusinessbrand_id,
+						brand_id: 12,
+						status: state,
+						page: page,
+						time: ''
+					},
+					success: function(msg) {
+						console.log(msg);
+						if(msg.status == 1) {
+							if(state == 0) {
+								$.each(msg.list, function(index, el) {
+									var domstr = "";
+									domstr += '<div class="itemer">';
+									domstr += '<div style="overflow:hidden;" onclick="openW(\'ticketdetail.html?order_id=' + el.id + '\')">';
+									domstr += '<div class="onum">' + el.add_date + '</div>';
+									if(el.status == 1) {
+										domstr += '<div class="point">已取消</div>';
+									} else {
+										domstr += '<div class="point">已使用</div>';
+									}
+									domstr += '<div class="oname">' + el.name + '</div>';
+									domstr += '<div class="point0"><span>' + el.pay_points + '</span> 积分</div></div>';
+									domstr += '<div class="btn">';
+									if(el.status == 1) {
+										domstr += '<span class="quxiao" onclick="delc(' + el.id + ',this)">删除</span>';
+									} else {
+										if(el.comments == 0) {
+											domstr += '<span class="quxiao" onclick="cance(' + el.id + ',this)">取消</span>';
+										} else {
+											if(el.reply == 0) {
+												domstr += '<span class="see" onclick="look(' + el.pid + ',this)">查看评价</span>';
+											}
+										}
+									}
+
+									domstr += '</div></div>';
+									$('#Item').append(domstr);
+								});
+							}
+							if(state == 1) {
+								$.each(msg.list, function(index, el) {
+									var domstr = "";
+									domstr += '<div class="itemer">';
+									domstr += '<div style="overflow:hidden;" onclick="openW(\'ticketdetail.html?order_id=' + el.id + '\')">';
+									domstr += '<div class="onum">' + el.add_date + '</div>';
+									domstr += '<div class="point">已取消</div>';
+									domstr += '<div class="oname">' + el.name + '</div>';
+									domstr += '<div class="point0"><span>' + el.pay_points + '</span> 积分</div></div>';
+									domstr += '<div class="btn">';
+									domstr += '<span class="quxiao" onclick="delc(' + el.id + ',this)">删除</span>';
+									domstr += '</div></div>';
+									$('#Item').append(domstr);
+								});
+							}
+							if(state == 2) {
+								$.each(msg.list, function(index, el) {
+									var domstr = "";
+									domstr += '<div class="itemer">';
+									domstr += '<div style="overflow:hidden;" onclick="openW(\'ticketdetail.html?order_id=' + el.id + '\')">';
+									domstr += '<div class="onum">' + el.add_date + '</div>';
+									domstr += '<div class="point">已使用</div>';
+									domstr += '<div class="oname">' + el.name + '</div>';
+									domstr += '<div class="point0"><span>' + el.pay_points + '</span> 积分</div></div>';
+									domstr += '<div class="btn">';
+									if(el.status == 1) {
+										domstr += '<span class="quxiao" onclick="delc(' + el.id + ',this)">删除</span>';
+									} else {
+										if(el.comments == 0) {
+											domstr += '<span class="quxiao" onclick="cance(' + el.id + ',this)">取消</span>';
+										} else {
+											if(el.reply == 0) {
+												domstr += '<span class="see" onclick="look(' + el.pid + ',this)">查看评价</span>';
+											}
+										}
+									}
+
+									domstr += '</div></div>';
+									$('#Item').append(domstr);
+								});
+							}
+							refreshobj.unlock();
+							refreshobj.noData(false);
+
+							if(msg.total_page == undefined) {
+								// 无数据
+
+							} else if(msg.total_page == page) {
+								console.log("暂无数据");
+								refreshobj.lock();
+								// 无数据
+								refreshobj.noData();
+								refreshobj.resetload();
+							} else {
+								refreshobj.unlock();
+								refreshobj.noData(false);
+								refreshobj.resetload();
+							}
+						} else {
+							refreshobj.noData();
+							refreshobj.resetload();
+						}
+
+					},
+					error: function(xhr, type) {
+						console.log('网络异常');
+						// 即使加载出错，也得重置
+						refreshobj.noData();
+						refreshobj.resetload();
+					}
+				});
+
+			}
+
+			function cance(i, n) {
+				$.ajax({
+					type: "post",
+					url: myUrl + "seller/cancel",
+					async: true,
+					data: {
+						id: i,
+						uid: localStorage.getItem('xnbusinessuid'),
+					},
+					success: function(msg) {
+						console.log(msg);
+						mui.toast(msg.info);
+						window.location.reload();
+					}
+				});
+			}
+
+			function delc(i, n) {
+				$.ajax({
+					type: "post",
+					url: myUrl + "seller/del",
+					async: true,
+					data: {
+						id: i,
+					},
+					success: function(msg) {
+						console.log(msg);
+						if(msg.status) {
+							mui.toast(msg.info);
+							$(n).parent('.btn').parent('.itemer').remove();
+						} else {
+							mui.toast(msg.info);
+						}
+					}
+				});
+			}
+			
+			function look(i, n) {
+				openW('storeevos.html?evalua='+ i);
+			}
+		</script>
+	</body>
+
+</html>

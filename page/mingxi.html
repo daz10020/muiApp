@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/dropload.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/dropload.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-content {
+				min-height: 100vh;
+				background: #FFFFFF;
+				overflow: hidden;
+			}
+			
+			.item {
+				padding: 2vw 5vw;
+				width: 100vw;
+				height: 16vw;
+				overflow: hidden;
+				border-bottom: 1px solid #f3f3f3;
+			}
+			
+			.item .iname {
+				width: 60vw;
+				height: 7vw;
+				line-height: 7vw;
+				float: left;
+				font-size: 4vw;
+			}
+			
+			.item .itime {
+				width: 30vw;
+				height: 6vw;
+				line-height: 7vw;
+				float: left;
+				color: #929292;
+				text-align: right;
+				/*font-size: 3.5vw;*/
+			}
+			
+			.item .jiajian {
+				width: 90vw;
+				height: 6vw;
+				line-height: 5vw;
+				float: left;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">明细</h1>
+		</header>
+		<div class="mui-content">
+			<div class="listcontent">
+
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			// 页数
+			var page = 0;
+			// dropload
+			$('.mui-content').dropload({
+				scrollArea: window,
+				// 1 . 下拉刷新 回调函数
+				loadUpFn: function(me) {
+					console.log("刷新");
+
+					page = 1;
+					$(".listcontent").empty();
+					loaddata(me);
+					me.resetload();
+
+				},
+				// 2 . 上拉加载更多 回调函数
+				loadDownFn: function(me) {
+					page++;
+					loaddata(me);
+				}
+			});
+
+			function loaddata(me) {
+				// 拼接HTML
+				$.ajax({
+					type: 'post',
+					url: myUrl + "member/points",
+					data: {
+						uid: localStorage.xnuid,
+						page: page
+					},
+					dataType: 'json',
+					success: function(msg) {
+						if(msg.status == 1) {
+							var arrLen = msg.list.length;
+							if(arrLen > 0) {
+								$.each(msg.list, function(index, el) {
+									var domstr = "";
+									var type = el.type;
+									var dealstr = "";
+									if(type == 1) {
+										type = "充值";
+										dealstr = "+";
+									}
+									if(type == 2) {
+										type = "消费";
+										dealstr = "-";
+									}
+									if(type == 3) {
+										type = "赠送他人";
+										dealstr = "-";
+									}
+									if(type == 4) {
+										type = "退款";
+										dealstr = "+";
+									}
+									if(type == 5) {
+										type = "他人赠送";
+										dealstr = "+";
+									}
+									if(type == 6) {
+										type = "兑换";
+										dealstr = "+";
+									}
+									domstr = domstr + "<div class='item'>" +
+										"<div class='iname'>" + type + "</div>" +
+										"<div class='itime'>" + el.creat_time + "</div>" +
+										"<div class='jiajian'>" + dealstr + el.points + "积分</div>" +
+										"</div>";
+
+									$('.listcontent').append(domstr);
+									me.unlock();
+									me.noData(false);
+
+									if(msg.total_page == undefined) {
+										// 无数据
+
+									} else if(msg.total_page == page) {
+										console.log("暂无数据");
+										me.lock();
+										// 无数据
+										me.noData();
+										me.resetload();
+									} else {
+										me.unlock();
+										me.noData(false);
+										me.resetload();
+									}
+								})
+							}
+
+						} else {
+							me.lock();
+							// 无数据
+							me.noData();
+							me.resetload();
+						}
+					},
+					error: function(xhr, type) {
+						alert('Ajax error!');
+						me.resetload();
+					}
+				});
+			}
+		</script>
+	</body>

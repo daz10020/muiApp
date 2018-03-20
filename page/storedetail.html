@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<style>
+			.mui-row {
+				background-color: white;
+			}
+			
+			.mui-row-marged {
+				margin: 0px 10px;
+			}
+			
+			.glabel {
+				background-color: #034895;
+				color: white;
+				padding: 0px 5px;
+			}
+			
+			.marg-left {
+				margin-left: 5px;
+			}
+			
+			.marg-top3 {
+				margin-top: 3px;
+			}
+			
+			.marg-top8 {
+				margin-top: 8px;
+			}
+			
+			.fred {
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">门店详情</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				
+				<div class="mui-row mui-content-padded">
+					<div class="mui-col-sm-3 mui-col-xs-3">
+						<img id="bimg" src="../image/87.png" style="width: 100%;" />
+					</div>
+					<div class="mui-col-sm-9 mui-col-xs-9">
+						<div class="mui-row mui-row-marged">
+							<h4 id="btitle" class="mui-pull-left">汽车美容装饰</h4>
+							<p id="bstat" class="mui-pull-right glabel">营业中</p>
+						</div>
+						<div class="mui-row mui-row-marged">
+							<img id="bstar" src="../image/28_1.png" class="mui-pull-left" style="width: 100%; max-width: 100px; margin-top: 3px;margin-right:10px;" />
+							<h6 id="brange" class="mui-pull-left">4分</h6>
+						</div>
+						<div class="mui-row mui-row-marged">
+							<img src="../image/74.png" class="mui-pull-left" style="width: 100%; max-width: 15px; margin-top: 3px;" />
+							<h6 id="servtime" class="marg-left mui-pull-left">8:00 - 17:00</h6>
+							<span class="mui-icon mui-icon-phone mui-pull-right" onclick="telp()"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mui-row marg-top3" onclick="showAddress()">
+				<div class="mui-row mui-content-padded">
+					<img src="../image/72.png" class="mui-pull-left" style="width: 100%; max-width: 15px; margin-top: 3px;" />
+					<h5 id="baddr" class="marg-left mui-pull-left" style="font-size: 12px;overflow: hidden;width: calc(100% - 44px);">地址</h5>
+					<span class="mui-icon mui-icon-arrowright mui-pull-right"></span>
+				</div>
+			</div>
+			<div class="mui-row marg-top8">
+				<div class="mui-row mui-content-padded">
+					<h5 class="marg-left mui-pull-left" style="font-weight: bold;">项目服务</h5>
+				</div>
+			</div>
+			<div id="catelist" class="mui-row marg-top3">
+			</div>
+			<div class="mui-row marg-top8">
+				<div class="mui-slider">
+					<div class="mui-slider-group" id="bimglist">
+					</div>
+				</div>
+			</div>
+			<div class="mui-row marg-top8" id="emnene">
+				<div class="mui-row mui-content-padded">
+					<h5 class="marg-left mui-pull-left" style="font-weight: bold;">门店评价</h5>
+					<span class="mui-icon mui-icon-arrowright mui-pull-right"></span>
+					<h5 id="bctype" class="marg-left mui-pull-right">4分</h5>
+				</div>
+			</div>
+			<div class="mui-row marg-top8">
+				<div class="mui-row mui-content-padded">
+					<h5 class="marg-left mui-pull-left" style="font-weight: bold;">门店介绍</h5>
+				</div>
+			</div>
+			<div class="mui-row">
+				<div class="mui-row mui-content-padded" style="background-color: #EEEEEE;min-height: 80px;">
+					<h5 id="bdes" class=" mui-content-padded" style="color: black;"></h5>
+				</div>
+			</div>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zpGcnepYgbD4e2Qs57uSn22welOjgkCo"></script>
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/zyf-user.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			var brandid;
+			var tel = "";
+			var jing = "";
+			var wei = "";
+			var clicker = 1;
+			var zhongdian = '';
+			mui.ready(function() {
+
+				brandid = localStorage.findexbid;
+				$.ajax({
+					type: "post",
+					url: myUrl + "brand/info",
+					data: {
+						brand_id: brandid
+					},
+					timeout: 10000,
+					dataType: "json",
+					success: function(data) {
+						console.log(data);
+						if(data.status == 1) {
+
+							$("#bimg").attr("src", imgUrl + data.brandlist[0].brand_image);
+							$('#bimg').attr('onclick', 'showBigger("' + imgUrl + data.brandlist[0].brand_image + '")')
+							$("#btitle").text(data.brandlist[0].brand_name);
+							zhongdian = data.brandlist[0].brand_name;
+							if(data.brandlist[0].switchh == "休息中") {
+								$("#bstat").css('background', '#878787')
+							}
+							$("#bstat").text(data.brandlist[0].switchh);
+							switch(data.brandlist[0].star) {
+								case 0:
+									$("#bstar").attr("src", "../image/28_5.png");
+									$("#brange").text("0分");
+									break;
+								case 1:
+									$("#bstar").attr("src", "../image/28_4.png");
+									$("#brange").text("1分");
+									break;
+								case 2:
+									$("#bstar").attr("src", "../image/28_3.png");
+									$("#brange").text("2分");
+									break;
+								case 3:
+									$("#bstar").attr("src", "../image/28_2.png");
+									$("#brange").text("3分");
+									break;
+								case 4:
+									$("#bstar").attr("src", "../image/28_1.png");
+									$("#brange").text("4分");
+									break;
+								case 5:
+									$("#bstar").attr("src", "../image/28.png");
+									$("#brange").text("5分");
+									break;
+							}
+							$("#servtime").text(data.brandlist[0].opentime + " - " + data.brandlist[0].endtime);
+							$("#baddr").text(data.brandlist[0].address);
+							$(data.brandlist[0].brandcategory).each(function(i, n) {
+								var item = '<div class="mui-row mui-content-padded" style="border-bottom: 1px solid #f5f5f5;padding-bottom: 6px;" onclick="openW(\'sort.html?bidSort=' + n.category_id + '\')">' +
+									'<h5 class="marg-left mui-pull-left">' + n.name + '</h5>' +
+									'<h5 class="mui-pull-right">积分</h5>' +
+									'<h5 class="fred mui-pull-right">' + n.jifen + '</h5>' +
+									'</div>';
+								$("#catelist").append(item);
+							});
+							$(data.brandlist[0].brand_photo).each(function(i, n) {
+								if(i == 0 || i == 3) {
+									createelement(i);
+								}
+								var item = '<div class="mui-col-sm-4 mui-col-xs-4">' +
+									'<img src="' + imgUrl + n.src + '" style="width: 90%;" onclick="showBigger(\'' + imgUrl + n.src + '\')"/>' +
+									'</div>';
+								//								if(i < 3) {
+								$("#bimglistbl0").append(item);
+								$('#bimglistbl0 img').css('height', $('#bimglistbl0 img').width() / 4 * 3);
+								//								} else {
+								//									$("#bimglistbl3").append(item);
+								//								}
+							});
+							$("#bctype").text(data.brandlist[0].commentnum + "个评价");
+							$("#emnene").click(function() {
+								openW('storeevos.html?brand_id=' + data.brandlist[0].brand_id);
+							});
+							tel = data.brandlist[0].tel;
+							jing = data.brandlist[0].longitude;
+							wei = data.brandlist[0].latitude;
+							$("#bdes").text(data.brandlist[0].des);
+							sessionStorage.fbdetailbid = data.brandlist[0].brand_id;
+
+						} else if(data.status == 0) {
+							mui.toast("获取门店详情失败");
+						}
+					},
+					error: function(msg) {
+						console.log("错误", "连接服务器异常");
+					}
+				});
+			});
+
+			function telp() {
+				if($('#bstat').html() == '休息中') {
+					mui.alert('商家休息中。。。')
+				} else {
+					var str = '';
+					str += '<div class="model_ind">';
+					str += '<div class="outside">';
+					str += '<div class="gai">联系电话</div>';
+					if(isWeiXin()) {
+						str += '<div class="tel"><a href="tel:' + tel + '">' + tel + '</a></div>';
+					} else {
+						str += '<div class="tel" onclick="telto(\'' + tel + '\')">' + tel + '</div>';
+					}
+					str += '</div></div>';
+					$('body').append(str);
+					$('.model_ind').click(function() {
+						$(this).remove();
+					})
+				}
+
+			}
+
+			function telto(tel) {
+				plus.device.dial(tel, false);
+			}
+
+			function showAddress() {
+				console.log(zhongdian);
+				if(isWeiXin()) {
+					openW('map.html?longitude=' + jing + '&latitude=' + wei);
+				} else {
+					if(clicker == 1) {
+						var str = "";
+						str = '<div class="mui-row marg-top8 aDD" style="position: fixed; background: #eee;top: calc(100vh - 114px);left: 0;right: 0;z-index:20">' +
+							'<div class="mui-row mui-content-padded baidu" style="height: 40px;background: #034895;">' +
+							'<h5 class="marg-left mui-pull-left" style="font-size: 16px;color:#fff;float: none;font-weight: bold;text-align: center;width: 40vw;margin: 12px auto;">百度地图</h5></div>' +
+							'<div class="mui-row mui-content-padded gaode"  style="height: 40px;background: #034895;">' +
+							'<h5 class="marg-left mui-pull-left" style="font-size: 16px;color:#fff;float: none;font-weight: bold;text-align: center;width: 40vw;margin: 12px auto;">高德地图</h5>' +
+							'</div></div>';
+						$('body').append(str);
+						clicker = 0;
+						addreSS();
+					} else {
+						$('.aDD').remove();
+						clicker = 1;
+					}
+				}
+
+			}
+
+			function addreSS() {
+				$('.baidu').click(function() {
+					var flg = plus.runtime.isApplicationExist({
+						pname: 'com.baidu.BaiduMap',
+						action: 'baidumap://'
+					});
+					if(!flg) {
+						mui.toast('您未安装百度地图！');
+						return;
+					} else {
+						if(plus.os.name == "Android") {
+//						调用第三方程序打开指定的URL
+							plus.runtime.openURL('baidumap://map/direction?origin=latlng:' + localStorage.latitude + ',' + localStorage.longitude + '|name:我的位置&destination=latlng:' + wei + ',' + jing + '|name:终点&mode=driving');
+						} else if(plus.os.name == "iOS") {
+//							调用第三方程序打开指定的URL
+							plus.runtime.openURL('baidumap://map/direction?origin=' + localStorage.latitude + ',' + localStorage.longitude + '&destination=' + wei + ',' + jing + '&mode=driving&src=webapp.navi.yourCompanyName.yourAppName');
+						}
+					}
+
+				})
+				$('.gaode').click(function() {
+					function TO_GLNG(lng) {
+						return lng - 0.0065;
+					};
+
+					function TO_GLAT(lat) {
+						return lat - 0.0060;
+					};
+					var flg = plus.runtime.isApplicationExist({
+						pname: 'com.tencent.map',
+						action: 'qqmap://'
+					});
+//					if(!flg) {
+//						mui.toast('您未安装腾讯地图！');
+//						return;
+//					} else {
+						if(plus.os.name == "Android") {
+//						调用第三方程序打开指定的URL
+							plus.runtime.openURL('qqmap://map/routeplan?type=drive&fromcoord=' + localStorage.latitude + ',' + localStorage.longitude + '&to=商家&tocoord=' + wei + ',' + jing + '&policy=0&referer=myapp');
+							console.log(wei);
+							console.log(jing);
+							console.log(localStorage.latitude);
+							console.log(localStorage.longitude);
+						} else if(plus.os.name == "iOS") {
+							//						调用第三方程序打开指定的URL
+							alert('@@@@@');
+							plus.runtime.openURL('qqmap://map/routeplan?type=drive&from=我的位置&fromcoord='+ localStorage.latitude + ',' + localStorage.longitude +'&to=目的地&tocoord=' + wei + ',' + jing + '&policy=0&referer=浩优服务家');
+						}
+//					}
+//					if(plus.os.name == "Android") {
+//						// 打开高德app
+//						plus.runtime.launchApplication({
+//							pname: "com.autonavi.minimap",
+//						}, function(e) {
+//							alert('您未安装高德地图！');
+//						});
+//						var Url = plus.android.importClass("android.net.Uri");
+//						var main = plus.android.runtimeMainActivity();
+//
+//						var n_url = new Url();
+//						// 导入android.content.Intent类对象
+//						var Intent = plus.android.importClass("android.content.Intent");
+//						// 导入后可以使用new方法创建类的实例对象
+//						var intent = new Intent('android.intent.action.VIEW', n_url.parse('androidamap://route/plan?sid=BGVIS1&slat=' + TO_GLAT(localStorage.latitude) + '&slon=' + TO_GLNG(localStorage.longitude) + '&did=BGVIS2&dlat=' + TO_GLAT(wei) + '&dlon=' + TO_GLNG(jing) + '&dev=0&m=0&t=0&showType=1'));
+//						// 执行进程
+//						main.startActivity(intent);
+//						//						plus.runtime.openURL('http://uri.amap.com/navigation?from='+jing+','+wei+',startpoint&to='+localStorage.longitude+','+localStorage.latitude+',endpoint&via=116.402796,39.936915,midwaypoint&mode=car&callnative=1');
+//
+//					} else if(plus.os.name == "iOS") {
+//						plus.runtime.launchApplication({
+//							//							action: "iosamap://navi?sourceApplication=applicationName&backScheme=applicationScheme&poiname=fangheng&poiid=BGVIS&&dev=1&style=2"
+//							action: 'iosamap://path?sourceApplication=applicationName&sid=BGVIS1&slat=' + TO_GLAT(localStorage.latitude) + '&slon=' + TO_GLNG(localStorage.longitude) + '&sname=Start&did=BGVIS2&dlat=' + TO_GLAT(wei) + '&dlon=' + TO_GLNG(jing) + '&dname=End&dev=0&t=0'
+//						}, function(e) {
+//							mui.toast('您未安装高德地图！');
+//						});
+//					}
+				})
+			}
+		</script>
+	</body>
+
+</html>

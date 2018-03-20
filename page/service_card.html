@@ -1,0 +1,481 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<link rel="stylesheet" type="text/css" href="../css/dropload.css" />
+		<style>
+			.mui-content {
+				width: 100vw;
+				/*height: 100vh;*/
+			}
+			
+			#ban {
+				width: 100vw;
+				height: 10vw;
+				position: fixed;
+				top: 44px;
+				border-bottom: 1px solid #e5e5e5;
+				background: #efeff4;
+				z-index: 100;
+			}
+			
+			#ban li {
+				width: calc(100vw/4);
+				float: left;
+				height: 6vw;
+				margin: 2vw 0;
+				border-right: 1px solid #e5e5e5;
+			}
+			
+			#ban li.click div {
+				border-bottom: 2px solid #034895;
+			}
+			
+			#ban li:last-child {
+				border-right: none;
+			}
+			/*#ban li:first-child div {
+				width: 9vw;
+			}*/
+			
+			#ban li div {
+				width: 12vw;
+				height: 8vw;
+				text-align: center;
+				margin: 0 auto;
+				border-bottom: none;
+			}
+			
+			#list {
+				width: 100vw;
+				overflow: auto;
+				margin-top: 55px;
+			}
+			
+			.itemer {
+				width: 92vw;
+				margin: 0 auto;
+				background: url(../image/75.png) no-repeat center center;
+				background-size: 92vw 28vw;
+				overflow: hidden;
+				margin-bottom: 2vw;
+				height: 28vw;
+			}
+			
+			.onum {
+				width: 100%;
+				padding: 0 5vw;
+				height: 9vw;
+				line-height: 12vw;
+				color: #b2b2b2;
+				float: left;
+			}
+			
+			.oname {
+				width: 65vw;
+				height: 8vw;
+				float: left;
+				padding: 0 5vw;
+			}
+			
+			.point {
+				width: 27vw;
+				height: 8vw;
+				float: left;
+				padding-right: 5vw;
+				text-align: right;
+			}
+			
+			.stats0 span {
+				color: #F0AD4E;
+				font-size: 6vw;
+			}
+			
+			.stats1 span {
+				color: #b2b2b2;
+				font-size: 6vw;
+			}
+			
+			.point.stats1 {
+				color: #b2b2b2;
+			}
+			
+			.btn {
+				width: 92vw;
+				height: 8vw;
+				float: left;
+				overflow: hidden;
+				padding: 0 5vw;
+			}
+			
+			.btn .stats {
+				float: left;
+				color: #666666;
+				height: 8vw;
+				line-height: 8vw;
+			}
+			
+			.btn span {
+				float: right;
+				display: block;
+				height: 8vw;
+				line-height: 8vw;
+				padding-left: 6vw;
+				color: #666666;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="reternBack()"></a>
+			<h1 class="mui-title">服务券</h1>
+		</header>
+		<div class="mui-content">
+			<ul id="ban">
+				<li data-click="0" class="click">
+					<div>全部</div>
+				</li>
+				<li data-click="1">
+					<div>未使用</div>
+				</li>
+				<li data-click="2">
+					<div>已使用</div>
+				</li>
+				<li data-click="3">
+					<div>已退款</div>
+				</li>
+			</ul>
+			<div id="list">
+				<div id="Item" class="Item">
+
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/dropload.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mhy-user.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			function reternBack() {
+				var parentWin = plus.webview.getWebviewById(plus.runtime.appid);
+				parentWin.evalJS("getuserinfo()");
+				mui.back();
+			}
+			var state = "";
+			var refreshobj = "";
+			var page = 0;
+			localStorage.removeItem("from");
+			$(document).ready(function() {
+				if(state == "") {
+					state = "0";
+				}
+				$('#list').dropload({
+					scrollArea: window,
+					// 1 . 下拉刷新 回调函数
+					loadUpFn: function(me) {
+						console.log("刷新");
+						$(".Item").empty();
+						page = 0;
+						all(me, state);
+						me.resetload();
+						refreshobj = me;
+					},
+					// 2 . 上拉加载更多 回调函数
+					loadDownFn: function(me) {
+						all(me, state);
+						refreshobj = me;
+					}
+				});
+
+				$('#ban li').click(function() {
+					var Items = $(this).attr('data-click');
+					$('#ban li').removeClass('click');
+					$(this).addClass('click');
+					if(Items == 0) {
+						$("#Item").empty();
+						state = 0;
+						page = 0;
+						all(refreshobj, state);
+					}
+					if(Items == 1) {
+						$("#Item").empty();
+						state = 1;
+						page = 0;
+						all(refreshobj, state);
+					}
+					if(Items == 2) {
+						$("#Item").empty();
+						state = 2;
+						page = 0;
+						all(refreshobj, state);
+					}
+					if(Items == 3) {
+						$("#Item").empty();
+						state = 3;
+						page = 0;
+						all(refreshobj, state);
+					}
+				})
+			});
+			//全部订单
+			function all(refreshobj, state) {
+				page++;
+				// 页数
+				$.ajax({
+					type: "get",
+					url: myUrl + "member/service",
+					async: true,
+					data: {
+						uid: localStorage.xnuid,
+						status: state,
+						page: page
+					},
+					success: function(msg) {
+						//			console.log(msg);
+						if(msg.status == 1) {
+							if(state == 0) {
+								$.each(msg.list, function(index, el) {
+									var domstr = '';
+									var ostatus = "";
+									var dealstr = "";
+									var colorstr = "";
+									if(el.order_status_id == 1) {
+										ostatus = "未使用";
+										dealstr = "<span class='refund' onclick='retM(this," + el.order_id + ")'>退款</span>";
+										colorstr = "#F0AD4E";
+									}
+									if(el.order_status_id == 2) {
+										ostatus = "已使用";
+										dealstr = "<span class='dela' onclick='del(this," + el.order_id + ")'>删除</span><span class='evaluate' onclick='pingjia(this," + el.order_id + ",\"" + el.brand_name + "\",\"" + el.brand_id + "\")'>评价</span>";
+										colorstr = "#ccc";
+									}
+									if(el.order_status_id == 3) {
+										ostatus = "已退款";
+										dealstr = "<span class='dela' onclick='del(this," + el.order_id + ")'>删除</span>";
+										colorstr = "#ccc";
+									}
+									if(el.order_status_id == 4) {
+										ostatus = "已评价";
+										dealstr = "<span class='dela' onclick='del(this," + el.order_id + ")'>删除</span>";
+										colorstr = "#ccc";
+									}
+									domstr = domstr + '<div data-id=' + el.order_id + ' class="itemer">' +
+										'<div style="overflow:hidden;" onclick="localStorage.removeItem(\'from\');openW(\'service_details.html?id=' + el.order_id + '\')"><div class="onum">' + el.order_num_alias + '</div>' +
+										'<div class="oname">' + el.name + '</div>' +
+										'<div class="point stats0"><span style="color:' + colorstr + '">' + el.pay_points + '</span> 积分</div></div>' +
+										'<div class="btn">' +
+										'<div class="stats">' + ostatus + '</div>' +
+										dealstr +
+										'</div>' +
+										'</div>';
+									$('#Item').append(domstr);
+								});
+							}
+							if(state == 1) {
+								$.each(msg.list, function(index, el) {
+									if(el != 0) {
+										var domstr = '';
+										var ostatus = "";
+										var dealstr = "";
+										var colorstr = "";
+										if(el.order_status_id == 1) {
+											ostatus = "未使用";
+											dealstr = "<span class='refund' onclick='retM(this," + el.order_id + ")'>退款</span>";
+											colorstr = "#F0AD4E";
+										}
+										domstr = domstr + '<div data-id=' + el.order_id + ' class="itemer">' +
+											'<div style="overflow:hidden;" onclick="localStorage.removeItem("from");openW(\'service_details.html?id=' + el.order_id + '\')"><div class="onum">' + el.order_num_alias + '</div>' +
+											'<div class="oname">' + el.name + '</div>' +
+											'<div class="point stats0"><span style="color:' + colorstr + '">' + el.pay_points + '</span> 积分</div></div>' +
+											'<div class="btn">' +
+											'<div class="stats">' + ostatus + '</div>' +
+											dealstr +
+											'</div>' +
+											'</div>';
+										$('#Item').append(domstr);
+									}
+								});
+							}
+							if(state == 2) {
+								$.each(msg.list, function(index, el) {
+									if(el != 0) {
+										var domstr = '';
+										var ostatus = "";
+										var dealstr = "";
+										var colorstr = "";
+										if(el.order_status_id == 2) {
+											ostatus = "已使用";
+											dealstr = "<span class='dela' onclick='del(this," + el.order_id + ")'>删除</span><span class='evaluate' onclick='pingjia(this," + el.order_id + ",\"" + el.brand_name + "\",\"" + el.brand_id + "\")'>评价</span>";
+											colorstr = "#ccc";
+										}
+										domstr = domstr + '<div data-id=' + el.order_id + ' class="itemer">' +
+											'<div style="overflow:hidden;" onclick="localStorage.removeItem("from");openW(\'service_details.html?id=' + el.order_id + '\')"><div class="onum">' + el.order_num_alias + '</div>' +
+											'<div class="oname">' + el.name + '</div>' +
+											'<div class="point stats0"><span style="color:' + colorstr + '">' + el.pay_points + '</span> 积分</div></div>' +
+											'<div class="btn">' +
+											'<div class="stats">' + ostatus + '</div>' +
+											dealstr +
+											'</div>' +
+											'</div>';
+										$('#Item').append(domstr);
+									}
+								});
+							}
+							if(state == 3) {
+								$.each(msg.list, function(index, el) {
+									if(el != 0) {
+										var domstr = '';
+										var ostatus = "";
+										var dealstr = "";
+										var colorstr = "";
+										if(el.order_status_id == 3) {
+											ostatus = "已退款";
+											dealstr = "<span class='dela' onclick='del(this," + el.order_id + ")'>删除</span>";
+											colorstr = "#ccc";
+										}
+										domstr = domstr + '<div data-id=' + el.order_id + ' class="itemer">' +
+											'<div style="overflow:hidden;" onclick="localStorage.removeItem("from");openW(\'service_details.html?id=' + el.order_id + '\')"><div class="onum">' + el.order_num_alias + '</div>' +
+											'<div class="oname">' + el.name + '</div>' +
+											'<div class="point stats0"><span style="color:' + colorstr + '">' + el.pay_points + '</span> 积分</div></div>' +
+											'<div class="btn">' +
+											'<div class="stats">' + ostatus + '</div>' +
+											dealstr +
+											'</div>' +
+											'</div>';
+										$('#Item').append(domstr);
+									}
+								});
+							}
+
+							refreshobj.unlock();
+							refreshobj.noData(false);
+
+							if(msg.total_page == undefined) {
+								// 无数据
+
+							} else if(msg.total_page == page) {
+								console.log("暂无数据");
+								refreshobj.lock();
+								// 无数据
+								refreshobj.noData();
+								refreshobj.resetload();
+							} else {
+								refreshobj.unlock();
+								refreshobj.noData(false);
+								refreshobj.resetload();
+							}
+						} else {
+							refreshobj.noData();
+							refreshobj.resetload();
+						}
+
+					},
+					error: function(xhr, type) {
+						console.log('网络异常');
+						// 即使加载出错，也得重置
+						refreshobj.noData();
+						refreshobj.resetload();
+					}
+				});
+
+			}
+
+			function del(i, id) {
+				//				event.stopPropagation();
+				var str = '';
+				str += '<div class="model">';
+				str += '<div class="outside">';
+				str += '<div class="confires">确定 删除服务券？</div>';
+				str += '<div class="btns">';
+				str += '<div class="dels">取消</div>';
+				str += '<div class="confi">确定</div>';
+				str += '</div></div></div>';
+				$('body').append(str);
+				$('.model_ind').click(function() {
+					$(this).remove();
+				});
+				$('.confi').click(function() {
+					$.ajax({
+						type: "post",
+						url: myUrl + "member/delservice",
+						data: {
+							order_id: id
+						},
+						async: true,
+						success: function(msg) {
+							mui.toast(msg.info);
+							if(msg.status == 1) {
+								$('.model').remove();
+
+								$("div[data-id=" + id + "]").fadeTo("slow", 0.1, function() {
+									$("div[data-id=" + id + "]").remove();
+								});
+							}
+						},
+						error: function(msg) {
+							console.log('网络异常');
+						}
+					});
+				});
+				$('.dels').click(function() {
+					$('.model').remove();
+				})
+			}
+
+			function pingjia(i, id, brand_name, brand_id) {
+				localStorage.removeItem("from");
+				openW('evaluate.html?name=' + brand_name + '&orderid=' + id + '&id=' + brand_id + '');
+			}
+
+			function retM(i, id) {
+				var str = '';
+				str += '<div class="model">';
+				str += '<div class="outside">';
+				str += '<div class="confires">确定 退款？</div>';
+				str += '<div class="btns">';
+				str += '<div class="dels">取消</div>';
+				str += '<div class="confi">确定</div>';
+				str += '</div></div></div>';
+				$('body').append(str);
+				$('.model_ind').click(function() {
+					$(this).remove();
+				});
+				$('.confi').click(function() {
+					$.ajax({
+						type: "post",
+						url: myUrl + "member/refund",
+						data: {
+							order_id: id,
+							uid: localStorage.xnuid
+						},
+						async: true,
+						success: function(msg) {
+							mui.toast(msg.info);
+							if(msg.status == 1) {
+								setTimeout("window.location.reload();", 600);
+							}
+						},
+						error: function(msg) {
+							console.log('网络异常');
+						}
+					});
+				});
+				$('.dels').click(function() {
+					$('.model').remove();
+				})
+			}
+		</script>
+	</body>
+
+</html>

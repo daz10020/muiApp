@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/bankcommon.css" rel="stylesheet" />
+		<style type="text/css">
+			#other {
+				overflow: hidden;
+				margin-bottom: 3vw;
+			}
+			
+			
+			.line {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 13vw;
+				border-bottom: 1px solid #E5E5E5;
+				overflow: hidden;
+				background: #FFFFFF;
+			}
+			
+			.line .left {
+				display: block;
+				float: left;
+				width: 25vw;
+				height: 13vw;
+				line-height: 13vw;
+				font-size: 4vw;
+				color: #3F3F3F;
+			}
+			
+			.arrow {
+				width: 5vw;
+				height: 13vw;
+				float: right;
+				background: url(../image/30.png) center center no-repeat;
+				background-size: 2vw 4.5vw;
+			}
+			
+			.inline {
+				width: 56vw;
+				height: 13vw;
+				line-height: 13vw;
+				float: left;
+				font-size: 4vw;
+				color: #3F3F3F;
+				overflow: hidden;
+				text-align: right;
+				margin-right: 4vw;
+			}
+			
+			
+			.btn {
+				width: 90vw;
+				height: 13vw;
+				margin: 3vw 5vw;
+				line-height: 13vw;
+				border: 1px solid #E5E5E5;
+				text-align: center;
+				font-size: 4vw;
+				color: #fff;
+				margin: 0 auto;
+				background: #ec482c;
+				border-radius: 1.5vw;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置</h1>
+		</header>
+		<div class="mui-content ">
+			<div id="other">
+				<div class="line" onclick="openW('about_us.html')">
+					<span class="left">手机号</span>
+					<div id="tel" class="inline">139****5555</div>
+					<!--<div class="arrow"></div>-->
+				</div>
+				<div class="line" onclick="openW('loginpassset.html')">
+					<span class="left">修改密码</span>
+					<div id="weixin" class="inline">******</div>
+					<div class="arrow"></div>
+				</div>
+			</div>
+			<div class="btn" onclick="loginout()">退出登录</div>
+			<!--<div class="mui-row theme-bg-white theme-row-paded">
+				<span class="themo-row-title mui-pull-left">手机号</span>
+				<span class="theme-row-content mui-pull-right" style="margin-right: 25px;">13000000000</span>
+			</div>
+			<div class="mui-row theme-bg-white theme-row-paded theme-bank-margt5">
+				<span class="themo-row-title mui-pull-left">修改密码</span>
+				<span class="mui-icon mui-icon mui-icon-forward mui-pull-right"></span>
+				<span class="theme-row-content mui-pull-right">*******</span>
+			</div>
+
+			<div class="mui-row theme-bank-margt10">
+				<button type="button" onclick="logout()" class="mui-btn mui-btn-theme-orared mui-btn-fullw">退出登录</button>
+			</div>-->
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			
+			function logout() {
+				mui.openWindow({
+				    url: "login.html",
+				    id: "mainpage"
+				});
+			}
+		</script>
+	</body>
+
+</html>

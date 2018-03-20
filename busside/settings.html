@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/bankcommon.css" rel="stylesheet" />
+		
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		
+		<style type="text/css">
+			#photo {
+				width: 100vw;
+				height: 22vw;
+				background: #ffffff;
+				margin-bottom: 3vw;
+				overflow: hidden;
+			}
+			
+			#photo .text {
+				width: 50vw;
+				padding: 5vw;
+				height: 12vw;
+				line-height: 12vw;
+				font-size: 4vw;
+				float: left;
+			}
+			
+			#photo .photo {
+				width: 22vw;
+				height: 22vw;
+				padding: 5vw;
+				float: right;
+				overflow: hidden;
+			}
+			
+			#photo .photo img {
+				width: 100%;
+				height: 100%;
+				border-radius: 100%;
+			}
+			
+			#other {
+				overflow: hidden;
+				margin-bottom: 3vw;
+			}
+			
+			#le {
+				width: 23vw;
+				margin-left: 38vw;
+			}
+			
+			.le1 {
+				background: url(../image/51.png) no-repeat center left;
+				background-size: 5vw 5vw;
+			}
+			
+			.line {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 13vw;
+				border-bottom: 1px solid #E5E5E5;
+				overflow: hidden;
+				background: #FFFFFF;
+			}
+			
+			.line .left {
+				display: block;
+				float: left;
+				width: 26vw;
+				height: 13vw;
+				line-height: 13vw;
+				font-size: 4vw;
+				color: #3F3F3F;
+			}
+			
+			.arrow {
+				width: 5vw;
+				height: 13vw;
+				float: right;
+				background: url(../image/30.png) center center no-repeat;
+				background-size: 2vw 4.5vw;
+			}
+			
+			.inline {
+				width: 55vw;
+				height: 13vw;
+				line-height: 13vw;
+				float: left;
+				font-size: 4vw;
+				color: #3F3F3F;
+				overflow: hidden;
+				text-align: right;
+				margin-right: 4vw;
+			}
+			
+			#pass-exit {
+				background: #ffffff;
+				width: 100vw;
+				height: calc(100vh - 82vw - 44px - 45px);
+			}
+			
+			.btn {
+				width: 90vw;
+				height: 13vw;
+				margin: 3vw 5vw;
+				line-height: 13vw;
+				border: 1px solid #E5E5E5;
+				text-align: center;
+				font-size: 4vw;
+				color: #fff;
+				margin: 0 auto;
+				background: #ec482c;
+				border-radius: 1.5vw;
+			}
+			
+			#pass {
+				width: 61vw;
+				height: 13vw;
+				line-height: 13vw;
+				float: left;
+				font-size: 4vw;
+				color: #3F3F3F;
+				overflow: hidden;
+				text-align: right;
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人中心</h1>
+		</header>
+		<div class="mui-content ">
+			<div id="other">
+				<div class="line" onclick="openW('validphone.html?type=bind')">
+					<span class="left">手机号</span>
+					<div id="tel" class="inline"></div>
+					<div class="arrow"></div>
+				</div>
+				<div class="line" onclick="changeName()">
+					<span class="left">昵称</span>
+					<div id="nickname" class="inline"></div>
+					<div class="arrow"></div>
+				</div>
+				<div class="line" onclick="openW('validphone.html?type=resetlogin')">
+					<span class="left">修改登录密码</span>
+					<div id="weixin" class="inline">******</div>
+					<div class="arrow"></div>
+				</div>
+			</div>
+			<div class="btn" onclick="openW('login.html')">退出登录</div>
+		</div>
+
+
+		<div class="model" style="display: none;">
+			<div class="outside">
+				<div class="confires">修改用户名</div>
+				<input type="text" name="" id="changeUserName" class="inputs" />
+				<div class="btns">
+					<div class="dels">取消</div>
+					<div class="confi">确定</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mhy-business.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			getuserinfo();
+		</script>
+	</body>
+
+</html>

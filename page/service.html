@@ -1,0 +1,428 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<link rel="stylesheet" type="text/css" href="../css/passwordkeyboard.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/ladingPasswordConfirm.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mhy-user.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.tip {
+				width: 100vw;
+				height: 8vw;
+				color: #fff;
+				line-height: 8vw;
+				padding: 0 5vw;
+				background: #909ffa;
+			}
+			
+			#prog {
+				width: 100vw;
+				background: #fff;
+				overflow: hidden;
+				margin-bottom: 10px;
+			}
+			
+			.progs {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 14vw;
+				overflow: hidden;
+				border-bottom: 1px solid #e6e6e6;
+			}
+			
+			.pname {
+				width: 55vw;
+				height: 14vw;
+				line-height: 14vw;
+				float: left;
+				font-size: 4vw;
+			}
+			
+			.pcost {
+				width: 35vw;
+				height: 14vw;
+				line-height: 14vw;
+				float: left;
+				text-align: right;
+				font-size: 4vw;
+			}
+			
+			#num {
+				width: 100vw;
+				height: 14vw;
+				line-height: 14vw;
+				overflow: hidden;
+			}
+			
+			#num>span {
+				display: block;
+				float: right;
+				height: 14vw;
+				line-height: 14vw;
+			}
+			
+			.mui-numbox {
+				line-height: 35px;
+				margin-top: 10px;
+				margin-right: 10px;
+			}
+			
+			#all,
+			#sale {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 6vw;
+				line-height: 6vw;
+				text-align: right;
+			}
+			
+			#sale {
+				margin-top: 2vw;
+			}
+			
+			#prog_card {
+				width: 90vw;
+				margin: 0 auto;
+			}
+			
+			.card {
+				width: 90vw;
+				background: #fff;
+				position: relative;
+			}
+			
+			.card .cname {
+				width: 100%;
+				height: 9vw;
+				padding: 2vw 5vw 0;
+				line-height: 7vw;
+			}
+			
+			.card .cde {
+				width: 100%;
+				height: 7vw;
+				padding: 0 5vw;
+				line-height: 7vw;
+				color: #b3b3b3;
+			}
+			
+			.card .cpoint {
+				position: absolute;
+				width: 30vw;
+				height: 10vw;
+				text-align: right;
+				line-height: 10vw;
+				top: 7vw;
+				right: 3vw;
+			}
+			
+			.card .cpoint span {
+				color: #034895;
+				font-size: 6vw;
+			}
+			
+			.ctip {
+				width: 100%;
+				padding: 0 5vw;
+				height: 7vw;
+				line-height: 6vw;
+				color: #fb9191;
+			}
+			
+			#pay {
+				width: 100vw;
+				position: relative;
+				overflow: hidden;
+				background: #fff;
+			}
+			
+			#pay span {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 9vw;
+				display: block;
+				line-height: 10vw;
+				color: #8c8c8c;
+				background: #f5f5f5;
+				border-bottom: 1px solid #ddd;
+			}
+			
+			#pay .jifen {
+				width: 100vw;
+				padding: 0 5vw;
+				height: 14vw;
+				line-height: 12vw;
+				background: url(../image/60.png) no-repeat 5vw center;
+				background-size: 6vw 6vw;
+				text-indent: 9vw;
+				border-bottom: 2vw solid #f5f5f5;
+			}
+			
+			#pay .btn {
+				width: 5vw;
+				height: 5vw;
+				background: url(../image/39.png) no-repeat center center;
+				background-size: 100% 100%;
+				position: absolute;
+				top: 13.5vw;
+				right: 5vw;
+			}
+			
+			#pay .state {
+				background: #f5f5f5;
+				width: 100vw;
+			}
+			
+			.state .statement {
+				width: 100vw;
+				padding: 0 5vw;
+				background: url(../image/0011.png) no-repeat 5vw center;
+				background-size: 4vw 4vw;
+				height: 7vw;
+				line-height: 7vw;
+				color: #b3b3b3;
+				text-indent: 6vw;
+			}
+			
+			.mui-bar-tab>span {
+				display: block;
+				width: 90vw;
+				height: 40px;
+				margin: 5px auto;
+				color: #fff;
+				background: #034895;
+				text-align: center;
+				line-height: 40px;
+				font-size: 16px;
+				border-radius: 5px;
+			}
+			
+			#password {
+				width: calc(84vw + 7px);
+				margin: 0 auto;
+				margin-top: 2vw;
+				height: calc(14vw + 2px);
+			}
+			
+			.pass {
+				font-size: 35px;
+				text-align: center;
+				width: 14vw !important;
+				height: 14vw !important;
+				line-height: 13vw !important;
+				float: left;
+				margin: 0 !important;
+				border-radius: 0 !important;
+				border-right: none !important;
+				padding: 0 !important;
+			}
+			
+			.pass:last-child {
+				border-right: 1px solid rgba(0, 0, 0, .2) !important;
+			}
+			
+			#forget {
+				width: 100vw;
+				height: 6vw;
+				display: block;
+				padding: 0 5vw;
+				text-align: right;
+				line-height: 6vw;
+				color: #666666;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="box-shadow:none">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">支付服务券</h1>
+		</header>
+		<div class="mui-content">
+			<div class="tip">优惠：买10张 享9折优惠</div>
+			<div id="prog">
+				<div class="progs">
+					<div class="pname">塑料件专业清洁与上光</div>
+					<div class="pcost">消费：20积分</div>
+				</div>
+				<div id="num">
+					<div class="mui-numbox" data-numbox-step="1" data-numbox-min="1" style="float: right;">
+						<button class="mui-btn mui-numbox-btn-minus" type="button" onclick="min();">-</button>
+						<input class="mui-numbox-input num" type="number" data-type="num" disabled="disabled" />
+						<button class="mui-btn mui-numbox-btn-plus" type="button" onclick="add();">+</button>
+					</div>
+					<span>数量：</span>
+				</div>
+			</div>
+			<div id="sale" style="display: none;">买<span>10</span>张享9折优惠</div>
+			<div id="all"></div>
+			<div id="pay">
+				<span>支付方式</span>
+				<div class="jifen">积分支付</div>
+				<div class="btn"></div>
+				<div class="state">
+					<div class="statement">未消费,随便退</div>
+				</div>
+			</div>
+		</div>
+		<div class="model" style="display: none;">
+			<div class=" step step1" style="display: none;">
+				<div class="title">确认支付</div>
+				<div class="cha"></div>
+				<div class="nei">
+					<div class="lin"><span class="span1">支付方式</span><span class="span2">积分支付</span></div>
+					<div class="lin"><span class="span1">订单消费</span><span class="span2" id="jifen"></span></div>
+				</div>
+				<div class="need">
+					<span>需支付</span>
+					<div class="much">
+						<span>20</span> 积分
+					</div>
+				</div>
+				<div id="confire">确认支付</div>
+			</div>
+			<div class="step step2" style="display: none;">
+				<div class="title">输入密码</div>
+				<div class="cha0"></div>
+				<form id="password" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass pass_right" type="password" maxlength="1" value="" disabled="disabled">
+				</form>
+				<span id="forget" onclick="openW('verification.html?type=ressetpay')">忘记密码</span>
+				<div id="keyboardDIV">
+					<div id="key">
+						<!--<ul id="keyboard" style="font-size:20px;margin:2px -2px 1px 2px">
+							<li class="symbol"><span class="off">1</span></li>
+							<li class="symbol"><span class="off">2</span></li>
+							<li class="symbol btn_number_"><span class="off">3</span></li>
+							<li class="tab"><span class="off">4</span></li>
+							<li class="symbol"><span class="off">5</span></li>
+							<li class="symbol btn_number_"><span class="off">6</span></li>
+							<li class="tab"><span class="off">7</span></li>
+							<li class="symbol"><span class="off">8</span></li>
+							<li class="symbol btn_number_"><span class="off">9</span></li>
+							<li class="cancle btn_number_">取消</li>
+							<li class="symbol"><span class="off">0</span></li>
+							<li class="delete lastitem">删除</li>
+						</ul>-->
+						<input type="hidden" id="pwd" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+			<span></span>
+		</nav>
+		<script type="text/javascript">
+			var totalmoney = request("price");
+			var foloe = localStorage.getItem('xnpoints');
+			$('nav.mui-bar-tab').click(function() {
+				$('.model').css('display', 'block');
+				$('.model .step1').css('display', 'block');
+
+				var num = $(".num").val();
+				var total = num * parseInt(request("price"));
+//				if(localStorage.xnlevel == "普通会员") {
+//					total = total * 1.0;
+//				}
+//				if(localStorage.xnlevel == "黄金会员") {
+//					total = total * 0.9;
+//				}
+//				if(localStorage.xnlevel == "白金会员") {
+//					total = total * 0.85;
+//				}
+
+				total = parseFloat(totalmoney).toFixed(2);
+				$("#jifen").text(totalmoney + "积分");
+				$(".much span").text(total);
+				$('.cha').click(function() {
+					$('.model').css('display', 'none');
+					$('.model .step1').css('display', 'none');
+				});
+				if(parseFloat(localStorage.getItem('xnpoints')).toFixed(2)- total >= 0) {
+					$('#confire').addClass('blue');
+					$('#confire').click(function() {
+						$('.model .step1').css('display', 'none');
+						$('.model .step2').css('display', 'block');
+						$('.cha0').click(function() {
+							$('.model').css('display', 'block');
+							$('.model .step2').css('display', 'none');
+							$('.model .step1').css('display', 'block');
+
+						})
+					});
+				} else {
+					$('#confire').removeClass('blue');
+					$('#confire').html('积分不足');
+					$('#confire').click(function() {
+						openW('jifen.html');
+					})
+				}
+			});
+
+			var name = request("name");
+			var price = request("price");
+			$(".pname").text(name);
+			$(".pcost").text("消费:" + price);
+
+			$("#all").text("1张优惠券,共消费" + price + "积分");
+			$(".mui-bar-tab span").text("确认支付 " + price + "积分");
+
+			function min() {
+				var num = $(".num").val();
+				console.log(num);
+				if(num <= 10) {
+					$("#sale").hide();
+					var total = (parseInt(num) - 1) * parseInt(price);
+					total = parseFloat(total).toFixed(2);
+					$("#all").text(parseInt(num) - 1 + "张优惠券,共消费" + total + "积分");
+					$(".mui-bar-tab span").text("确认支付 " + total + "积分");
+					totalmoney = total;
+
+				} else {
+					$("#sale").show();
+					var total = (parseInt(num)-1) * parseInt(price) * 0.9;
+					total = parseFloat(total).toFixed(2);
+					$("#all").text(parseInt(num) - 1 + "张优惠券,共消费" + total + "积分");
+					$(".mui-bar-tab span").text("确认支付 " + total + "积分");
+					totalmoney = total;
+				}
+			}
+
+			function add() {
+				var num = $(".num").val();
+				console.log(num);
+				if(num > 8) {
+					$("#sale").show();
+					console.log(num);
+					var total = (parseInt(num) + 1) * parseInt(price) * 0.9;
+					total = parseFloat(total).toFixed(2);
+					$("#all").text(parseInt(num) + 1 + "张优惠券,共消费" + total + "积分");
+					$(".mui-bar-tab span").text("确认支付 " + total + "积分");
+					totalmoney = total;
+				} else {
+					$("#sale").hide();
+					var total = (parseInt(num) + 1) * parseInt(price);
+					total = parseFloat(total).toFixed(2);
+					$("#all").text(parseInt(num) + 1 + "张优惠券,共消费" + total + "积分");
+					$(".mui-bar-tab span").text("确认支付 " + total + "积分");
+					totalmoney = total;
+				}
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,1014 @@
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta content="yes" name="apple-mobile-web-app-capable" />
+        <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+        <meta content="telephone=no" name="format-detection" />
+        <title>计算器_保险</title>
+        
+		<link rel="stylesheet" type="text/css" href="../css/myiche2015_cube_jisuanqi_style-20170913174831-1016.css" media="all" /> 
+        <link href="../css/mui.min.css" rel="stylesheet" /> 
+        <script src="../js/mui.min.js"></script>
+        <style>
+            #master_container {
+                background-color: #fff;
+            }
+            .op-nav{
+            	display: none;
+            }
+            .top_layer2 .tit {
+            	color: #fff;
+            }
+            .top_layer2 .num-box span {
+            	color: #fff;
+            }
+            .baoxian-top-layer p.zd_box {
+            	color: #fff !important;
+            }
+            .top_layer2 .btn-resetting {
+            	background: #034895;
+            }
+            ..qkzj_top_layer {
+            	background:#034895 !important;
+            }
+        </style>
+    </head>
+<body>
+   <script type="text/javascript">
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    var WtParam = sessionStorage.getItem("WT.mc_id");
+    if (!WtParam) {
+        var WtParam = GetQueryString("WT.mc_id");
+        if (WtParam != null) {
+            sessionStorage.setItem("WT.mc_id", WtParam);
+        }
+    }
+    var WtFrom = sessionStorage.getItem("WT.from");
+    if (!WtFrom) {
+        var WtFrom = GetQueryString("from");
+        if (WtFrom != null) {
+            sessionStorage.setItem("WT.from", WtFrom);
+        }
+    }
+</script>
+
+
+<script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="../js/showsearchbox.js"></script>
+<script>
+$(function(){
+	var navKey = 1;
+	$('.btn-menu-p').click(function(){
+		if(navKey){
+			$('.menu-pop-n').addClass('menu-pop-n-ati');
+			$('.btn-menu-p').addClass('btn-menu-p-show');
+			$('.op-nav-mark').show();
+			navKey = 0;
+		} else {
+			$('.menu-pop-n').removeClass('menu-pop-n-ati');
+			$('.btn-menu-p').removeClass('btn-menu-p-show');
+			$('.op-nav-mark').hide();
+			navKey = 1;
+		}
+	});
+
+	$('.op-nav-mark').bind('touchmove click', function(){
+		$('.menu-pop-n').removeClass('menu-pop-n-ati');
+		$('.btn-menu-p').removeClass('btn-menu-p-show');
+		$(this).hide();
+		$('html, body').css('height', 'auto');
+        $('html, body').css('overflow', 'visible');
+		navKey = 1;
+	})
+});
+</script>
+
+
+    <div class="op-nav">
+
+
+    </div>
+    <script type="text/javascript">
+        if (typeof (WtParam) != "undefined" && WtParam == "mbdkgxj") {
+            $(".op-nav").hide();
+            $("div[id^='app_download_']").hide();
+            $("#app_yc_dwonload").hide();
+        }
+    </script>
+
+    <div class="op-nav-mark" style="display: none;"></div>
+    <div class="masterBox">
+        <input id="hidCarID" type="hidden" value="0" />
+        <input id="hidCarPrice" type="hidden" value="0" />
+        <input id="hidCarName" type="hidden" value="" />
+        <input id="hidSeatNum" type="hidden" />
+
+        <!--页签导航开始-->
+        <div class="first-tags">
+            <header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">保险计算</h1>
+		</header>
+        </div>
+        <!--页签导航结束-->
+
+        <div id="floatLayer" style="background: #034895;"class="top_layer2 baoxian-top-layer">
+            <div class="tit">新车市场价</div>
+            <div class="num-box"><i id="marketPrice">0</i><span>元</span></div>
+            <p class="zd_box">官方指导价<i id="guanFangPrice">0</i>元<strong>(注:新车商业险9折)</strong></p>
+            <a id="chongZhi" onclick="window.location.reload();" data-channelid="109.109.1065" href="javascript:void(0)" class="btn-resetting">重置</a>
+            <script type="text/javascript">
+                $(function () {
+                    $("#chongZhi").on("click", function () {
+                        location.href = "/qichebaoxianjisuancal/";
+                    });
+                });
+            </script>
+        </div>
+        <div class="qkzj_top_layer" style="display: none;background:#034895 !important;top:44px">
+            <span class="fl">新车保险市场价</span>
+            <span class="fr"><em id="marketPrice1" class="num">0</em>元</span>
+        </div>
+        <div id="floatFlag"></div>
+        
+        <!--<a data-channelid="27.93.536" href="http://baoxian.m.daikuan.com/?yxms=NMH0018" class="jsq-dk-jiange">车险精确报价<em></em></a>-->
+        <div class="xj-form">
+            <a href="javascript:void(0);" data-action="brandlayer" data-value="0" class="xj-change-city" style="display: none;">
+                <span>选择车款</span>
+                <strong id="select_carname" class="act"></strong>
+            </a>
+            <div class="xj-user-info-box">
+                <div class="xj-user-info">
+                    <span>裸车价格</span>
+                    <input id="luochePrice2" type="number" class="current">
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                //jsq-top-layer
+                $(document).scroll(function () {
+                    var top = $("#floatFlag").offset().top;
+                    var scrollTop = $(this).scrollTop();
+                    if (scrollTop >= top) {
+                        $("#floatLayer").hide();
+                        $(".qkzj_top_layer").show();
+                    }
+                    if (scrollTop < top) {
+                        $("#floatLayer").show();
+                        $(".qkzj_top_layer").hide();
+                    }
+                });
+
+                $("#luochePrice2").on("keyup input", function () {
+                    var carPrice = $(this).val();
+                    if (carPrice.length > 8) {
+                        carPrice = carPrice.substr(0, 8);
+                        $("#luochePrice2").val(carPrice);
+                    }
+                    $('#hidCarPrice').val(carPrice);
+                    setCalcToolUrl("caridAndPrice", $("#hidCarID").val());
+                    calcInsuranceAll();
+                });
+            });
+        </script>
+        <div class="jsq-jiange-box">
+            <span class="left-tab">强制保险</span>
+            <span class="right-tab">小计：<i id="biYaoHuaFei2">0</i></span>
+        </div>
+
+        <div class="xj-form">
+            <a class="xj-change-city">
+                <span>交强险</span>
+                <strong id="jiaoQiangX" class="act" data-action="popup-ZuoWeiS">0</strong>
+            </a>
+        </div>
+
+        <div class="jsq-jiange-box">
+            <span class="left-tab">商业保险</span>
+            <span class="right-tab">小计：<i id="shangYeXian2">0</i></span>
+        </div>
+
+        <div class="jsq-tt-first">
+            <span>推荐套餐</span>
+            <div class="jsq-tab-box">
+                <a id="jibenX" href="javascript:void(0);" onclick="JiBenX()">基本险</a>
+                <a id="jingjiX" href="javascript:void(0);" onclick="JingJiX()">经济险</a>
+                <a id="quanX" href="javascript:void(0);" onclick="QuanX()">全险</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+            //第三者责任险 车辆损失险 不计免赔
+            function JiBenX() {
+                $('#chkDiSanZheX').attr("class", checkedClass);
+                $('#chkCheSunShiX').attr("class", checkedClass);
+                $('#chkBuJiX').attr("class", checkedClass);
+
+                $('#chkQuanCheX').attr("class", uncheckedClass);
+                $('#chkBoLiX').attr("class", uncheckedClass);
+                $('#chkZiRanX').attr("class", uncheckedClass);
+                $('#chkEngineX').attr("class", uncheckedClass);
+                $('#chkChengKeX').attr("class", uncheckedClass);
+                $('#chkSiJiX').attr("class", uncheckedClass);
+                $('#chkCheShenX').attr("class", uncheckedClass);
+                calcInsuranceAll();
+            }
+            //第三者责任险 车辆损失险 不计免赔 乘客坐位责任险 司机坐位责任险
+            function JingJiX() {
+                $('#chkDiSanZheX').attr("class", checkedClass);
+                $('#chkCheSunShiX').attr("class", checkedClass);
+                $('#chkBuJiX').attr("class", checkedClass);
+                $('#chkChengKeX').attr("class", checkedClass);
+                $('#chkSiJiX').attr("class", checkedClass);
+
+                $('#chkQuanCheX').attr("class", uncheckedClass);
+                $('#chkBoLiX').attr("class", uncheckedClass);
+                $('#chkZiRanX').attr("class", uncheckedClass);
+                $('#chkCheShenX').attr("class", uncheckedClass);
+                $('#chkEngineX').attr("class", uncheckedClass);
+                calcInsuranceAll();
+            }
+
+            function QuanX() {
+                $('#chkDiSanZheX').attr("class", checkedClass);
+                $('#chkCheSunShiX').attr("class", checkedClass);
+                $('#chkBuJiX').attr("class", checkedClass);
+                $('#chkChengKeX').attr("class", checkedClass);
+                $('#chkSiJiX').attr("class", checkedClass);
+                $('#chkQuanCheX').attr("class", checkedClass);
+                $('#chkBoLiX').attr("class", checkedClass);
+                $('#chkZiRanX').attr("class", checkedClass);
+                $('#chkCheShenX').attr("class", checkedClass);
+                $('#chkEngineX').attr("class", checkedClass);
+                calcInsuranceAll();
+            }
+        </script>
+        <div id="shangyeDiv" class="jsq-box">
+            <ul>
+                <li id="liDiSanZheX" class="jsq-item-click">
+                    <div id="chkDiSanZheX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <a href="###" data-action="popup-DiSanZheX">
+                        <div class="jsq-item-txt">第三者责任险<span id="diSanZhePeiFu">赔付20万</span></div>
+                        <div id="diSanZheX" class="jsq-item-num">0</div>
+                    </a>
+                </li>
+                <li id="liCheSunX">
+                    <div id="chkCheSunShiX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <div class="jsq-item-txt">车辆损失险</div>
+                    <div id="cheSunShiX" class="jsq-item-num">0</div>
+                </li>
+                <li id="liBuJiX">
+                    <div id="chkBuJiX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <div class="jsq-item-txt">不计免赔特约险</div>
+                    <div id="buJiX" class="jsq-item-num">0</div>
+                </li>
+                <li id="liQuanCheX">
+                    <div id="chkQuanCheX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <div class="jsq-item-txt">全车盗抢险</div>
+                    <div id="quanCheX" class="jsq-item-num">0</div>
+                </li>
+                <li id="liBoLiX" class="jsq-item-click">
+                    <div id="chkBoLiX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <a href="###" data-action="popup-BoLiX">
+                        <div class="jsq-item-txt">玻璃单独破碎险<span id="boLiPeiFu">国产玻璃</span></div>
+                        <div id="boLiX" class="jsq-item-num">0</div>
+                    </a>
+                </li>
+                <li id="liZiRanX">
+                    <div id="chkZiRanX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <div class="jsq-item-txt">自燃损失险</div>
+                    <div id="ziRanX" class="jsq-item-num">0</div>
+                </li>
+                <li id="liEngineX">
+                    <div id="chkEngineX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <div class="jsq-item-txt">涉水险/发动机特别损失险</div>
+                    <div id="engineX" class="jsq-item-num">0</div>
+                </li>
+                <li id="liCheShenX" class="jsq-item-click">
+                    <div id="chkCheShenX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <a href="###" data-action="popup-CheShenX">
+                        <div class="jsq-item-txt">车身划痕险<span id="cheShenPeiFu">赔付1万</span></div>
+                        <div id="cheShenX" class="jsq-item-num">0</div>
+                    </a>
+                </li>
+                <li id="liSiJiX" class="jsq-item-click">
+                    <div id="chkSiJiX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <a href="###" data-action="popup-SiJiX">
+                        <div class="jsq-item-txt">司机座位责任险<span id="sijiPeiFu">赔付2万</span></div>
+                        <div id="siJiX" class="jsq-item-num">0</div>
+                    </a>
+                </li>
+                <li id="liChengKeX" class="jsq-item-click">
+                    <div id="chkChengKeX" class="jsq-item-check jsq-item-checked"><span></span></div>
+                    <a href="###" data-action="popup-ChengKeX">
+                        <div class="jsq-item-txt">乘客座位责任险<span id="chengkePeiFu">赔付3万</span></div>
+                        <div id="chengKeX" class="jsq-item-num">0</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="summary-box mt15">
+            <div class="t-box">
+                <span>新车保险市场价</span>
+                <span id="marketPriceBottom" class="r-txt"></span>
+            </div>
+            <p class="b-box">此结果仅供参考，实际费用以当地缴费为准</p>
+            <ins id="div_7d90d815-7d00-4390-b046-1514d8c31b64" data-type="ad_play" data-adplay_ip="" data-adplay_areaname="" data-adplay_cityname="" data-adplay_brandid="" data-adplay_brandname="" data-adplay_brandtype="" data-adplay_blockcode="7d90d815-7d00-4390-b046-1514d8c31b64"></ins>
+        </div>
+
+
+        <script type="text/javascript">
+            $(function () {
+                $("#shangyeDiv div[id^=chk]").on("click", function () {
+                    $(this).toggleClass("jsq-item-checked");
+                    calcInsuranceAll();
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            //选择车款
+            function selectCarId(carId) {
+                location.href = "/qichebaoxianjisuan/?carid=" + carId;
+            }
+            var CarCommonBSID = "0"; //大数据组统计用
+            var CarCommonCBID = "0";
+            var CarCommonCSID = "0";
+            var CarCommonCarID = '0';
+        </script>
+        <!--footer start-->
+       <script type="text/javascript">
+            if (typeof (WtParam) != "undefined" && WtParam == "mbdkgxj") {
+                $(".footer15").hide();
+                $("div[id^='app_download_']").hide();
+                $("#app_yc_dwonload").hide();
+            }
+        </script>
+        <div class="float-r-box">
+            
+        </div>
+        <!--footer end-->
+    </div>
+    <div id="master_container" data-url="/html/selectCarTemplate.htm?v=20151207" class="brandlayer">
+    </div>
+
+    <script src="../js/iscroll-infinite.js?v=201508031842"></script>
+    <script src="../js/popup.js?v=201508031842"></script>
+    <script src="../js/CarCalculator.js?v=20170111"></script>
+
+    <!--车船弹出层-->
+    <div id="backCheChuan" class="leftmask leftmaskCheChuan" style="display: none;"></div>
+    <div id="cheChuanLayer" class="leftPopup popup-chechuan" data-back="leftmaskCheChuan" style="display: none; z-index: 10;">
+        <div class="swipeLeft swipeLeft-sub">
+            <dl id="cheChuanDl" class="tt-list">
+                <dd class="current">
+                    <a>
+                        <p id="item1">1.0L(含)以下</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item2">1.0-1.6L(含)</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item3">1.6-2.0L(含)</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item4">2.0-2.5L(含)</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item5">2.5-3.0L(含)</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item6">3.0-4.0L(含)</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item7">4.0L以上</p>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            //右侧侧附加选择层
+            (function () {
+                var iscroll = false;
+                $('[data-action=popup-chechuan]').rightSwipe({
+                    clickEnd: function (b) {
+                        var $leftPopup = this;
+                        if (b) {
+                            var $back = $('.' + $leftPopup.attr('data-back'));
+                            $back.touches({ touchstart: function (ev) { ev.preventDefault(); }, touchmove: function (ev) { ev.preventDefault(); } });
+                            var $swipeLeft = $leftPopup.find('.swipeLeft');
+
+                            if (!iscroll) {
+                                iscroll = true;
+                                $leftPopup.myScroll = new IScroll($swipeLeft[0], {
+                                    probeType: 1,
+                                    snap: 'dd',
+                                    momentum: true,
+                                    click: true
+                                });
+                            }
+                        } else {
+                            $leftPopup.myScroll.scrollTo(0, 0, 0, false);
+                        }
+                    }
+                });
+            })();
+
+            $("#cheChuanDl a").on("click", function () {
+                $("#cheChuanDl dd").attr("class", "");
+                $(this).parent().attr("class", "current");
+                calcInsuranceAll();
+                $("#backCheChuan").trigger("close");
+            });
+        });
+    </script>
+
+    <!--座位数弹出层-->
+    <div id="backZuoWei" class="leftmask leftmaskZuoWeiS" style="display: none;"></div>
+    <div class="leftPopup popup-ZuoWeiS" data-back="leftmaskZuoWeiS" style="display: none; z-index: 20;">
+        <div class="swipeLeft swipeLeft-sub">
+            <dl id="zuoWeiSDl" class="tt-list">
+                <dd class="current">
+                    <a>
+                        <p id="item950">家用6座以下</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item1100">家用6座及以上</p>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            //右侧侧附加选择层
+            (function () {
+                var iscroll = false;
+                $('[data-action=popup-ZuoWeiS]').rightSwipe({
+                    clickEnd: function (b) {
+                        var $leftPopup = this;
+                        if (b) {
+                            var $back = $('.' + $leftPopup.attr('data-back'));
+                            $back.touches({ touchstart: function (ev) { ev.preventDefault(); }, touchmove: function (ev) { ev.preventDefault(); } });
+                            var $swipeLeft = $leftPopup.find('.swipeLeft');
+
+                            if (!iscroll) {
+                                iscroll = true;
+                                $leftPopup.myScroll = new IScroll($swipeLeft[0], {
+                                    probeType: 1,
+                                    snap: 'dd',
+                                    momentum: true,
+                                    click: true
+                                });
+                            }
+                        } else {
+                            $leftPopup.myScroll.scrollTo(0, 0, 0, false);
+                        }
+                    }
+                });
+            })();
+
+            $("#zuoWeiSDl a").on("click", function () {
+                $("#zuoWeiSDl dd").attr("class", "");
+                $(this).parent().attr("class", "current");
+                calcInsuranceAll();
+                $("#backZuoWei").trigger("close");
+            });
+        });
+    </script>
+
+    <!--第三者责任险弹出层-->
+    <div id="backDiSanZhe" class="leftmask leftmaskDiSanZheX" style="display: none;"></div>
+    <div class="leftPopup popup-DiSanZheX" data-back="leftmaskDiSanZheX" style="display: none; z-index: 30;">
+        <div class="swipeLeft swipeLeft-sub">
+            <dl id="diSanZheXDl" class="tt-list">
+                <dd class="current">
+                    <a>
+                        <p id="item50000">5万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item100000">10万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item200000">20万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item500000">50万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item1000000">100万</p>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            //右侧侧附加选择层
+            (function () {
+                var iscroll = false;
+                $('[data-action=popup-DiSanZheX]').rightSwipe({
+                    isclick: function () {
+                        if ($("#chkDiSanZheX").attr("class") == checkedClass) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    },
+                    clickEnd: function (b) {
+                        var $leftPopup = this;
+                        if (b) {
+                            var $back = $('.' + $leftPopup.attr('data-back'));
+                            $back.touches({ touchstart: function (ev) { ev.preventDefault(); }, touchmove: function (ev) { ev.preventDefault(); } });
+                            var $swipeLeft = $leftPopup.find('.swipeLeft');
+
+                            if (!iscroll) {
+                                iscroll = true;
+                                $leftPopup.myScroll = new IScroll($swipeLeft[0], {
+                                    probeType: 1,
+                                    snap: 'dd',
+                                    momentum: true,
+                                    click: true
+                                });
+                            }
+                        } else {
+                            $leftPopup.myScroll.scrollTo(0, 0, 0, false);
+                        }
+                    }
+                });
+            })();
+
+            $("#diSanZheXDl a").on("click", function () {
+                $("#diSanZheXDl dd").attr("class", "");
+                $(this).parent().attr("class", "current");
+                calcInsuranceAll();
+                $("#backDiSanZhe").trigger("close");
+            });
+        });
+    </script>
+
+    <!--玻璃单独破碎险弹出层-->
+    <div id="backBoLi" class="leftmask leftmaskBoLiX" style="display: none;"></div>
+    <div class="leftPopup popup-BoLiX" data-back="leftmaskBoLiX" style="display: none; z-index: 40;">
+        <div class="swipeLeft swipeLeft-sub">
+            <dl id="boLiXDl" class="tt-list">
+                <dd class="current">
+                    <a>
+                        <p id="P1">国产</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item0">进口</p>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            //右侧侧附加选择层
+            (function() {
+                var iscroll = false;
+                $('[data-action=popup-BoLiX]').rightSwipe({
+                    isclick: function() {
+                        if ($("#chkBoLiX").attr("class") == checkedClass) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    },
+                    clickEnd: function(b) {
+                        var $leftPopup = this;
+                        if (b) {
+                            var $back = $('.' + $leftPopup.attr('data-back'));
+                            $back.touches({ touchstart: function(ev) { ev.preventDefault(); }, touchmove: function(ev) { ev.preventDefault(); } });
+                            var $swipeLeft = $leftPopup.find('.swipeLeft');
+
+                            if (!iscroll) {
+                                iscroll = true;
+                                $leftPopup.myScroll = new IScroll($swipeLeft[0], {
+                                    probeType: 1,
+                                    snap: 'dd',
+                                    momentum: true,
+                                    click: true
+                                });
+                            }
+                        } else {
+                            $leftPopup.myScroll.scrollTo(0, 0, 0, false);
+                        }
+
+
+                    }
+                });
+                $("#boLiXDl a").on("click", function() {
+                    $("#boLiXDl dd").attr("class", "");
+                    $(this).parent().attr("class", "current");
+                    calcInsuranceAll();
+                    $("#backBoLi").trigger("close");
+                });
+            })();
+        });
+    </script>
+
+    <!--车身划痕险弹出层-->
+    <div id="backCheShen" class="leftmask leftmaskCheShenX" style="display: none;"></div>
+    <div class="leftPopup popup-CheShenX" data-back="leftmaskCheShenX" style="display: none; z-index: 50;">
+        <div class="swipeLeft swipeLeft-sub">
+            <dl id="cheShenXDl" class="tt-list">
+                <dd class="current">
+                    <a>
+                        <p id="item2000">2千</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item5000">5千</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item10000">1万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item20000">2万</p>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            //右侧侧附加选择层
+            (function () {
+                var iscroll = false;
+                $('[data-action=popup-CheShenX]').rightSwipe({
+                    isclick: function () {
+                        if ($("#chkCheShenX").attr("class") == checkedClass) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    },
+                    clickEnd: function (b) {
+                        var $leftPopup = this;
+                        if (b) {
+                            var $back = $('.' + $leftPopup.attr('data-back'));
+                            $back.touches({ touchstart: function (ev) { ev.preventDefault(); }, touchmove: function (ev) { ev.preventDefault(); } });
+                            var $swipeLeft = $leftPopup.find('.swipeLeft');
+
+                            if (!iscroll) {
+                                iscroll = true;
+                                $leftPopup.myScroll = new IScroll($swipeLeft[0], {
+                                    probeType: 1,
+                                    snap: 'dd',
+                                    momentum: true,
+                                    click: true
+                                });
+                            }
+                        } else {
+                            $leftPopup.myScroll.scrollTo(0, 0, 0, false);
+                        }
+                    }
+                });
+            })();
+
+            $("#cheShenXDl a").on("click", function () {
+                $("#cheShenXDl dd").attr("class", "");
+                $(this).parent().attr("class", "current");
+                calcInsuranceAll();
+                $("#backCheShen").trigger("close");
+            });
+        });
+    </script>
+
+    <!--司机座位责任险弹出层-->
+    <div id="backSiJi" class="leftmask leftmaskSiJiX" style="display: none;"></div>
+    <div class="leftPopup popup-SiJiX" data-back="leftmaskSiJiX" style="display: none; z-index: 60;">
+        <div class="swipeLeft swipeLeft-sub">
+            <dl id="siJiXDl" class="tt-list">
+                <dd class="current">
+                    <a>
+                        <p id="item10000">1万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item20000">2万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item30000">3万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item40000">4万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item50000">5万</p>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            //右侧侧附加选择层
+            (function () {
+                var iscroll = false;
+                $('[data-action=popup-SiJiX]').rightSwipe({
+                    isclick: function () {
+                        if ($("#chkSiJiX").attr("class") == checkedClass) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    },
+                    clickEnd: function (b) {
+                        var $leftPopup = this;
+                        if (b) {
+                            var $back = $('.' + $leftPopup.attr('data-back'));
+                            $back.touches({ touchstart: function (ev) { ev.preventDefault(); }, touchmove: function (ev) { ev.preventDefault(); } });
+                            var $swipeLeft = $leftPopup.find('.swipeLeft');
+
+                            if (!iscroll) {
+                                iscroll = true;
+                                $leftPopup.myScroll = new IScroll($swipeLeft[0], {
+                                    probeType: 1,
+                                    snap: 'dd',
+                                    momentum: true,
+                                    click: true
+                                });
+                            }
+                        } else {
+                            $leftPopup.myScroll.scrollTo(0, 0, 0, false);
+                        }
+                    }
+                });
+            })();
+
+            $("#siJiXDl a").on("click", function () {
+                $("#siJiXDl dd").attr("class", "");
+                $(this).parent().attr("class", "current");
+                calcInsuranceAll();
+                $("#backSiJi").trigger("close");
+            });
+        });
+    </script>
+
+    <!--乘客座位责任险弹出层-->
+    <div id="backChengKe" class="leftmask leftmaskChengKeX" style="display: none;"></div>
+    <div class="leftPopup popup-ChengKeX" data-back="leftmaskChengKeX" style="display: none; z-index: 70;">
+        <div class="swipeLeft swipeLeft-sub">
+            <dl id="chengKeXDl" class="tt-list">
+                <dd class="current">
+                    <a>
+                        <p id="item10000">1万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item20000">2万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item30000">3万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item40000">4万</p>
+                    </a>
+                </dd>
+                <dd>
+                    <a>
+                        <p id="item50000">5万</p>
+                    </a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            //右侧侧附加选择层
+            (function () {
+                var iscroll = false;
+                $('[data-action=popup-ChengKeX]').rightSwipe({
+                    isclick: function () {
+                        if ($("#chkChengKeX").attr("class") == checkedClass) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    },
+                    clickEnd: function (b) {
+                        var $leftPopup = this;
+                        if (b) {
+                            var $back = $('.' + $leftPopup.attr('data-back'));
+                            $back.touches({ touchstart: function (ev) { ev.preventDefault(); }, touchmove: function (ev) { ev.preventDefault(); } });
+                            var $swipeLeft = $leftPopup.find('.swipeLeft');
+
+                            if (!iscroll) {
+                                iscroll = true;
+                                $leftPopup.myScroll = new IScroll($swipeLeft[0], {
+                                    probeType: 1,
+                                    snap: 'dd',
+                                    momentum: true,
+                                    click: true
+                                });
+                            }
+                        } else {
+                            $leftPopup.myScroll.scrollTo(0, 0, 0, false);
+                        }
+                    }
+                });
+            })();
+
+            $("#chengKeXDl a").on("click", function () {
+                $("#chengKeXDl dd").attr("class", "");
+                $(this).parent().attr("class", "current");
+                calcInsuranceAll();
+                $("#backChengKe").trigger("close");
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        function calcInsuranceAll() {
+
+            //交强险
+            calcCompulsory();
+            //第三责任险
+            calcTPL();
+            //车辆损失险
+            calcCarDamage();
+            //不计免赔特约险
+            calcAbatement();
+            //全车盗抢险
+            calcCarTheft();
+            //玻璃单独破碎险
+            calcBreakageOfGlass();
+            //自燃损失险
+            calcSelfignite();
+            //涉水险/发动机特别损失险
+            calcCarEngineDamage();
+            //车身划痕险
+            calcCarDamageDW();
+            //司机座位责任险
+            calcLimitofDriver();
+            //乘客座位责任险
+            calcLimitofPassenger();
+            //必要花费小计
+            calcEssentialCost();
+            //商业保险小计
+            calcCommonTotal();
+            //市场价
+            calcMarket();
+            //官方指导价
+            calcCompany();
+            //格式化数字千位符
+            //$("strong[id^='show_'],b[id^='show_']").html(function (index, html) { return formatCurrency(parseInt(html)) + "元"; });
+        }
+
+        //$("#luochePrice1").html(formatCurrency($("#hidCarPrice").val()));
+        //$("#luochePrice2").val(formatCurrency($("#hidCarPrice").val()));
+        $("#luochePrice2").attr("value", $("#hidCarPrice").val());
+        //GetCarInfo(<%=carId%>);
+        $("#diSanZheXDl dd").attr("class", "");
+        $("#diSanZheXDl dd").eq(2).attr("class", "current");
+
+        $("#cheShenXDl dd").attr("class", "");
+        $("#cheShenXDl dd").eq(1).attr("class", "current");
+
+        $("#siJiXDl dd").attr("class", "");
+        $("#siJiXDl dd").eq(1).attr("class", "current");
+
+        $("#chengKeXDl dd").attr("class", "");
+        $("#chengKeXDl dd").eq(1).attr("class", "current");
+
+        var carid = getQueryString("carid");
+        var carPrice = getQueryString("carprice");
+
+
+        if (carid) {
+            if (carPrice) {
+                $("#hidCarPrice").val(carPrice);
+                //$("#luochePrice1").html(formatCurrency(carPrice));
+                $("#luochePrice2").attr("value", carPrice);
+                setCalcToolUrl("caridAndPrice", $("#hidCarID").val());
+            } else {
+                //$("#luochePrice1").html(formatCurrency($("#hidCarPrice").val()));
+                $("#luochePrice2").attr("value", $("#hidCarPrice").val());
+                setCalcToolUrl("carid", $("#hidCarID").val());
+            }
+            GetCarInfo(0);
+        } else {
+            $("#hidCarPrice").val(carPrice);
+            //$("#luochePrice1").html(formatCurrency(carPrice));
+            $("#luochePrice2").attr("value", carPrice);
+            $("#zuoWeiSDl dd").attr("class", "");
+            $("#zuoWeiSDl dd").eq(0).attr("class", "current");
+            $("#boLiXDl dd").attr("class", "");
+            $("#boLiXDl dd").eq(0).attr("class", "current");
+            $("#cheChuanDl dd").attr("class", "");
+            $("#cheChuanDl dd").eq(1).attr("class", "current");
+            setCalcToolUrl("carPrice", carPrice);
+        }
+
+        //if (carPrice) {
+        //    $("#hidCarPrice").val(carPrice);
+        //    $("#luochePrice1").html(formatCurrency(carPrice));
+        //    $("#luochePrice2").attr("value", carPrice);
+        //    $("#zuoWeiSDl dd").attr("class", "");
+        //    $("#zuoWeiSDl dd").eq(0).attr("class", "current");
+        //    $("#boLiXDl dd").attr("class", "");
+        //    $("#boLiXDl dd").eq(0).attr("class", "current");
+        //    $("#cheChuanDl dd").attr("class", "");
+        //    $("#cheChuanDl dd").eq(1).attr("class", "current");
+        //    setCalcToolUrl("carPrice", carPrice);
+        //} else { //传入的是carid
+        //    $("#luochePrice1").html(formatCurrency($("#hidCarPrice").val()));
+        //    $("#luochePrice2").attr("value", $("#hidCarPrice").val());
+        //    GetCarInfo();
+        //    setCalcToolUrl("carid", $("#hidCarID").val());
+        //}
+
+        calcInsuranceAll();
+    </script>
+    
+    <!--<script type="text/javascript" src="http://image.bitautoimg.com/mergejs,s=carchannel/wirelessjsv2/v2/iscroll.min.js,carchannel/wirelessjsv2/v2/underscore.min.js,carchannel/wirelessjsv2/v2/model.min.js,carchannel/wirelessjsv2/v2/rightswipe.min.js,carchannel/wirelessjsv2/v2/note.min.js,carchannel/wirelessjsv2/v2/brand.js?v=20170517"></script>-->
+    <script type="text/javascript">
+        var arrMarkSerial = [], saleYearCount = 0;  //非停销年款
+      
+
+        //自适应页脚
+        //层自适应
+        var _commonSlider = function($model, $body) {
+            if ($model.height() > $(document.body).height()) {
+                $(document.body).height($model.height());
+            } else if ($model.height() < $(document.body).height()) {
+                $('.masterBox', $body).css({ 'overflow': 'hidden' }, { width: '100%' }).height(document.documentElement.clientHeight - 40);
+                $('.brandlist').height(document.documentElement.clientHeight - 40);
+            }
+        };
+
+        //折叠下划线控制
+        function removeborder() {
+            var $smalls = this.find('.tt-small');
+            $smalls.each(function(index, curr) {
+                var $current = $(curr);
+                setTimeout(function() {
+                    if (index < $smalls.length - 1) {
+                        if ($current.next().height() == 0) {
+                            $current.css('border-bottom', '1px solid #E9E9E9');
+                        } else {
+                            $current.css('border-bottom', '0px solid #E9E9E9');
+                        }
+                    }
+                }, 300);
+            });
+        }
+    </script>
+    <script type="text/javascript" src="../js/bglogpostlog.js?v=20170629"></script>
+<script type="text/javascript" src="../js/test_bglogpostlog20170822.js?v=20170822"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.tel {
+				width: 100vw;
+				height: 27vw;
+				padding: 4vw;
+				background: #fff;
+				margin-bottom: 4vw;
+			}
+			
+			.tel span {
+				display: block;
+				width: 92vw;
+				height: 6vw;
+				line-height: 6vw;
+				text-align: center;
+			}
+			
+			.tel span:nth-child(2) {
+				font-size: 4vw;
+			}
+			
+			.tel span:nth-child(3) {
+				margin-top: 1vw;
+			}
+			
+			.item {
+				width: 90vw;
+				margin: 0 auto;
+				height: 12vw;
+				border-radius: 5px;
+				background: #fff;
+				overflow: hidden;
+				position: relative;
+				margin-bottom: 4vw;
+			}
+			
+			.item input {
+				width: 90vw;
+				height: 8vw;
+				margin: 2vw 0;
+				padding: 0 5vw;
+				border: none;
+				/*background: url(../image/4.png) no-repeat 5vw center;*/
+				font-size: 4vw;
+				background-size: 5vw 5vw;
+			}
+			
+			.open {
+				width: 12vw;
+				height: 12vw;
+				background: url(../image/5.png) no-repeat center center;
+				background-size: 6vw 3vw;
+				position: absolute;
+				top: 0;
+				right: 5px;
+			}
+			
+			.btn {
+				width: 90vw;
+				height: 12vw;
+				margin: 0 auto;
+				line-height: 12vw;
+				background: #034895;
+				color: #FFFFFF;
+				font-size: 4.5vw;
+				text-align: center;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置登录密码</h1>
+		</header>
+		<div class="mui-content">
+			<div class="tel">
+				<span>请为你的账号</span>
+				<span class="phonenum"></span>
+				<span>设置新密码</span>
+			</div>
+
+			<div class="item">
+				<input type="password" name="yzm" id="Npwd" placeholder="请输入新密码" />
+				<div class="open"></div>
+			</div>
+
+			<div class="btn" id="save">保存</div>
+
+		</div>
+		<script type="text/javascript">
+			var lookstatus = 0;
+			var telstr = request('tel');
+			$(".phonenum").text(telstr.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2'));
+			$('.open').click(function() {
+				if(lookstatus == 0) {
+					$(this).css({
+						'background': 'url(../image/5.png) no-repeat center center',
+						'background-size': '6vw 3vw'
+					});
+					$('#Npwd').attr('type', 'password');
+					lookstatus = 1;
+				} else {
+					$(this).css({
+						'background': 'url(../image/6.png) no-repeat center center',
+						'background-size': '6vw 3vw'
+					});
+					$('#Npwd').attr('type', 'text');
+					lookstatus = 0;
+				}
+			})
+			if(request('type') == "resetlogin"){
+				$(".mui-title").text("设置登录密码");
+				$(".btn").text("设置登录密码");
+			}
+			if(request('type') == "forget"){
+				$(".mui-title").text("找回密码");
+				$(".btn").text("找回密码");
+			}
+			$("#save").click(function(){
+				if(request('type') == "resetlogin"){
+					var Npwd = $("#Npwd").val();
+					if(Npwd == "" || Npwd == undefined) {
+						mui.toast("请输入新密码");
+					}else{
+						$.ajax({
+							type:"post",
+							url:myUrl +"login/editpass",
+							async:true,
+							data: {
+								password: Npwd,
+								uid: localStorage.xnuid
+							},
+							success:function(msg) {
+								console.log(msg);
+								mui.toast(msg.info);
+								if(msg.status == 1){
+									retIndex()
+								}
+								
+							}
+						});
+					}
+				}
+				if(request('type') == "forget"){
+					var Npwd = $("#Npwd").val();
+					if(Npwd == "" || Npwd == undefined) {
+						mui.toast("请输入密码");
+					}else{
+						$.ajax({
+							type:"post",
+							url:myUrl +"login/backpass",
+							async:true,
+							data: {
+								password: Npwd,
+								telephone: telstr
+							},
+							success:function(msg) {
+								console.log(msg);
+								mui.toast(msg.info);
+								if(msg.status == 1){
+									retIndex()
+								}
+								
+							}
+						});
+					}
+					
+				}
+			})
+			
+			
+			function retIndex() {
+				var wvs = plus.webview.all();　　 //所有窗口对象 
+				var launch = plus.webview.getLaunchWebview();　　 //首页窗口对象 
+				var self = plus.webview.currentWebview();　　 //当前窗口对象 
+				for(var i = 0, len = wvs.length; i < len; i++) {　　　 // 首页以及当前窗口对象，不关闭； 
+					if(wvs[i].id === launch.id || wvs[i].id === self.id || wvs[i].id === localStorage.homeWebId) {　　　　　　　　 //选定某一页不关wvs[i].id === localStorage.homeWebId 
+						continue;
+					} else {
+						wvs[i].close('none');　　 //关闭中间的窗口对象，为防止闪屏，不使用动画效果； 
+					}
+				}　　 // 此时，窗口对象只剩下首页以及当前窗口，直接关闭当前窗口即可； 
+				self.close('slide-out-right');
+				mui.back();
+			}
+			
+		</script>
+	</body>
+
+</html>

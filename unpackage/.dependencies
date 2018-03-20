@@ -1,0 +1,189 @@
+{
+  "page/change_pwd.html": {
+    "href": "page/change_pwd.html",
+    "resources": [],
+    "priority": 0
+  },
+  "page/payPwd.html": {
+    "href": "page/payPwd.html",
+    "resources": [],
+    "priority": 1
+  },
+  "page/verification.html": {
+    "href": "page/verification.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "page/rule.html": {
+    "href": "page/rule.html",
+    "resources": [],
+    "priority": 1
+  },
+  "page/againPwd.html": {
+    "href": "page/againPwd.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "page/userinfo.html": {
+    "href": "page/userinfo.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "page/agreement.html": {
+    "href": "page/agreement.html",
+    "resources": [],
+    "priority": 2
+  },
+  "page/app_agreement.html": {
+    "href": "page/app_agreement.html",
+    "resources": [],
+    "priority": 3
+  },
+  "page/register.html": {
+    "href": "page/register.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "page/login.html": {
+    "href": "page/login.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "page/focous.html": {
+    "href": "page/focous.html",
+    "resources": [],
+    "priority": 1
+  },
+  "page/service.html": {
+    "href": "page/service.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "page/door_details.html": {
+    "href": "page/door_details.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "page/sort.html": {
+    "href": "page/sort.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "page/user_info.html": {
+    "href": "page/user_info.html",
+    "resources": [],
+    "priority": 3
+  },
+  "page/qrpay.html": {
+    "href": "page/qrpay.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "page/pay.html": {
+    "href": "page/pay.html",
+    "resources": [],
+    "priority": 4
+  },
+  "page/mingxi.html": {
+    "href": "page/mingxi.html",
+    "resources": [],
+    "priority": 5
+  },
+  "page/send.html": {
+    "href": "page/send.html",
+    "resources": [],
+    "priority": 6
+  },
+  "page/jifen.html": {
+    "href": "page/jifen.html",
+    "resources": [],
+    "refer": [],
+    "priority": 4
+  },
+  "page/card.html": {
+    "href": "page/card.html",
+    "resources": [],
+    "priority": 5
+  },
+  "page/cityList.html": {
+    "href": "page/cityList.html",
+    "resources": [],
+    "priority": 6
+  },
+  "page/storeevos.html": {
+    "href": "page/storeevos.html",
+    "resources": [],
+    "priority": 7
+  },
+  "page/storedetail.html": {
+    "href": "page/storedetail.html",
+    "resources": [],
+    "refer": [],
+    "priority": 7
+  },
+  "page/nearBy.html": {
+    "href": "page/nearBy.html",
+    "resources": [],
+    "refer": [],
+    "priority": 7
+  },
+  "page/on_sale.html": {
+    "href": "page/on_sale.html",
+    "resources": [],
+    "priority": 8
+  },
+  "page/welfare.html": {
+    "href": "page/welfare.html",
+    "resources": [],
+    "priority": 9
+  },
+  "page/evaluate.html": {
+    "href": "page/evaluate.html",
+    "resources": [],
+    "refer": [],
+    "priority": 12
+  },
+  "page/service_details.html": {
+    "href": "page/service_details.html",
+    "resources": [],
+    "refer": [],
+    "priority": 12
+  },
+  "page/service_card.html": {
+    "href": "page/service_card.html",
+    "resources": [],
+    "refer": [],
+    "priority": 12
+  },
+  "page/qichebaoxianjisuan.html": {
+    "href": "page/qichebaoxianjisuan.html",
+    "resources": [],
+    "priority": 13
+  },
+  "page/about_us.html": {
+    "href": "page/about_us.html",
+    "resources": [],
+    "priority": 14
+  },
+  "page/set.html": {
+    "href": "page/set.html",
+    "resources": [],
+    "refer": [],
+    "priority": 14
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  }
+}

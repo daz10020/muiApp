@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/pulic.css" rel="stylesheet" />
+		<link href="../css/bankcommon.css" rel="stylesheet" />
+	</head> 
+	<style>
+		body{background:#fff;}
+		.homeheadbg{width:100%;margin:0 auto;height: 50vw;background-image: url(../image/81.png);background-size: 100% 100%;overflow: hidden;}
+		.homeheadbg span {
+			width: 100%;
+			height: 10vw;
+			line-height: 10vw;
+			color: #FFFFFF;
+			text-align: center;
+			padding-top: 13vw;
+			font-size: 5vw;
+			display: block;
+		}
+		.logo {
+			background: url(../image/86_1.png) no-repeat center center;
+			width: 100vw;
+			height: 34vw;
+			background-size: 44vw 6vw;
+		}
+		.homelist{width: 100%;overflow: hidden;padding: 10px;}
+		.homelist img{width:28px;height: 28px;float: left;display: block;margin: 1px;margin-left: 9px;}
+		.homelist p{height: 30px;line-height: 30px;float: left;margin-bottom: 0px;margin-left: 14px;font-size: 16px;}
+	</style>
+	<body>
+		<div class="homeheadbg" onclick="openW('settings.html')">
+			<span id="username">我博哥真美！</span>
+			<div class="logo"></div>
+		</div>
+		<div class="homeview" style="margin-top: -3vw ;">
+			<div class="homelist" onclick="openW('myshop.html')">
+				<img src="../image/82.png"/>
+				<p>门店信息</p>
+			</div>
+			<div class="homelist" onclick="openW('moneyin.html')">
+				<img src="../image/84.png"/>
+				<p>我的收入</p>
+			</div>
+			<div class="homelist" onclick="openW('consumptionrecords.html')">
+				<img src="../image/85.png"/>
+				<p>消费记录</p>
+			</div>
+			<div class="homelist" onclick="openW('orderdetail.html')" style="border:1px solid #e7e7e7;border-left: none;border-right: none;">
+				<img src="../image/83.png"/>
+				<p>验证服务卷</p>
+			</div>
+		</div>
+		<style>
+			.homebottom{
+				position: fixed;
+				bottom: 0px;
+				left: 0px;
+				height: 50px;
+				line-height: 50px;
+				box-shadow: 0px 0px 10px #ccc;
+				width: 100%;
+				text-align: center;
+				background: #fff;}
+			.saomiao{position: absolute;display: block;width: 70px;height: 70px;left: calc(50% - 30px);bottom: 15px;}
+		</style>
+		<div class="homebottom">
+			<img src="../image/88.png" class="saomiao" onclick="openW('richScan.html')"/>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>		
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/dropload.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mhy-business.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			if(localStorage.xnbusinessuid) {
+				getuserinfo();
+				$("#username").text(localStorage.xnbusinessusername);
+			} else {
+				$("#head img").attr("src", "image/54.png");
+				$("#username").text("请登录");
+				$('.homeheadbg').click(function() {
+					openW('login.html')
+				})
+				$(".linee").hide();
+				$(".diste").hide();
+			}
+		</script>
+	</body>
+
+</html>

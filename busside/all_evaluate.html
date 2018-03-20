@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/dropload.css" />
+
+		<style>
+			body,
+			.mui-row,
+			.mui-content {
+				background-color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">门店评价</h1>
+		</header>
+		<div class="mui-content mui-content-padded">
+			<div class="containeen">
+				<!--<div class="mui-row" style="position: relative; padding-bottom: 5px;">
+					<div class="mui-col-sm-2 mui-col-xs-2">
+						<img src="../image/54.png" style="width: 100%; max-width: 40px;" />
+					</div>
+					<div class="mui-col-sm-10 mui-col-xs-10">
+						<div class="mui-row">
+							<div class="mui-col-sm-6 mui-col-xs-6">
+								<h5>匿名评价</h5>
+							</div>
+							<div class="mui-col-sm-6 mui-col-xs-6">
+								<h5 class="mui-pull-right">2017-01-01 11:11</h5>
+							</div>
+						</div>
+						<div class="mui-row">
+							<div class="mui-col-sm-12 mui-col-xs-12">
+								<img src="../image/28_1.png" style="width: 100%; max-width: 100px;" />
+							</div>
+						</div>
+						<div class="mui-row">
+							<div class="mui-col-sm-12 mui-col-xs-12">
+								<h5>评价评价评价评价评价评价评价评价评价评价评价评价评价</h5>
+							</div>
+						</div>
+						<div class="mui-row">
+							<div class="mui-col-sm-3 mui-col-xs-3">
+								<img src="../image/87.png" style="width: 100%; max-width: 60px;" />
+							</div>
+							<div class="mui-col-sm-3 mui-col-xs-3">
+								<img src="../image/87.png" style="width: 100%; max-width: 60px;" />
+							</div>
+						</div>
+						<div class="mui-row">
+							<div class="mui-col-sm-12 mui-col-xs-12" style="background-color: #ededed;">
+								<h5 class="mui-content-padded">商家回复：是是是是是是是</h5>
+							</div>
+						</div>
+					</div>
+					<div style="width:100%;background-color: #ededed;position: absolute;bottom: 0;height: 1px;"></div>
+				</div>-->
+			</div>
+
+		</div>
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/dropload.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			// 页数
+			var page = 0;
+			// dropload
+			$('.mui-content').dropload({
+				scrollArea: window,
+				// 1 . 下拉刷新 回调函数
+				loadUpFn: function(me) {
+					console.log("刷新");
+					page = 1;
+					$(".containeen").empty();
+					loaddata(me);
+					me.resetload();
+
+				},
+				// 2 . 上拉加载更多 回调函数
+				loadDownFn: function(me) {
+					page++;
+					loaddata(me);
+				}
+			});
+
+			function loaddata(me) {
+				// 拼接HTML
+				$.ajax({
+					type: "post",
+					url: myUrl + "brand/ping",
+					async: true,
+					data: {
+						brand_id: localStorage.getItem("xnbusinessbrand_id"),
+						page: page
+					},
+					dataType: 'json',
+					success: function(msg) {
+						console.log(msg);
+						if(msg.status == 1) {
+							$.each(msg.comment, function(index, el) {
+								var domstr = "";
+								domstr += '<div class="mui-row" style="position: relative; padding-bottom: 5px;padding-top: 15px;" >'
+								domstr += '	<div class="mui-col-sm-2 mui-col-xs-2" style="overflow:hidden;max-height: 40px;overflow: hidden;"><img src="' + imgUrl + el.userpic + '"style="width: 100%; max-width: 40px;max-height: 40px;overflow: hidden;"/></div>';
+								domstr += '<div class="mui-col-sm-10 mui-col-xs-10">';
+								domstr += '<div class="mui-row">';
+								domstr += '<div class="mui-col-sm-6 mui-col-xs-6"><h5>' + el.username + '</h5></div>';
+								domstr += '<div class="mui-col-sm-6 mui-col-xs-6"><h5 class="mui-pull-right">' + el.create_time + '</h5></div>';
+								if(el.type == 1) {
+									domstr += '<div class="mui-row"><div class="mui-col-sm-12 mui-col-xs-12"><img src="../image/28_4.png" style="width: 100%; max-width: 100px;" /></div></div>';
+								} else if(el.type == 2) {
+									domstr += '<div class="mui-row"><div class="mui-col-sm-12 mui-col-xs-12"><img src="../image/28_3.png" style="width: 100%; max-width: 100px;" /></div></div>';
+								} else if(el.type == 3) {
+									domstr += '<div class="mui-row"><div class="mui-col-sm-12 mui-col-xs-12"><img src="../image/28_2.png" style="width: 100%; max-width: 100px;" /></div></div>';
+								} else if(el.type == 4) {
+									domstr += '<div class="mui-row"><div class="mui-col-sm-12 mui-col-xs-12"><img src="../image/28_1.png" style="width: 100%; max-width: 100px;" /></div></div>';
+								} else if(el.type == 5) {
+									domstr += '<div class="mui-row"><div class="mui-col-sm-12 mui-col-xs-12"><img src="../image/28.png" style="width: 100%; max-width: 100px;" /></div></div>';
+								}
+								domstr += '<div class="mui-row"><div class="mui-col-sm-12 mui-col-xs-12"><h5>' + el.content + '</h5></div></div>';
+								domstr += '<div class="mui-row">';
+								if(el.img.length) {
+									$.each(el.img, function(e, l) {
+										domstr += '<div class="mui-col-sm-3 mui-col-xs-3">';
+										domstr += '<img src="' + imgUrl + l.src + '" style="width: 100%; max-width: 60px;" />';
+										domstr += '</div>';
+									});
+								}
+								domstr += '</div></div>';
+								if(el.reply) {
+									domstr += '<div class="mui-row">';
+									domstr += '<div class="mui-col-sm-12 mui-col-xs-12" style="background-color: #ededed;">';
+									domstr += '<h5 class="mui-content-padded">商家回复：'+el.reply+'</h5>';
+									domstr += '</div>';
+								} else {
+									domstr += '<div class="mui-row">';
+									domstr += '<div class="mui-col-sm-12 mui-col-xs-12">';
+									domstr += '<textarea id="cpmm" name="" rows="" cols="" style="margin-bottom: 0px;"></textarea>';
+									domstr += '<div class="submit" style="float: right; width: 40px;height: 30px;text-align: center;line-height: 30px;font-size:14px;border: 1px solid #e7e7e7;border-radius: 3px;" data-conId="' + el.comment_id + '" onclick="upse(this)">提交</div>';
+									domstr += '</div></div>';
+								}
+								domstr += '</div>'
+								domstr += '<div style="width:100%;background-color: #ededed;position: absolute;bottom: 0;height: 1px;"></div></div>';
+								$('.containeen').append(domstr);
+							})
+							me.unlock();
+							me.noData(false);
+
+							if(msg.total_page == undefined) {
+								// 无数据
+
+							} else if(msg.total_page == page) {
+								console.log("暂无数据");
+								me.lock();
+								// 无数据
+								me.noData();
+								me.resetload();
+							} else {
+								me.unlock();
+								me.noData(false);
+								me.resetload();
+							}
+						}
+					},
+					error: function(xhr, type) {
+						alert('Ajax error!');
+						me.resetload();
+					}
+				});
+
+			}
+
+			function upse(i) {
+				$.ajax({
+					type:"post",
+					url:myUrl+"brand/reply",
+					async:true,
+					data: {
+						comment_id:$(i).attr('data-conId'),
+						content: $('#cpmm').val()
+					},
+					success: function(msg){
+						console.log(msg);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

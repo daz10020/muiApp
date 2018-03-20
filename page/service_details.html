@@ -1,0 +1,387 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alert.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mhy-user.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.line {
+				width: 100vw;
+				height: 11vw;
+				line-height: 11vw;
+				overflow: hidden;
+				padding: 0 5vw;
+				color: #666;
+				background: #fff;
+			}
+			
+			.line>span {
+				float: right;
+				color: #464646;
+				/*margin-right: 2vw;*/
+				/*display: block;
+				height: 10vw;
+				line-height: 10vw;*/
+			}
+			
+			#status .status {
+				display: block;
+				margin-left: 4vw;
+				float: right;
+				color: #2AC845;
+			}
+			
+			#status .status.info {
+				color: #FE9C00;
+			}
+			
+			#date {
+				border-bottom: 1px solid #eee;
+			}
+			
+			#brand>span {
+				display: block;
+				padding-right: 4vw;
+				background: url(../image/30.png) no-repeat right center;
+				background-size: 2vw 3vw;
+			}
+			
+			#user_date {
+				border-bottom: 1px solid #eee;
+			}
+			
+			#help {
+				background: #efeff4;
+				background: url(../image/62.png) no-repeat 5vw center;
+				background-size: 6vw 4.5vw;
+				text-indent: 8vw;
+				margin-top: 1vw;
+			}
+			
+			#help .delate {
+				border: 1px solid #ccc;
+				color: #666;
+				display: block;
+				padding: 0 4vw;
+				height: 7vw;
+				text-indent: 0vw;
+				line-height: 7vw;
+				text-align: center;
+				margin-top: 2vw;
+				border-radius: 4px;
+				margin-right: 3vw;
+				display: none;
+			}
+			
+			#help .return {
+				border: 1px solid #ccc;
+				color: #666;
+				display: block;
+				padding: 0 4vw;
+				height: 7vw;
+				text-indent: 0vw;
+				line-height: 7vw;
+				text-align: center;
+				margin-top: 2vw;
+				border-radius: 4px;
+				display: none;
+			}
+			
+			#help .evaluate {
+				border: 1px solid #FE9C00;
+				color: #FE9C00;
+				display: block;
+				padding: 0 4vw;
+				height: 7vw;
+				margin-top: 2vw;
+				text-indent: 0vw;
+				line-height: 7vw;
+				text-align: center;
+				border-radius: 4px;
+				margin-right: 3vw;
+				display: none;
+			}
+			
+			#counts .counts {
+				float: right;
+				height: 11vw;
+			}
+			#counts .counts>span {
+				display: block;
+				text-align: right;
+			}
+			#counts .counts>span:first-child {
+				height: 6vw;
+				line-height: 7vw;
+			}
+			#counts .counts>span:last-child {
+				height: 5vw;
+				line-height: 3vw;
+				font-size: 2.5vw;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="backrefresh();"></a>
+			<h1 class="mui-title">服务券详情</h1>
+		</header>
+		<div class="mui-content">
+			<div id="status" class="line">
+				状态
+				<span class="status"></span>
+			</div>
+			<div class="line" id="item">
+				服务项目 <span>普通洗车</span>
+			</div>
+			<div class="line" id="counts">
+				积分数值
+				<div class="counts" id="p1">
+					<span id="p1val">20积分</span>
+					<span><span style="color: red;">*</span>买10张享9折优惠价</span>
+				</div>
+				<span id="p2">20积分</span>
+			</div>
+			<div class="line" id="number">
+				服务券码 <span>320000000</span>
+			</div>
+			<div class="line" id="date">
+				购买时间 <span>2017-8-25 15:09</span>
+			</div>
+			<div class="line" id="brand">
+				使用店铺 <span>洗车店铺</span>
+			</div>
+			<div class="line" id="user_date">
+				使用时间 <span>2017-8-25 15:09</span>
+			</div>
+			<div class="line" id="help">
+				小诺客服 
+				<span class="return">退款</span>
+				<span class="delate">删除</span>
+				<span class="evaluate">评价</span>
+			</div>
+		</div>
+		<div class="model" id="delview" style="display: none;">
+			<div class="outside">
+				<div class="confires">确定 删除服务券？</div>
+				<div class="btns">
+					<div class="dels">取消</div>
+					<div class="confi">确定</div>
+				</div>
+			</div>
+		</div>
+		<div class="model" id="returnview" style="display: none;">
+			<div class="outside">
+				<div class="confires">确定 退款服务券？</div>
+				<div class="btns">
+					<div class="dels">取消</div>
+					<div class="confi">确定</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			
+			var from = localStorage.from;
+			
+			function plusReady(){
+				// Android处理返回键                  有问题
+				plus.key.addEventListener('backbutton', function() {
+					if(from == "detail"){
+						setTimeout("mui.back()",1000);
+						    // 获取目标口窗口对象
+						    var target = plus.webview.getWebviewById(plus.webview.currentWebview().opener().id);
+						    alert(target);
+						    // 执行相应的事件
+						    mui.fire(target, 'customEvent', {});
+						    // 执行关闭
+					}else{
+						mui.back();
+					}
+				}, false);
+			}
+			
+			document.addEventListener('plusready', plusReady, false);
+			function backrefresh(){
+				if(from == "detail"){
+					setTimeout("mui.back()",1000);
+					var old_back = mui.back;
+					mui.back = function() {
+					    // 获取目标口窗口对象
+					    var target = plus.webview.getWebviewById(plus.webview.currentWebview().opener().id);
+					    alert(target);
+					    // 执行相应的事件
+					    mui.fire(target, 'customEvent', {});
+					    // 执行关闭
+					    old_back();
+					};
+					
+				}else{
+					mui.back();
+				}
+			}
+					
+			
+			
+			var orderid = request("id");
+			
+			$.ajax({
+				type: "post",
+				url: myUrl + "member/serviceinfo",
+				data: {
+					order_id: orderid
+				},
+				async: true,
+				success: function(msg) {
+					console.log(msg);
+					if(msg.status == 1) {
+						var ostatus = msg.list.order_status_id;
+						var ostr = "";
+						if(ostatus == 1){
+							ostr = "未使用";
+							$(".status").addClass("info");
+							$(".return").show();
+						}
+						if(ostatus == 2){
+							ostr = "已使用";
+							$(".evaluate").show();
+							$(".delate").show();
+						}
+						if(ostatus == 3){
+							ostr = "已退款";
+							$(".delate").show();
+						}
+						if(ostatus == 4){
+							ostr = "已评价";
+							$(".delate").show();
+						}
+						$(".status").text(ostr);
+						$("#item span").text(msg.list.name);
+						if(msg.list.add_id == 0){
+							$("#p1").hide();
+							$("#p2val").text(msg.list.pay_points);
+						}else{
+							$("#p2").hide();
+							$("#p1val").text(msg.list.pay_points+"积分");
+						}
+						$("#number span").text(msg.list.order_num_alias);
+						
+						
+						$("#date span").text(getLocalTime(msg.list.date_added));
+						
+						$("#brand span").text(msg.list.brand_name);
+						
+						$("#user_date span").text(getLocalTime(msg.list.date_modified));
+						
+						$(".evaluate").attr("onclick","openW('evaluate.html?name="+msg.list.brand_name+"&orderid="+msg.list.order_id+"&id="+msg.list.brand_id+"&from=detail')")
+						
+						
+//											dealstr = "<span class='dela' onclick='del(this,"+el.order_id+")'>删除</span><span class='evaluate' onclick='pingjia(this,"+el.order_id+",\"" + el.brand_name + "\",\"" + el.brand_id + "\")'>评价</span>";
+					
+					
+					
+						$('.delate').click(function(){
+							$('#delview').css('display','block');
+						})
+						
+						$("#delview .dels").click(function(){
+							$('#delview').css('display','none');
+						})
+						
+						$('#delview .confi').click(function() {
+							$.ajax({
+								type: "post",
+								url: myUrl + "member/delservice",
+								data: {
+									order_id: msg.list.order_id
+								},
+								async: true,
+								success: function(msg) {
+									mui.toast(msg.info);
+									if(msg.status == 1) {
+										setTimeout("mui.back()",1000);
+										var old_back = mui.back;
+										mui.back = function() {
+										    // 获取目标口窗口对象
+										    var target = plus.webview.getWebviewById(plus.webview.currentWebview().opener().id);
+										    // 执行相应的事件
+										    mui.fire(target, 'customEvent', {});
+										    // 执行关闭
+										    old_back();
+										};
+									}
+								},
+								error: function(msg) {
+									console.log('网络异常');
+								}
+							});
+							
+						});
+						
+						
+						$('.return').click(function(){
+							$('#returnview').css('display','block');
+						})
+						
+						$("#returnview .dels").click(function(){
+							$('#returnview').css('display','none');
+						})
+						
+						$('#returnview .confi').click(function() {
+							$.ajax({
+								type: "post",
+								url: myUrl + "member/refund",
+								data: {
+									order_id: msg.list.order_id,
+									uid:localStorage.xnuid
+								},
+								async: true,
+								success: function(msg) {
+									mui.toast(msg.info);
+									if(msg.status == 1) {
+										setTimeout("mui.back()",1000);
+										var old_back = mui.back;
+										mui.back = function() {
+										    // 获取目标口窗口对象
+										    var target = plus.webview.getWebviewById(plus.webview.currentWebview().opener().id);
+										    // 执行相应的事件
+										    mui.fire(target, 'customEvent', {});
+										    // 执行关闭
+										    old_back();
+										};
+									}
+								},
+								error: function(msg) {
+									console.log('网络异常');
+								}
+							});
+							
+						});
+						
+						
+					
+					}
+				},
+				error: function(msg) {
+					console.log(msg);
+				}
+			})
+			
+			
+			
+		    function getLocalTime(nS) {     
+		       return new Date(parseInt(nS) * 1000).toLocaleString().replace(/\//, "-").replace(/\//, "-").replace(/下午|上午/g, "");      
+		    }     
+    
+		</script>
+	</body>
+
+</html>

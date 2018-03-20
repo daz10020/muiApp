@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/passwordkeyboard.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/setPayPwd.js" type="text/javascript" charset="utf-8"></script>
+
+		<style type="text/css">
+			.tel {
+				width: 100vw;
+				height: 23vw;
+				padding: 5vw;
+				background: #fff;
+				margin-bottom: 4vw;
+			}
+			
+			.tel>span {
+				display: block;
+				width: 90vw;
+				height: 6vw;
+				line-height: 6vw;
+				text-align: center;
+			}
+			
+			.tel>span:nth-child(2) {
+				margin-top: 1vw;
+			}
+			
+			.tel>span>span {
+				font-size: 4vw;
+			}
+			
+			.item {
+				width: calc(90vw - 2px);
+				margin: 0 auto;
+				height: 14vw;
+				border-radius: 2VW;
+				background: #fff;
+				overflow: hidden;
+				position: relative;
+				border: 1px solid #add7cd;
+				margin-bottom: 4vw;
+			}
+			
+			.btn {
+				width: 90vw;
+				height: 12vw;
+				margin: 0 auto;
+				line-height: 12vw;
+				background: #034895;
+				color: #FFFFFF;
+				font-size: 4.5vw;
+				text-align: center;
+				border-radius: 5px;
+			}
+			
+			#password {
+				position: absolute;
+				width: calc(90vw);
+				left: calc(5vw + 1vw);
+				top: calc(44px + 27vw);
+			}
+			
+			#password>.pass {
+				width: calc(100%/6 - 1px) !important;
+				height: 14vw !important;
+				float: left;
+				border-radius: 0;
+				border: none;
+				background: none;
+				border-right: 1px solid #ebebeb;
+			}
+			
+			#password>.pass:first-child {
+				border-left: none;
+			}
+			
+			#password>.pass:last-child {
+				border-right: none;
+			}
+			
+			#keyboardDIV {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置支付密码</h1>
+		</header>
+		<div class="mui-content">
+			<div class="tel">
+				<span>请为你的账号<span class="phonenum">139****6363</span></span>
+				<span>设置新密码</span>
+				<script type="text/javascript">
+					$(".phonenum").text(localStorage.getItem('xntelephone').replace(/(\d{3})\d{4}(\d{4})/, '$1****$2'));
+				</script>
+			</div>
+			<div class="item">
+
+				<input type="hidden" name="passss" id="passss" />
+			</div>
+
+			<div class="passText">
+				<form id="password" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass" type="password" maxlength="1" value="" disabled="disabled">
+					<input readonly="" class="pass pass_right" type="password" maxlength="1" value="" disabled="disabled">
+				</form>
+				<div class="btn" id="save">保存</div>
+				<div id="keyboardDIV">
+					<div id="key">
+						<!--<ul id="keyboard" style="font-size:20px;margin:2px -2px 1px 2px">
+							<li class="symbol"><span class="off">1</span></li>
+							<li class="symbol"><span class="off">2</span></li>
+							<li class="symbol btn_number_"><span class="off">3</span></li>
+							<li class="tab"><span class="off">4</span></li>
+							<li class="symbol"><span class="off">5</span></li>
+							<li class="symbol btn_number_"><span class="off">6</span></li>
+							<li class="tab"><span class="off">7</span></li>
+							<li class="symbol"><span class="off">8</span></li>
+							<li class="symbol btn_number_"><span class="off">9</span></li>
+							<li class="cancle btn_number_">取消</li>
+							<li class="symbol"><span class="off">0</span></li>
+							<li class="delete lastitem">删除</li>
+						</ul>-->
+						<input type="hidden" id="pwd" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--<script type="text/javascript">
+			
+			var nativeWebview, imm, InputMethodManager;
+			var initNativeObjects = function() {
+				if(mui.os.android) {
+					var main = plus.android.runtimeMainActivity();
+					var Context = plus.android.importClass("android.content.Context");
+					InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+					imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+				} else {
+					nativeWebview = plus.webview.currentWebview().nativeInstanceObject();
+				}
+			};
+			var showSoftInput = function() {
+				var nativeWebview = plus.webview.currentWebview().nativeInstanceObject();
+				if(mui.os.android) {
+					//强制当前webview获得焦点
+					plus.android.importClass(nativeWebview);
+					nativeWebview.requestFocus();
+					imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+				} else {
+					nativeWebview.plusCallMethod({
+						"setKeyboardDisplayRequiresUserAction": false
+					});
+				}
+				setTimeout(function() {
+					//此处可写具体逻辑设置获取焦点的input
+//					var inputElem = document.querySelector('input');
+					$('#passss').focus();
+				}, 200);
+			};
+			mui.plusReady(function() {
+				initNativeObjects();
+				showSoftInput();
+			});
+			
+			$("#save").click(function(){
+				var Npwd = $("#passss").val();
+				if(Npwd == "" || Npwd == undefined) {
+					mui.toast("请输入新密码");
+				}else{
+					$.ajax({
+						type:"post",
+						url:myUrl +"login/editpaypass",
+						async:true,
+						data: {
+							payword: Npwd,
+							uid: localStorage.xnuid
+						},
+						success:function(msg) {
+							console.log(msg);
+							mui.toast(msg.info);
+							if(msg.status == 1){
+								setTimeout("mui.back(-1)",500);
+								setTimeout("mui.back(-1)",500);
+							}
+							
+						}
+					});
+				}
+			})
+		</script>-->
+	</body>
+
+</html>

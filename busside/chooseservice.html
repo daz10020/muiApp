@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/bankcommon.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">选择服务</h1>
+		</header>
+		<style>
+			.serviceview {
+				overflow: hidden;
+				margin-top: 10px;
+				border-bottom: 1px solid #ccc;
+			}
+			
+			.servicelist {
+				overflow: hidden;
+				margin-bottom: 20px;
+			}
+			
+			.servicelist .select {
+				display: block;
+				float: left;
+				width: 30px;
+				height: 30px;
+				margin-left: 10px;
+				margin-top: 25px;
+				background: url(../image/39_1.png) no-repeat;
+				background-size: 30px;
+				background-position: center center;
+			}
+			
+			.servicelist .selecting {
+				display: block;
+				float: left;
+				width: 30px;
+				height: 30px;
+				margin-left: 10px;
+				margin-top: 25px;
+				background: url(../image/39.png) no-repeat;
+				background-size: 30px;
+				background-position: center center;
+			}
+			
+			.servicelist .rightview {
+				float: right;
+				width: calc(100% - 60px);
+				margin-right: 10px;
+				background: #fff;
+				position: relative;
+				padding: 10px;
+			}
+			
+			.rightview span {
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+			}
+			
+			.sname {
+				font-size: 18px;
+			}
+			
+			.scontent {
+				color: #ccc;
+				font-size: 16px;
+			}
+			
+			.rightview a {
+				color: orange;
+				font-size: 30px;
+				margin-right: 5px;
+			}
+			
+			.bottombtn {
+				position: fixed;
+				bottom: 0px;
+				left: 0px;
+				height: 70px;
+				line-height: 70px;
+				box-shadow: 0px 0px 10px #ccc;
+				width: 100%;
+				text-align: center;
+				background: #fff;
+			}
+			
+			.bottombtn a {
+				display: block;
+				width: 90%;
+				margin: 0 auto;
+				height: 50px;
+				line-height: 50px;
+				margin-top: 10px;
+				background: #0062CC;
+				color: #fff;
+			}
+		</style>
+		<div class="mui-content">
+			<div class="serviceview">
+				<!--<div class="servicelist">
+					<div class="select" data-id="1"></div>
+					<div class="rightview">
+						<p class="sname">服务项目</p>
+						<p class="scontent">普通洗车</p>
+						<span><a>20</a>积分</span>
+					</div>
+				</div>
+				<div class="servicelist">
+					<div class="select" data-id="2"></div>
+					<div class="rightview">
+						<p class="sname">服务项目</p>
+						<p class="scontent">普通洗车</p>
+						<span><a>20</a>积分</span>
+					</div>
+				</div>
+				<div class="servicelist">
+					<div class="select" data-id="3"></div>
+					<div class="rightview">
+						<p class="sname">服务项目</p>
+						<p class="scontent">普通洗车</p>
+						<span><a>20</a>积分</span>
+					</div>
+				</div>-->
+			</div>
+			<p class="pp" style="padding:10px;text-align: right;"><span class="span1">0</span>个服务，共<span class="span2">0</span>积分</p>
+			<div class="bottombtn">
+				<a id="sure">确定</a>
+			</div>
+		</div>
+
+		<script src="../js/jquery-1.10.1.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			var arr = [];
+			$(function() {
+				$.ajax({
+					type: "post",
+					url: myUrl + "index/testpay",
+					async: true,
+					data: {
+						uid: 20,
+						page: 1
+					},
+					success: function(msg) {
+						console.log(msg);
+						if(msg.status) {
+							$.each(msg.list, function(e, l) {
+								var demostr = "";
+								demostr += '<div class="servicelist">';
+								demostr += '<div class="select" data-id="' + l.order_id + '"></div>';
+								demostr += '<div class="rightview">';
+								demostr += '<p class="sname">服务项目</p>';
+								demostr += '<p class="scontent">' + l.name + '</p>';
+								demostr += '<span><a>' + l.pay_points + '</a>积分</span>';
+								demostr += '</div></div>';
+								$('.serviceview').append(demostr);
+							});
+							$(".select").click(function() {
+								var num = parseInt($('.span1').html());
+								var coun = parseInt($('.span2').html());
+								if($(this).hasClass("selecting")) {
+									$(this).removeClass("selecting");
+									num -= 1;
+									coun -= parseInt($(this).siblings('.rightview').find('span').find('a').html());
+									$('.span1').html(num);
+									$('.span2').html(coun);
+								} else {
+									$(this).addClass("selecting");
+									num += 1;
+									coun += parseInt($(this).siblings('.rightview').find('span').find('a').html());
+									$('.span1').html(num);
+									$('.span2').html(coun);
+								}
+							})
+						} else {
+							$('.mui-content').css('display','none')
+							mui.toast('您还未购买小诺券！');
+						}
+					}
+				});
+
+				$("#sure").click(function() {
+					var arrlength = $(".select").length;
+					$(".select").each(function() {
+						var urls = $(this).attr("class");
+						if(urls.indexOf("selecting") >= 0) {
+							arr.push($(this).attr("data-id"));
+						}
+					});
+					$.ajax({
+						type: "post",
+						url: myUrl + "index/usequan",
+						async: true,
+						data: {
+							uid: uider,
+							order_id: JSON.stringify(arr),
+//							id: localStorage.getItem('xnbusinessuid'),
+							id: 53,
+						},
+						success: function(msg) {
+							if(msg.status) {
+								arr = [];
+								openW('validsericeticket.html?orderid=' + msg.orderid);
+							} else {
+								mui.toast(msg.info);
+							}
+
+						}
+					});
+				})
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/pulic.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		<script src="../js/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/zyf-user.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=zpGcnepYgbD4e2Qs57uSn22welOjgkCo"></script>
+		<style type="text/css">
+			.mui-bar-nav {
+				top: 0;
+				-webkit-box-shadow: 0 1px 6px #ccc !important;
+				box-shadow: 0 1px 6px #ccc !important;
+			}
+			
+			.mui-content {
+				background: #fff;
+				min-height: 100vh !important;
+			}
+			
+			.mui-btn.mui-btn-link {
+				border: none;
+				color: #464646;
+			}
+			
+			.mui-btn.mui-btn-link:active {
+				color: #464646;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">附近门店</h1>
+			<button class="mui-btn  mui-pull-right mui-btn-link mui-action-back">地图</button>
+		</header>
+		<div class="mui-content">
+			<div id="bannerarea">
+				<ul id="li">
+					<li id="bar0" onclick="bindevents(0)">全城</li>
+					<li id="bar1" onclick="bindevents(1)">全部分类</li>
+					<li id="bar2" onclick="bindevents(2)">距离最近</li>
+				</ul>
+			</div>
+			<div class="door_container" id="brandlists">
+				<!--<div class="items" onclick="openW('storedetail.html')">
+					<div class="img"><img src="../image/110.jpg" /></div>
+					<div class="details">
+						<div class="name">汽车美容装饰</div>
+						<div class="wash jingxi"></div>
+						<div class="count">4分</div>
+						<div class="status">营业中</div>
+						<div class="now">最近50单</div>
+						<div class="addr">鞍山市铁西区兴盛路168号</div>
+						<div class="distance">1025km</div>
+					</div>
+				</div>
+				<div class="items">
+					<div class="img"><img src="../image/110.jpg" /></div>
+					<div class="details">
+						<div class="name">汽车美容装饰</div>
+						<div class="wash jingxi"></div>
+						<div class="count">4分</div>
+						<div class="status">营业中</div>
+						<div class="now">最近50单</div>
+						<div class="addr">鞍山市铁西区兴盛路168号</div>
+						<div class="distance">1025km</div>
+					</div>
+				</div>
+				<div class="items">
+					<div class="img"><img src="../image/110.jpg" /></div>
+					<div class="details">
+						<div class="name">汽车美容装饰</div>
+						<div class="wash jingxi"></div>
+						<div class="count">4分</div>
+						<div class="status">营业中</div>
+						<div class="now">最近50单</div>
+						<div class="addr">鞍山市铁西区兴盛路168号</div>
+						<div class="distance">1025km</div>
+					</div>
+				</div>-->
+			</div>
+			<div id="popdist" class="mui-popover" style="height: 180px; width: 97vw; text-align: center;">
+				<div class="mui-popover-arrow"></div>
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view" id="distlist">
+							<li class="mui-table-view-cell active">全城</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="popcat" class="mui-popover" style="height: 180px; width: 97vw; text-align: center;">
+				<div class="mui-popover-arrow"></div>
+				<div class="mui-scroll-wrapper" style="width: 35%; margin: 0;">
+					<div class="mui-scroll">
+						<ul class="mui-table-view" id="catelist1">
+							<li class="mui-table-view-cell active">全部分类</li>
+						</ul>
+					</div>
+				</div>
+				<div class="mui-scroll-wrapper" style="width: 65%; left: 35%; margin: 0;background-color: white;">
+					<div class="mui-scroll">
+						<ul class="mui-table-view" id="catelist2" style="background-color: white;">
+							<li class="mui-table-view-cell">全部</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+			<div id="popleave" class="mui-popover" style="height: 150px; width: 97vw; text-align: center;">
+				<div class="mui-popover-arrow"></div>
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view" id="sortlist">
+							<li class="mui-table-view-cell active" data-sort="1">距离最近</li>
+							<li class="mui-table-view-cell" data-sort="2">销量最多</li>
+							<li class="mui-table-view-cell" data-sort="3">平分最高</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!--<div class="model" style="display: none;">
+				<div class="all" style="display: none;">
+					<ul class="left">
+						<li class="click">全城</li>
+						<li>铁西区</li>
+						<li>铁东区</li>
+						<li>立山区</li>
+						<li>千山区</li>
+					</ul>
+					<ul class="right">
+						<li>全城1</li>
+						<li>全城2</li>
+						<li>全城3</li>
+						<li>全城4</li>
+					</ul>
+				</div>
+				<div class="normal" style="display: none;">
+					<ul class="left">
+						<li class="click">常规养护</li>
+						<li>发动机养护</li>
+						<li>漆面美容</li>
+						<li>爱车清洗</li>
+						<li>空调护理</li>
+					</ul>
+					<ul class="right">
+						<li>更换机油</li>
+						<li>更换机油三滤</li>
+						<li>保养工时费</li>
+						<li>更换刹车</li>
+					</ul>
+				</div>
+				<div class="nearby" style="display: none;">
+					<ul class="left">
+						<li class="click">距离最近</li>
+						<li>销量最多</li>
+						<li>平分最高</li>
+
+					</ul>
+					<ul class="right">
+						<li>全城5</li>
+							<li>全城6</li>
+							<li>全城7</li>
+							<li>全城8</li>
+					</ul>
+				</div>
+			</div>-->
+		</div>
+		<script type="text/javascript">
+			var geolocation = new BMap.Geolocation();
+			var mygeo = new BMap.Geocoder();
+			geolocation.getCurrentPosition(function(r) {
+				if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+					console.log(r);
+					$(".dingwei").text(r.address.city);
+					//				mygeo.getLocation(r.point, function(rs) {
+					//
+					//				});
+					pcname = r.address.province + r.address.city;
+					privname = r.address.province;
+					cityName = r.address.city;
+					longitude = r.longitude;
+					latitude = r.latitude;
+					getdistfromPC();
+					getmerchantcatelist();
+					getstorelist(null);
+					var citysname = cityName.replace("市", "");
+					$.ajax({
+						type: "GET",
+						url: myUrl + "weather/weather",
+						data: {
+							city: citysname
+						},
+						timeout: 10000,
+						dataType: "json",
+						success: function(json) {
+							if(json.status == 1) {
+								$("#weatherDetail").text(json.list.weather);
+								$("#washcar").text(json.list.washcar);
+							}
+						},
+						error: function(msg) {
+							console.log("错误", "连接服务器异常");
+						}
+					});
+				} else {
+					//				alert('failed'+this.getStatus());
+				}
+			}, {
+				enableHighAccuracy: true
+			});
+			$('#li li:first-child').click(function() {
+				$('.model').css('display', 'block');
+				$('.model .normal').css('display', 'none');
+				$('.model .nearby').css('display', 'none');
+				$('.model .all').css('display', 'block');
+				$("body").css("overflow", "hidden");
+			});
+			$('.model .all .left li').click(function() {
+				$('.model .all .left li').removeClass("click");
+				$(this).addClass("click");
+			})
+			$('#li li:nth-child(2)').click(function() {
+				$('.model').css('display', 'block');
+				$('.model .nearby').css('display', 'none');
+				$('.model .all').css('display', 'none');
+				$('.model .normal').css('display', 'block');
+				$("body").css("overflow", "hidden");
+			});
+			$('.model .normal .left li').click(function() {
+				$('.model .normal .left li').removeClass("click");
+				$(this).addClass("click");
+			})
+			$('#li li:nth-child(3)').click(function() {
+				$('.model').css('display', 'block');
+				$('.model .normal').css('display', 'none');
+				$('.model .all').css('display', 'none');
+				$('.model .nearby').css('display', 'block');
+				$("body").css("overflow", "hidden");
+			});
+			$('.model .nearby .left li').click(function() {
+				$('.model .nearby .left li').removeClass("click");
+				$(this).addClass("click");
+				$('.model').css('display', 'none');
+				$("body").css("overflow", "scroll");
+				$('#li li:nth-child(3)').text(this.innerHTML);
+			})
+
+			$('.model .all .right li').click(function() {
+				$('.model .all .right li').removeClass("click");
+				$('.model').css('display', 'none');
+				$("body").css("overflow", "scroll");
+				$('#li li:first-child').text(this.innerHTML);
+				$(this).addClass("click");
+			});
+
+			$('.model .normal .right li').click(function() {
+				$('.model .normal .right li').removeClass("click");
+				$('.model').css('display', 'none');
+				$("body").css("overflow", "scroll");
+				$('#li li:nth-child(2)').text(this.innerHTML);
+				$(this).addClass("click");
+			});
+
+			function bindevents(i) {
+				//				$(window).scrollTop($('#li').offset().top - 35);
+				//			mui("#maincontent").scroll().scrollTo(0, 0 - (ftop + 35), 100);
+				setTimeout(function() {
+					switch(i) {
+						case 0:
+							mui('#popdist').popover('toggle', document.getElementById("bar0"));
+							break;
+						case 1:
+							mui('#popcat').popover('toggle', document.getElementById("bar1"));
+							break;
+						case 2:
+							mui('#popleave').popover('toggle', document.getElementById("bar2"));
+							break;
+					}
+				}, 150);
+
+			}
+		</script>
+	</body>
+
+</html>

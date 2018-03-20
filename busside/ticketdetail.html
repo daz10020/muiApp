@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/bankcommon.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">服务券详情</h1>
+		</header>
+		<style>
+			.rowlist {
+				width: 100%;
+				background: #fff;
+			}
+			
+			.rowlist .row {
+				overflow: hidden;
+				height: 50px;
+				line-height: 50px;
+				padding: 0 10px;
+				margin-bottom: 0px;
+			}
+			
+			.rowlist span {
+				float: right;
+				margin-right: 10px;
+			}
+			
+			.typestateuser {
+				color: #2AC845;
+			}
+		</style>
+		<div class="mui-content">
+			<div class="rowlist">
+				<p class="row">
+					<span style="float: left;">状态</span>
+					<span class="stat1">已取消</span>
+					<span class="stat2">已使用</span>
+				</p>
+			</div>
+			<div class="rowlist">
+				<p class="row">
+					<span style="float: left;">服务项目</span>
+					<span class="xj1"></span>
+				</p>
+			</div>
+			<div class="rowlist">
+				<p class="row">
+					<span style="float: left;">积分数值</span>
+					<span class="xj2">
+						<!--20积分(<a style="color: red;">*</a>买10张享9折优惠价)-->
+					</span>
+				</p>
+			</div>
+			<div class="rowlist">
+				<p class="row">
+					<span style="float: left;">服务券码</span>
+					<span class="xj3"></span>
+				</p>
+			</div>
+			<div class="rowlist" style="border-bottom: 1px solid #ccc;">
+				<p class="row">
+					<span style="float: left;">购买时间</span>
+					<span class="xj4"></span>
+				</p>
+			</div>
+			<div class="rowlist">
+				<p class="row">
+					<span style="float: left;">用户名</span>
+					<span class="xj5"></span>
+				</p>
+			</div>
+			<div class="rowlist">
+				<p class="row">
+					<span style="float: left;">联系电话</span>
+					<span class="xj6"></span>
+				</p>
+			</div>
+			<div class="rowlist">
+				<p class="row">
+					<span style="float: left;">使用(取消)时间</span>
+					<span class="xj7"></span>
+				</p>
+			</div>
+			<style>
+				.dealview {
+					overflow: hidden;
+				}
+				
+				.dealview a {
+					display: block;
+					float: right;
+					text-align: center;
+					width: 80px;
+					height: 30px;
+					line-height: 30px;
+					border-radius: 5px;
+					margin-right: 10px;
+					margin-top: 10px;
+				}
+				
+				.cancel {
+					color: #aaa;
+					border: 1px solid #aaa;
+				}
+				
+				.eva {
+					color: orange;
+					border: 1px solid orange;
+				}
+			</style>
+			<div class="dealview">
+				<a class="cancel">取消</a>
+				<a class="eva">查看评价</a>
+			</div>
+		</div>
+
+		<script src="../js/jquery-1.10.1.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			$.ajax({
+				type: "post",
+				url: myUrl + "index/quaninfos",
+				async: true,
+				data: {
+					order_id: request('order_id')
+				},
+				success: function(msg) {
+					console.log(msg);
+					if(msg.status) {
+						var data = msg.list;
+						if(data.status == 1) {
+							$('.stat1').addClass('typestateuser');
+						} else {
+							$('.stat2').addClass('typestateuser');
+						}
+						$('.xj1').html(data.name);
+						if(data.add_id) {
+							$('.xj2').html(data.pay_points + '积分(<a style="color: red;">*</a>买10张享9折优惠价)');
+						} else {
+							$('.xj2').html(data.pay_points + '积分');
+						}
+						$('.xj3').html(data.order_num_alias);
+						$('.xj4').html(data.date_added);
+						$('.xj5').html(data.username);
+						$('.xj6').html(data.telephone);
+						$('.xj7').html(data.add_date);
+
+					}
+				}
+			});
+		</script>
+	</body>
+
+</html>
